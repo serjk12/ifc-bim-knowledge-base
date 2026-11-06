@@ -5,3 +5,7 @@ desktop.ini
 ~$*
 __pycache__/
 .claude/
+_meta/.done
+research_raw/_*/
+tmp_*
+_scratch/
