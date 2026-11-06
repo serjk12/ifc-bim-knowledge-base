@@ -21,7 +21,7 @@
 | 2 | Optional: describe the loaded test model (schema, discipline, whether it has quantities). Without it the generator writes requests about "this model" and never asserts facts about the content. | fill `{{MODEL_PROFILE}}` |
 | 3 | Pick the prompt: **full** (sections 3 and 4, best quality), **quick** (section 5, 10 lines), **multi-turn** (section 6), **evaluation** (section 7). Paste it as the system prompt of the generator LLM. | |
 | 4 | Ask for a batch ("N = 20"). Optionally add dice rolls from [variation_matrix.md](variation_matrix.md) to force variety. | `{{N}}`, `{{SEED}}` |
-| 5 | Skim the output with the 14-point lint of section 4 (the generator already runs it, but you check 3 or 4 prompts by eye), send the prompts to the server, then grade with the evaluation prompt (section 7) and [evaluation_rubric.md](evaluation_rubric.md). | |
+| 5 | Skim the output against the self-check list (Step 6 inside the full prompts; the generator already runs it, but check 3 or 4 prompts by eye), send the prompts to the server, then grade with the evaluation prompt (section 7) and [evaluation_rubric.md](evaluation_rubric.md). | |
 
 **Placeholders.** `{{N}}` number of requests; `{{LANGS}}` e.g. "ru 40%, en 40%, other 20%" (empty = default mix); `{{PERSONAS}}`, `{{INTENTS}}`, `{{TOPICS}}` optional restrictions; `{{SEED}}` any word, makes the batch repeatable; `{{SERVER_PROFILE}}` and `{{MODEL_PROFILE}}` as above. Delete the placeholder lines you do not use.
 
@@ -525,3 +525,14 @@ The 21 examples in sections 3 and 4 are synthetic and were written for this file
 - **The pain-point bank in Step 2 is a compact version** of the themes in the topic and persona pages and the capability file. If [pain_points_top100.md](../05_real_world_questions/pain_points_top100.md) is available, a generator that can read files should prefer its ranked list.
 - **The judge prompt is a draft.** It follows the eight criteria in the capability file; align it with [evaluation_rubric.md](evaluation_rubric.md) once you settle the final rubric.
 - **Same-model bias.** If the generator and the assistant under test are the same model family, expect requests that are easier for that family. Use a different model for generation when you can.
+
+---
+
+## 10. Related files
+
+- [variation_matrix.md](variation_matrix.md): dice tables and 30 worked examples to force variety into a batch.
+- [intent_taxonomy.md](intent_taxonomy.md): intents A1-G3; section 4.1 has a suggested test mix (about 15% writes, which you can request through `{{INTENTS}}`).
+- [test_scenarios_library.md](test_scenarios_library.md) and [edge_cases_and_traps.md](edge_cases_and_traps.md): hand-built scenarios and traps; feed a trap from there into `{{TOPICS}}` / `{{INTENTS}}` to generate human-sounding variants.
+- [prompt_bank_ru.md](prompt_bank_ru.md): 220+ ready Russian prompts if you do not need a generator.
+- [jargon and slang dictionary](../06_how_people_write/jargon_slang_dictionary.md): extra vocabulary per language.
+- [evaluation_rubric.md](evaluation_rubric.md): the master rubric for grading.
