@@ -59,6 +59,13 @@ Quick picks:
 | [national/japan_korea.md](02_standards_regulations/national/japan_korea.md) | Japan and South Korea: ministry-led programmes, BIM drawing review. |
 | [national/latin_america.md](02_standards_regulations/national/latin_america.md) | Latin America: Brazil, Chile and others. |
 | [national/north_america.md](02_standards_regulations/national/north_america.md) | USA and Canada: owner-driven requirements (GSA, USACE, states). |
+| [national/central_eastern_europe.md](02_standards_regulations/national/central_eastern_europe.md) | Central and Eastern Europe (Poland, Czechia, Slovakia, Hungary, Romania, Baltics and others): BIM/IFC requirements. |
+| [national/cis_central_asia.md](02_standards_regulations/national/cis_central_asia.md) | Kazakhstan, Belarus, Uzbekistan, Caucasus, Central Asia: BIM/ТИМ and IFC. |
+| [national/middle_east.md](02_standards_regulations/national/middle_east.md) | Middle East and Turkey: BIM/IFC requirements (UAE, Saudi Arabia, Qatar, Turkey and others). |
+| [national/africa.md](02_standards_regulations/national/africa.md) | Africa: BIM/IFC adoption and requirements. |
+| [national/oceania_south_asia.md](02_standards_regulations/national/oceania_south_asia.md) | Australia, New Zealand, India and South Asia: BIM/IFC requirements. |
+| [national/southeast_asia_other.md](02_standards_regulations/national/southeast_asia_other.md) | Malaysia, Vietnam, Indonesia, Thailand, Philippines: BIM/IFC requirements. |
+| [national/taiwan_hongkong_macau.md](02_standards_regulations/national/taiwan_hongkong_macau.md) | Taiwan, Hong Kong, Macau: BIM/IFC requirements. |
 
 ## 03_software — tools around IFC
 
@@ -175,6 +182,7 @@ Quick picks:
 |---|---|
 | [glossary_multilingual.md](08_glossary/glossary_multilingual.md) | Multilingual IFC/BIM/Revit glossary (EN, RU, ZH, ES, PT, DE, FR, JA, KO, AR). |
 | [abbreviations.md](08_glossary/abbreviations.md) | Abbreviations and acronyms, international and national. |
+| [glossary_more_languages.md](08_glossary/glossary_more_languages.md) | Glossary for 12 more languages: IT, TR, PL, NL, CS, VI, ID, FA, HE, UK, KK, Nordic. |
 
 ## 09_sources
 
@@ -204,7 +212,7 @@ Quick picks:
 
 ## research_raw — raw research, summarised per folder
 
-Each research "cell" has two files with the same name: `<cell>.jsonl` (one record per line, schema in [_meta/SPEC.md](_meta/SPEC.md)) and `<cell>.md` (human report: themes, how people write, local ecosystem, sources, gaps). Counts are records (real / synthetic) after wave 1; the total is 3,592 records in 78 cells. Browse with `python tools/kb.py filter ... research_raw/wave1/<folder>`.
+Each research "cell" has two files with the same name: `<cell>.jsonl` (one record per line, schema in [_meta/SPEC.md](_meta/SPEC.md)) and `<cell>.md` (human report: themes, how people write, local ecosystem, sources, gaps). Counts are records (real / synthetic); the total is 4,254 records in 93 cells (78 from wave 1, 15 from wave 2 so far). Browse with `python tools/kb.py filter ... research_raw/wave1/<folder>`.
 
 | Folder | Cells | Records (real / synthetic) | What it covers |
 |---|---|---|---|
@@ -224,4 +232,4 @@ Each research "cell" has two files with the same name: `<cell>.jsonl` (one recor
 | [research_raw/wave1/fr/](research_raw/wave1/fr/fr-francophone.md) | 1 | 17 (0 / 17) | French (synthetic only after wave 1). |
 | [research_raw/wave1/pt/](research_raw/wave1/pt/pt-brazil.md) | 1 | 15 (0 / 15) | Portuguese, Brazil (synthetic only after wave 1). |
 | [research_raw/_smoke/](research_raw/_smoke/smoke-gh.md) | 2 | 2 small test cells (GitHub revit-ifc, Chinese) | Pipeline smoke tests; not part of the wave 1 statistics. |
-| research_raw/wave2/ | not yet | not yet | Planned: more languages and countries. Appears here when added. |
+| [research_raw/wave2/en/](research_raw/wave2/en/en-ifc-rants.md) | 15 | 662 (418 / 244) | Wave 2, English (so far): ANZ, India and Southeast Asia, Africa, Autodesk forums (second pass; MEP and structural), Revit API and IFC, vendor knowledge bases, CDE platforms, GitHub discussions (IfcOpenShell, buildingSMART standards repos), OSArch and Reddit second pass, Speckle/SketchUp/Rhino/FreeCAD, YouTube video titles, IFC complaints and rants. Other wave-2 languages are still being added. |

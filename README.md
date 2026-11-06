@@ -4,7 +4,7 @@
 
 **Русский** | [English](#english)
 
-> **Статус.** Волна 1 исследования завершена и разобрана в документы. **Волна 2** (больше языков и стран) ещё добавляется: новые файлы будут появляться в `research_raw/wave2/`, а сводные документы и выгрузки будут обновляться.
+> **Статус (промежуточная версия, 6 ноября 2026, 13:30).** Волна 1 исследования завершена и разобрана в документы; справочники `01`–`04` прошли проверку фактов. Из **волны 2** уже есть 7 новых региональных обзоров, глоссарий ещё на 12 языков и 15 исследовательских ячеек (всего в базе 4 254 записи). Остальная волна 2 (больше языков и стран) ещё добавляется: новые файлы будут появляться в `research_raw/wave2/`, а сводные документы и выгрузки будут обновляться.
 > Новичку в BIM: сразу открывайте [00_START_HERE_RU.md](00_START_HERE_RU.md). Нужна карта всех файлов: [INDEX.md](INDEX.md).
 
 ---
@@ -33,7 +33,7 @@
 | Папка | Содержимое |
 |---|---|
 | [`01_ifc_basics/`](01_ifc_basics/01_what_is_ifc_and_versions.md) | IFC простыми словами: версии, устройство файла, классы, связи, свойства, геометрия и координаты, материалы, MEP/конструкции/инфраструктура (9 документов) |
-| [`02_standards_regulations/`](02_standards_regulations/buildingsmart_standards.md) | стандарты buildingSMART (IFC, IDS, BCF, bSDD, MVD), ISO/CEN, EIR/BEP, **12 национальных обзоров** (Россия, Китай, Сингапур, Великобритания и Ирландия, DACH, Франция, Бенилюкс, Скандинавия и Балтия, Испания/Португалия/Италия, Япония и Корея, Латинская Америка, США и Канада) |
+| [`02_standards_regulations/`](02_standards_regulations/buildingsmart_standards.md) | стандарты buildingSMART (IFC, IDS, BCF, bSDD, MVD), ISO/CEN, EIR/BEP, **19 национальных и региональных обзоров** (Россия, Китай, Сингапур, Великобритания и Ирландия, DACH, Франция, Бенилюкс, Скандинавия и Балтия, Испания/Португалия/Италия, Япония и Корея, Латинская Америка, США и Канада; из волны 2: Центральная и Восточная Европа, СНГ и Центральная Азия, Ближний Восток и Турция, Африка, Австралия/Новая Зеландия/Индия/Южная Азия, Юго-Восточная Азия, Тайвань/Гонконг/Макао) |
 | [`03_software/`](03_software/authoring_tools_ifc.md) | Revit (экспорт и импорт/линк IFC), Archicad, Tekla, Allplan, Renga и др.; вьюеры, чекеры, CDE, конвертеры |
 | [`04_open_source/`](04_open_source/mcp_servers_and_ai_tools.md) | IfcOpenShell, xBIM, web-ifc и др.; **каталог MCP-серверов для IFC/Revit**; исследования LLM + BIM; тестовые IFC-файлы; сообщества |
 | [`05_real_world_questions/`](05_real_world_questions/pain_points_top100.md) | реальные вопросы: **топ-100 болей**, по 17 темам, 13 языковым группам, 14 ролям |
@@ -73,7 +73,7 @@
 | Записей всего | **3 592** (реальные вопросы: **2 304**, синтетические запросы: **1 288**) |
 | Файлов-ячеек исследования | 78 (ошибок разбора: 0) |
 | Языков (коды) | 20 кодов; больше всего: en 2 452, zh 304, ru 260, ja 107, es 102, de 78, it 72, ko 50, fr 48, nl 35, pt 30 (+ pt-BR 15), no 30; единичные: tr, sk, vi, cs, da, ar, el |
-| Страны и регионы | 12 национальных обзоров регламентов в `02_standards_regulations/national/` (см. таблицу выше) и 13 языковых документов в `05_real_world_questions/by_language/` |
+| Страны и регионы | 19 национальных и региональных обзоров регламентов в `02_standards_regulations/national/` (см. таблицу выше) и 13 языковых документов в `05_real_world_questions/by_language/` |
 | Уникальных ссылок-источников | 1 887 (на 105 сайтах; больше всего GitHub, buildingSMART Forums, OSArch, Autodesk Forums, Dynamo Forum, dwg.ru, Zhihu, Habr, CSDN) |
 | Темы | 56 тем; самые частые: export_revit 470, psets_properties 401, geometry_quality 296, class_mapping 289, coordinates_georef 272 |
 | Роли | 16 ролей; больше всего bim_coordinator 950, developer_programmer 825, architect 380, bim_manager 356 |
@@ -100,7 +100,7 @@
 
 [Русский](#russian) | **English**
 
-> **Status.** Research wave 1 is finished and written up. **Wave 2** (more languages and countries) is still being added: new files will appear under `research_raw/wave2/`, and the summary documents and exports will be refreshed.
+> **Status (intermediate version, 6 November 2026, 13:30).** Research wave 1 is finished and written up; reference docs `01`–`04` have been fact-checked. From **wave 2** there are already 7 new regional overviews, a glossary for 12 more languages and 15 research cells (4,254 records in total). The rest of wave 2 (more languages and countries) is still being added: new files will appear under `research_raw/wave2/`, and the summary documents and exports will be refreshed.
 > New to BIM? Open [00_START_HERE_EN.md](00_START_HERE_EN.md) first. Need a map of every file: [INDEX.md](INDEX.md).
 
 ## Why this exists
@@ -127,7 +127,7 @@ The problem for a tester with no BIM background: if you ask a language model to 
 | Folder | Contents |
 |---|---|
 | [`01_ifc_basics/`](01_ifc_basics/01_what_is_ifc_and_versions.md) | IFC in plain words: versions, file anatomy, classes, relationships, properties, geometry and coordinates, materials, MEP/structural/infrastructure (9 documents) |
-| [`02_standards_regulations/`](02_standards_regulations/buildingsmart_standards.md) | buildingSMART standards (IFC, IDS, BCF, bSDD, MVD), ISO/CEN, EIR/BEP, **12 national overviews** (Russia, China, Singapore, UK & Ireland, DACH, France, Benelux, Nordics & Baltics, Spain/Portugal/Italy, Japan & Korea, Latin America, USA & Canada) |
+| [`02_standards_regulations/`](02_standards_regulations/buildingsmart_standards.md) | buildingSMART standards (IFC, IDS, BCF, bSDD, MVD), ISO/CEN, EIR/BEP, **19 national and regional overviews** (Russia, China, Singapore, UK & Ireland, DACH, France, Benelux, Nordics & Baltics, Spain/Portugal/Italy, Japan & Korea, Latin America, USA & Canada; from wave 2: Central & Eastern Europe, CIS & Central Asia, Middle East & Turkey, Africa, Australia/New Zealand/India/South Asia, Southeast Asia, Taiwan/Hong Kong/Macau) |
 | [`03_software/`](03_software/authoring_tools_ifc.md) | Revit (IFC export and import/link), Archicad, Tekla, Allplan, Renga and others; viewers, checkers, CDE, converters |
 | [`04_open_source/`](04_open_source/mcp_servers_and_ai_tools.md) | IfcOpenShell, xBIM, web-ifc and more; **a catalog of MCP servers for IFC/Revit**; LLM + BIM research; sample IFC files; communities |
 | [`05_real_world_questions/`](05_real_world_questions/pain_points_top100.md) | real questions: the **top 100 pain points**, by 17 topics, 13 language groups, 14 personas |
@@ -167,7 +167,7 @@ Figures come from [_meta/coverage_report.md](_meta/coverage_report.md) and a cou
 | Records | **3,592** (real questions: **2,304**, synthetic prompts: **1,288**) |
 | Research cell files | 78 (parse errors: 0) |
 | Languages (codes) | 20 codes; largest: en 2,452, zh 304, ru 260, ja 107, es 102, de 78, it 72, ko 50, fr 48, nl 35, pt 30 (+ pt-BR 15), no 30; singletons: tr, sk, vi, cs, da, ar, el |
-| Countries and regions | 12 national regulation overviews in `02_standards_regulations/national/` (see the table above) and 13 language documents in `05_real_world_questions/by_language/` |
+| Countries and regions | 19 national and regional regulation overviews in `02_standards_regulations/national/` (see the table above) and 13 language documents in `05_real_world_questions/by_language/` |
 | Distinct source links | 1,887 (on 105 sites; most: GitHub, buildingSMART Forums, OSArch, Autodesk Forums, Dynamo Forum, dwg.ru, Zhihu, Habr, CSDN) |
 | Topics | 56 topic tags; most frequent: export_revit 470, psets_properties 401, geometry_quality 296, class_mapping 289, coordinates_georef 272 |
 | Personas | 16 personas; largest: bim_coordinator 950, developer_programmer 825, architect 380, bim_manager 356 |
