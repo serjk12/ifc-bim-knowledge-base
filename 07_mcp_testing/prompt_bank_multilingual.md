@@ -93,9 +93,9 @@
 
 | Origin (S rewritten synthetic, R rewritten from a real post or README, N constructed) | Count |
 |---|---|
-| S | 155 |
+| S | 154 |
 | R | 9 |
-| N | 6 |
+| N | 7 |
 
 | Backend tag | Count |
 |---|---|
@@ -163,7 +163,7 @@ Two registers: Spain (tuteo, `mira a ver`, `mediciones`, `presupuesto`, BC3, CTE
 | ES-09 | `he exportado a ifc y no me salen los parametros compartidos en los psets, mira a ver cuales faltan en los muros` | I exported to ifc and my shared parameters don't appear in the psets; see which are missing on the walls. | architect | validate_check | psets_properties | hard | true | [IFC] Lists psets and properties actually on walls; the user did not list the parameter names, so after showing what exists it asks for two or three names. | S:es-spain-s002 |
 | ES-10 | `tengo que entregar el modelo para una licitacion con Plan BIM, revisa que el IFC tenga todas las plantas, espacios y clasificacion en cada elemento` | I must deliver the model for a tender under Plan BIM; check the IFC has all the floors, spaces and a classification on every element. | bim_manager | validate_check | national_requirements | hard | true | [IFC] Three checks: storeys, spaces, classification coverage, with counts. Does not state what the Plan BIM requires. | S:es-spain-s003 |
 | ES-11 | `los modelos genericos salen como proxy, pasalos a IfcColumn los que tengan 'pilar' en el nombre` | Generic models come out as proxy; turn those with "pilar" in the name into IfcColumn. | architect | modify_model_data | class_mapping | medium | true | [IFC] Previews matches, reclassifies on a copy, keeps GlobalIds, lists what remains proxy. | S:es-spain-s004 |
-| ES-12 | `necesito mediciones de muros por planta en m2 y m3 para el presupuesto` | I need wall measurements per floor in m2 and m3 for the budget. | estimator_qs | extract_quantities | quantities_qto | medium | true | [IFC] Per-storey areas and volumes of walls, with source and missing flags. | S:es-spain-s007 |
+| ES-12 | `faltan los forjados en el ifc del estructurista, solo veo muros y pilares. estan como proxy o no se exportaron?` | The slabs (forjados) are missing from the structural engineer's ifc, I only see walls and columns. Are they proxies or were they not exported? | structural_engineer | troubleshoot_export | quantities_qto | medium | true | [IFC] Counts IfcSlab and proxies or other classes with slab-like names (forjado, losa) per storey; says plainly if slabs are absent from the file (an export or category issue, not provable from the IFC alone). Reply in Spanish. | N |
 | ES-13 | `para la entrega a mantenimiento, comprueba que los equipos tengan marca, modelo y numero de serie` | For handover to maintenance, check that equipment has make, model and serial number. | facility_manager | validate_check | cobie_fm_handover | medium | true | [IFC] Missing make, model and serial by equipment class; counts and examples. | S:es-spain-s011 |
 | ES-14 | `revisa si los espacios tienen superficie y uso asignado para el CTE` | Check whether spaces have area and use assigned, for the CTE. | reviewer_authority | validate_check | permitting_code_checking | medium | true | [IFC] Spaces without area or use, counts; no statement of what the CTE demands. | S:es-spain-s013 |
 | ES-15 | `exporté de revit a etabs por ifc y me sale error al importar, que config del exportador debo usar?` | I exported from Revit to ETABS via ifc and get an import error; which exporter settings should I use? | structural_engineer | troubleshoot_export | export_revit | medium | false | [chat] Asks for the exact error; if it is a truncated-file error (missing ENDSEC), says to check that the export completed. No invented ETABS settings. | S:es-err-s007 / R:[es-arch-r045](https://forums.buildingsmart.org/t/como-poder-exportar-un-modelo-3d-estructural-realizado-en-revit-a-etabs-por-medio-del-formato-ifc/2985) |
@@ -403,7 +403,7 @@ Load one model, send every prompt of a set (one per chat), and compare. The numb
 
 ## 15. Known gaps and caveats
 
-- **Synthetic by design.** 155 of 170 rows come from synthetic research drafts (rewritten), 9 from real posts or READMEs, 6 are constructed. Real "typed to an assistant" prompts in these languages are almost absent from the data (a handful of README examples: Spanish `Creá cuatro muros de 3 m...`, Slovak and Vietnamese commands).
+- **Synthetic by design.** 154 of 170 rows come from synthetic research drafts (rewritten), 9 from real posts or READMEs, 7 are constructed. Real "typed to an assistant" prompts in these languages are almost absent from the data (a handful of README examples: Spanish `Creá cuatro muros de 3 m...`, Slovak and Vietnamese commands).
 - **Register is partly imitation.** Chinese real text is partly polished article voice; Korean and French have only a few real posts; Japanese real text is article titles and bodies. Check any language you plan to rely on with a native speaker.
 - **Languages with no or little data.** Polish: none. Arabic, Greek, Danish, Czech, Slovak, Vietnamese, Turkish: one to four records each, mostly about encoding. European Portuguese, Swedish, Finnish, Hindi (written in Devanagari or Hinglish), Thai, Indonesian, Hebrew, Russian-adjacent languages: not covered here; Russian has its own [bank](prompt_bank_ru.md).
 - **Regulation content is unverified.** Names such as Planbim MIDE, Plan BIM, CTE, TEK17, DIN 276, NL-SfB, SZ-IFC, CGCS2000, TWD97, EPSG codes and portals (세움터, 確認申請, 报建) are used as a user would. Re-check against current official texts before treating any Expected line as ground truth.
