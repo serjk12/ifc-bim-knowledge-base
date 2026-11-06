@@ -32,7 +32,7 @@ Evidence levels used in the tables:
 
 | Place | What is there | Evidence and access notes |
 |---|---|---|
-| Autodesk Forums (Revit, Spanish-language forum "Revit - ACC - Navisworks") | The one Spanish forum thread found: "Problemas con IFC's" (2021). A Spanish-forum attachment "Exportar IFC.pdf" explains IFC formats. Most Spanish-speaking Revit users who post IFC problems seem to post in the English forums (see group D below). | Pages returned HTTP 403 to the fetch tool, so content is from search snippets. |
+| Autodesk Forums (Revit, Spanish-language forum "Revit - ACC - Navisworks") | The one Spanish forum thread found: "Problemas con IFC's" (2021). A Spanish-forum attachment "Exportar IFC.pdf" explains IFC formats. The research found far more English-language IFC export threads than Spanish ones (group D below), but the posters' nationality is unknown. | Pages returned HTTP 403 to the fetch tool, so content is from search snippets. |
 | buildingSMART International forums | A thread in Spanish about exporting a structural Revit model to ETABS via IFC (2020, polite and formal, thesis context). The buildingSMART Spain chapter also posts there (in English). | Read. Thread had no resolution. |
 | GitHub issues | Spanish-language issues exist even in international repos (IfcOpenShell: geometry "loss" in Bonsai Viewer) and in small local repos (ingetrazo, calculadora-RIC). Spanish MCP tools (archicad-mcp, RevitMCPBOQ) publish Spanish example prompts in their READMEs. | Read. |
 | OSArch community | A Spanish post sharing a BlenderBIM clash detection video tutorial (2020). The Spanish category was reported as "largely spam". | Read one post. |
@@ -128,11 +128,11 @@ Short version. Full detail and uncertainty flags are in [latin_america.md](../..
 
 - Missing accents: "Exportacion", "Descripcion", "conductos que no esten en ningun sistema", "tuberia" (prompts and the calculadora-RIC issue). Accents are often dropped when the text is typed fast or in an issue template.
 - Typos and caps: "SOPOTARÁ ARCHIVOS IFC?" (all caps and a letter swapped).
-- Chat abbreviations: "q" for "que" ("revisa q todos los elementos tengan codigo uniclass") and "n" style shortcuts are plausible but only "q" appears in the data.
+- Chat abbreviations: "q" for "que" ("revisa q todos los elementos tengan codigo uniclass"). It appears in one synthetic prompt only; other shortcuts are plausible but not observed.
 - Program names lowercase and without version: "revit", "etabs", "archicad", "ifcopenshell". Versions are given as years when given at all: "revit 2025", "la 2024".
 - English terms stay English: Pset, proxy, clash detection, export, IfcExportAs, IFCExportType, Bonsai, add-on, BCF, Qto, GlobalId, IfcBuildingElementProxy. Class names are typed in English exactly ("IfcColumn", "IfcStair"), even in otherwise Spanish sentences.
 - Mixed sentences are normal: "cuantos IfcBuildingElementProxy hay en el ifc y de que categorias de revit vienen?"
-- Spanish speakers on English forums write short English with Spanish-flavoured typos ("Quesion: IFC mapping, dissappearing objects in export").
+- On English forums, posters whose first language may be Spanish write short English with typos ("Quesion: IFC mapping, dissappearing objects in export"; the poster's language is not confirmed).
 
 ### What context is given, what is left out
 
