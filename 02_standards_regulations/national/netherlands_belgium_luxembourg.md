@@ -4,7 +4,7 @@
 
 The three Benelux countries do not have one single legal "BIM mandate" like the UK Level 2 programme. Instead, each has a mix of public-client policies, national "information delivery specifications" and open-standards rules. The Netherlands is the most formalised: IFC is on the government "pas toe of leg uit" (comply or explain) list, and the sector-wide **BIM basis ILS** (a minimum set of IFC modelling and delivery agreements) is maintained by the **digiGO** organisation, which absorbed the old **BIM Loket** in 2023 [1][2][5]. Belgium is regionally fragmented and driven by large clients and communities (for example Brussels Airport's 2026 "IFC-first" policy) plus buildingSMART Belgium and Buildwise [11][12]. Luxembourg is small and coordinated by the resource centre **CRTI-B**, which runs the national BIM working groups and promotes IDS-based exchange requirements ("BIMids") [13][14]. For a QA tester: expect IFC files with Dutch NL-SfB codes, `IfcBuildingStorey` naming rules, Dutch coordinates (RD/NAP) and IDS files as the new way to state requirements.
 
-Last researched: 2026-11-06
+Last researched: 2026-11-06. QA pass 2026-11-06: the Forum Standaardisatie IFC entry, the digiGO BIM basis ILS downloads page and the digiGO NL-SfB page were re-fetched and confirm the IFC 2x3 TC1 listing (registered 26-05-2011, decided 15-11-2011), the 1 April 2026 NL-SfB ownership transfer and the ILS v1.0/v2.0 files; one date caveat added. See `_meta/qa/qa-standards-2.md`.
 
 **Research note.** The web search tool hit its call budget during this run, so only direct page fetches of primary sources were possible. Items I could not confirm from a fetched page are marked "(unverified)". No real forum threads were found; all questions below are "(illustrative)".
 
@@ -29,7 +29,7 @@ Last researched: 2026-11-06
 
 * IFC is on the Forum Standaardisatie list **"Verplicht (pas toe of leg uit)"**. Listed version: **IFC 2x3 TC1**; management organisation: buildingSMART; registration date 26-05-2011, decision date 15-11-2011 [4].
 * Functional scope: IFC as file format for communicating and coordinating building information models. Organisational scope: Dutch government bodies (state, provinces, municipalities, water boards) and (semi-)public institutions, **when investing in ICT systems that exchange 3D building models** [4].
-* The expert review noted IFC is aimed primarily at buildings; civil works (viaducts, dredging) are outside its primary domain. A 2021 evaluation advised aligning IFC with NLCS, BGT and IMBOR, speeding vendor uptake of the new version, and using the IFC "coordination view" where possible [4].
+* The listing's "Uitstekend beheer" field is "Nee", meaning a newer IFC version must first be reviewed by Forum Standaardisatie before it can replace 2x3 TC1 on the list (re-read in QA) [4]. The expert review noted IFC is aimed primarily at buildings; civil works (viaducts, dredging) are outside its primary domain. A 2021 evaluation advised aligning IFC with NLCS, BGT and IMBOR, speeding vendor uptake of the new version, and using the IFC "coordination view" where possible [4].
 * "Comply or explain" means a public body must use the standard or document why not. It is not a criminal or tender-law ban on other formats.
 * BCF was not shown on the "pas toe of leg uit" list in the fetched page [4]. The BIM Loket overview lists IFC (as ISO 16739 under NEN), BCF and IDS as buildingSMART International standards [3]. Whether BCF/IDS are on the broader "lijst met open standaarden" is unverified.
 * The registered version (2x3 TC1) lags the practice: modern ILS work and the buildingSMART Dutch project "Dutch translation of IFC 4.3.0.0" show the sector moving to IFC4/IFC4.3 [7]. Which IFC version a given government project requires is set by the individual client or ILS (unverified).
@@ -37,7 +37,7 @@ Last researched: 2026-11-06
 ### 1.3 BIM basis ILS (the central document)
 
 * **What**: "BIM basis informatieleveringsspecificatie" (ILS = information delivery specification, in the ISO 19650 sense), a minimal set of agreements for exchanging IFC models in building projects [1][16].
-* **Versions**: PDFs for v1.0 (Nov 2023) and v2.0 (Sept 2024, in many languages including English "BIM base IDS"; German version is called "ILH") [17]. Note the translation "IDS" in English file names means *ILS*, not buildingSMART IDS. Do not confuse them.
+* **Versions**: PDFs for v1.0 (Nov 2023) and v2.0 (Sept 2024, in many languages including English "BIM base IDS"; German version is called "ILH") [17]. QA caveat: the downloads page gives no explicit release dates; "Nov 2023" and "Sept 2024" are the upload-folder months in the file links (2023/11 for all v1.0 files; 2024/09 for the first v2.0 files, with later languages added up to 2026/03), so treat them as approximate publication months. Note the translation "IDS" in English file names means *ILS*, not buildingSMART IDS. Do not confuse them.
 * **Governance**: volunteer-run Beheerorganisatie with Beheercommissie, Expertcommissie, Toepassingscommissie and Klankbordgroep; related to digiGO and buildingSMART Benelux; questions to basis-ils@digigo.nu [18]. Organisations can sign up as "partners" [16].
 * **Rules confirmed from the web page** [16]:
   * Objects carry a **four-digit NL-SfB code** (latest published version).

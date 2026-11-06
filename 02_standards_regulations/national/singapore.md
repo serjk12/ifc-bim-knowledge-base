@@ -6,7 +6,7 @@ Singapore is one of the few countries where building permits are issued from a B
 
 For an MCP tester: expect requests like "check this IFC against IFC+SG", "set SGPset_Wall properties", "export IFC4 Reference View from Revit with the Singapore setup", "why does the Model Checker fail QC05", "is the model on SVY21 / EPSG:3414".
 
-Last researched: 2026-11-06
+Last researched: 2026-11-06. QA pass 2026-11-06: the 23 July 2026 circular (APPBCA-2026-12 / URA/PB/2026/08-DCG) was re-read as a PDF and confirms the thresholds, dates and the 10 Sep 2025 reference numbers; the implementation-timeline page and the Code of Practice page were re-fetched and confirm the circular list and the COP edition dates. See `_meta/qa/qa-standards-2.md`. A further QA pass ([../../_meta/qa/qa-standards-1.md](../../_meta/qa/qa-standards-1.md)) re-read the circular text, the overview page (initiated 2018, soft launch 18 December 2023, more than 100 professionals from about 60 firms, 37 firms in the Community of Practice, IFC+SG training from August 2022), the Model Checker page (error codes, QC01-QC06), the 3-gateway page (gateway codes and processing times), the training/funding page (PSG up to 50%), the mapping-file page and the release notes; no numbers needed changing, only wording (see section 3.1 and 2.3).
 
 Research note: this document was built from the official CORENET X site (info.corenet.gov.sg), which was fetched directly, and from the BCA/URA circular of 23 July 2026 (read in full). The web-search budget ran out before searching for community discussions, buildingSMART chapter pages and the pre-2023 history, so those parts are marked "(unverified)" or listed under Gaps.
 
@@ -26,7 +26,7 @@ Research note: this document was built from the official CORENET X site (info.co
 | PUB | Public Utilities Board (national water agency) | Drainage, sewerage, water services [4] |
 | SCDF | Singapore Civil Defence Force | Fire safety (fire code approvals) [4] |
 
-The initiative was started in 2018 by BCA and URA, developed with the other agencies and industry. More than 100 public and private professionals took part in co-creation. It was announced by the Minister for National Development at the International Built Environment Week on 7 September 2021, and soft-launched on 18 December 2023 [3][5]. Industry training on IFC+SG began in August 2022 [3].
+The initiative was started in 2018 by BCA and URA, developed with the other agencies and industry. More than 100 public and private professionals (about 60 firms) took part in co-creation [3]. It was announced by the Minister for National Development at the International Built Environment Week on 7 September 2021, and soft-launched on 18 December 2023 [3][5]. Industry training on IFC+SG began in August 2022 [3].
 
 ### 1.2 Legal basis
 
@@ -43,7 +43,7 @@ The initiative was started in 2018 by BCA and URA, developed with the other agen
 | 1 Feb 2023 | "Circular on CORENET X" | [5] |
 | 4 Jul 2023 | Building And Related Works (Miscellaneous Amendments) Bill 2023 | [5] |
 | Sep 2023 | COP First Edition; 26 Sep 2023 "Circular on CORENET X Implementation Plan" | [5][6] |
-| 18 Dec 2023 | Soft launch | [3] |
+| 18 Dec 2023 | Soft launch | [3] (not shown on the timeline or home page re-fetched in QA; keep as reported by [3]) |
 | 22 Dec 2023 | New Annex C (payment schedule) of Standard Consultancy Agreement for public projects | [5][7] |
 | 23 Jan 2025 | Circular "Updates to CORENET X Implementation Plan" (content not read) | [5] |
 | 10 Sep 2025 | Circular, BCA ref APPBCA-2025-20, URA ref URA/PB/2025/07-DCG: mandatory from 1 Oct 2025 for new projects >= 30,000 m2 GFA | [2][5] |
@@ -68,7 +68,7 @@ The circular states that BIM submissions in IFC+SG format are mandatory for new 
 
 Reported adoption (as of July 2026): more than 140 projects and 300 firms had submitted via CORENET X, with claimed time savings of up to two months [2]. (Earlier page text: more than 100 firms by May 2025 [8].)
 
-Important: the implementation-timeline web page shows its timeline as an image, so the figures above come from the circular, not the page text [5]. The page also says "Last Updated 16 May 2024" in its footer although it clearly has 2026 content; treat page footers as unreliable [5].
+Important: the implementation-timeline web page shows its timeline as an image, so the figures above come from the circular, not the page text [5]. QA re-check: the page text lists the 23 Jul 2026 circular (title "Circular for Updates to CORENET X Implementation Plan") and the 10 Sep 2025 mandatory-submission circular, but no 5,000 m2 figure; the 5,000 m2 / 1 Oct 2026 / below-5,000-voluntary content was confirmed directly in the circular PDF (BCA ref APPBCA-2026-12), which also states that projects of 5,000 m2 or more that started submissions in CORENET 2 by 30 Sep 2026 may continue there for now. The page also says "Last Updated 16 May 2024" in its footer although it clearly has 2026 content; treat page footers as unreliable [5].
 
 ### 1.5 Earlier history: CORENET e-Submission and BIM e-Submission (unverified)
 
@@ -106,7 +106,7 @@ The **Direct Submission Process (DSP)** is a single-stage approval for small pro
 - Production: `portal.corenet.gov.sg`. Login is via Corppass (Singpass for Business); the company's Corppass administrator must authorise the e-service "CORENET X Industry Portal".
 - Training environment: `training.corenet.gov.sg`; registration with a valid email (no Singpass); mock accounts for different roles; BIM viewer not available there; never enter real project data.
 - Roles include Developer, Consultants (QP), Builder, checkers, resident engineers, plumbers, fire safety engineers, peer reviewers, transport consultants.
-- Release notes: R13.0 (26 Mar 2026), R14.0 (21 May 2026), R15.0 (9 Jul 2026), R16.1 (17 Sep 2026). Examples: coordinated BIM sections now require signed (.ent) files; Quality Check can start on uploaded models in Piling Gateway submissions; unsigned/compressed files cannot be tagged as "Plans for Approval" [16].
+- Release notes: R13.0 (26 Mar 2026), R14.0 (21 May 2026), R15.0 (9 Jul 2026), R16.0 (3 Sep 2026), R16.1 (17 Sep 2026). Examples: coordinated BIM sections now require signed (.ent) files; Quality Check can start on uploaded models in Piling Gateway submissions; unsigned/compressed files cannot be tagged as "Plans for Approval" [16].
 - Agency comments come as BCF tagged to the model; amendment submissions need only the amended model with automatic deviation detection [3].
 
 Differences CORENET 2 vs CORENET X: web-based with no ES Pro download; forms auto-populated; digital appointments (no wet ink); fees paid in portal before submission; responses digitally signed but not encrypted [10].
@@ -120,7 +120,7 @@ Differences CORENET 2 vs CORENET X: web-based with no ES Pro download; forms aut
 - Official: "IFC+SG defines how BIM models are structured for CORENET X submission. It combines IFC with Singapore-specific information so agencies can read, review, and check model data." [17]
 - Footnote of the circular: IFC is the openBIM standard of buildingSMART International; "IFC+SG is an extension of this openBIM standard that is developed to cater to local regulatory requirements." [2]
 - Naming: official pages say **IFC+SG** (the user-facing brief says IFC-SG). Both refer to the same thing; the URL path is `/ifc-sg/`.
-- Schema/MVD: the Model Checker states the export must be **IFC4 Reference View**, following the IFC+SG export settings; other IFC versions or MVDs are not supported for submission [18]. IFC4 Reference View is the buildingSMART MVD for IFC4 (ISO 16739-1:2018 is IFC4 ADD2 TC1; this ISO number is from general knowledge, (unverified) in this session). The Revit guide does not itself mention "Reference View" [19].
+- Schema/MVD: the Model Checker page does not word it as a formal requirement but **recommends exporting as IFC4 Reference View**, following the IFC+SG export settings; files exported under other IFC versions or MVDs can trigger error `IFC0000101` ("update the file to a supported IFC version or Model View Definition") [18]. The circular itself only says that BIM submissions "in IFC+SG format" are mandatory [2]. IFC4 Reference View is the buildingSMART MVD for IFC4; ISO 16739-1:2018 is IFC4 ADD2 TC1 (IFC 4.0.2.1) - the ISO number is now verified from the buildingSMART version database, see [../buildingsmart_standards.md](../buildingsmart_standards.md). The Revit guide does not itself mention "Reference View" [19].
 - Model Checker error code `IFC0000101` = "Unsupported IFC version or MVD" [18].
 
 ### 3.2 Data structure [20]
@@ -261,7 +261,7 @@ None of the below were found as linked community threads in this session (the of
 
 ## Common pitfalls and misconceptions
 
-- Assuming a plain IFC4 export is enough. IFC+SG needs SGPsets, subtype values and controlled values from the mapping file; the Model Checker rejects other IFC versions/MVDs [18][22].
+- Assuming a plain IFC4 export is enough. IFC+SG needs SGPsets, subtype values and controlled values from the mapping file; the Model Checker recommends IFC4 Reference View and flags other IFC versions/MVDs with error IFC0000101 [18][22].
 - Using outdated numbers. Many web articles say "mandatory from 1 Oct 2025 for 30,000 m2". The 23 July 2026 circular lowers this to 5,000 m2 from 1 Oct 2026 and makes smaller projects voluntary [2].
 - Confusing site footers with versions. info.corenet.gov.sg pages show "Last Updated 16 May 2024" even where they describe 2026 content; use the file versions (mapping file 22 Sep 2026, COP 4.0 Sep 2026) [5][6][22].
 - Treating the 3-gateway process as a single approval; DG, PG (optional), CG and TOP are separate submissions with separate processing times [4].

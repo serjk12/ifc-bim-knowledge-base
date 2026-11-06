@@ -4,7 +4,7 @@
 
 None of the three countries has a statute that says "every building must be delivered as an IFC model". What exists is a mix of (a) government roadmaps and circulars that make BIM the standard process for federal clients (roads in Germany since 2026, federal buildings via a phased Masterplan, rail operators with their own rules), (b) standards that clients put into contracts (VDI 2552, DIN SPEC 91391, ISO 19650 in Germany; ÖNORM A 6241 in Austria; formerly SIA 2051 in Switzerland), and (c) client documents (AIA = client information requirements, BAP = BIM execution plan) which in practice define the real IFC rules: version, view, property sets, classification, file naming, checking. For a tester of MCP servers that open, query and edit IFC models, the practical consequence is that "correct" depends on the project's AIA/BAP, and typical DACH requests are about IFC2x3 / IFC4 exports from Revit or Archicad/Allplan, German-language property names, DIN 276 cost groups, and rule-based checks (now increasingly IDS).
 
-Last researched: 2026-11-06
+Last researched: 2026-11-06. QA pass 2026-11-06: the BMV press release of 27.03.2026, the VDI 2552 handbook page, the Austrian Standards ÖNORM A 6241-2 shop page and the buildingSMART Vienna openBIM use-case page were re-fetched and compared with this text; confirmations and small additions are noted inline. SIA 2051 withdrawal, DIN overview dates and the Masterplan/ARS texts remain unverified. See `_meta/qa/qa-standards-2.md`.
 
 Research limits: the web search quota ran out partway through, several government pages were unreachable and PDFs could not be text-extracted. Facts that rest only on search snippets are marked "(unverified)". See "Gaps".
 
@@ -17,7 +17,7 @@ Research limits: the web search quota ran out partway through, several governmen
 | Level | Body | Instrument | Since / status | Scope |
 |---|---|---|---|---|
 | Federal transport infrastructure | BMVI, now BMV (Federal Ministry of Transport; named BMDV in 2022-2025) | Stufenplan Digitales Planen und Bauen (staged plan) | Published 15 Dec 2015 [1]. Phase 1 preparation 2015-2017, phase 2 extended pilots 2017-2020, phase 3 gradual roll-out from 2020 with "Leistungsniveau 1" (performance level 1) for new BMVI tenders [1] | Federal transport infrastructure |
-| Federal trunk roads | BMV, Autobahn GmbH des Bundes, DEGES, Länder (Auftragsverwaltung) | Masterplan BIM Bundesfernstraßen V1.0 (published 12.10.2021) [2] and ARS 05/2026 "Building Information Modeling (BIM) im Bundesfernstraßenbau" (Allgemeines Rundschreiben Straßenbau) [3] | BIM is the regular process ("Regelprozess") from 2026 for state road administrations, DEGES, Autobahn GmbH [3][4]. Roll-out announced 27 March 2026 at the "Dialogforum Bundesfernstraßen Digital" by the Federal Transport Minister [4][5] | "All relevant projects" of federal trunk roads. No numeric size threshold found (unverified whether one exists) |
+| Federal trunk roads | BMV, Autobahn GmbH des Bundes, DEGES, Länder (Auftragsverwaltung) | Masterplan BIM Bundesfernstraßen V1.0 (published 12.10.2021) [2] and ARS 05/2026 "Building Information Modeling (BIM) im Bundesfernstraßenbau" (Allgemeines Rundschreiben Straßenbau) [3] | BIM is the regular process ("Regelprozess") from 2026 for state road administrations, DEGES, Autobahn GmbH [3][4]. Roll-out announced 27 March 2026 at the "Dialogforum Bundesfernstraßen Digital" in Berlin by the Federal Transport Minister [4][5]; the press release (No. 024/2026, re-read in QA) says BIM becomes the "Regelprozess" for all relevant federal trunk-road projects and names the Infrastruktur-Zukunftsgesetz as the legal basis for strengthening digital methods; it mentions neither the ARS nor the Masterplan by name [4] | "All relevant projects" of federal trunk roads. No numeric size threshold found (unverified whether one exists) |
 | Federal buildings (Bundesbau) | BMI (2021 Masterplan), now BMWSB (housing/building), with BMVg and BImA | Masterplan BIM für Bundesbauten (Sept 2021), Erlass dated 27 Jan 2022, Umsetzungsstrategie March 2023 [6] | Three-stage introduction of BIM over the building life cycle; steering group (Lenkungsgruppe) financed equally by BMVg, BImA, BMWSB [6]. A trade article claims BIM has been required in Hochbau since end of 2022 [1b] (secondary source, unverified) | Federal construction projects; thresholds not verified |
 | Central contact | BIM Deutschland (Zentrum für Digitalisierung des Bauwesens) | Joint initiative of BMDV, BMWSB, BMVg, founded October 2022 [7][8] | Operates the BIM-Portal; promotes Open BIM [8] | Information, standards, tools |
 | Rail | DB InfraGO AG | Own binding BIM requirements (see 1.5) | Ongoing | DB projects |
@@ -63,7 +63,7 @@ VDI 2552 sheets per the VDI handbook page (dates as listed there) [16]:
 | 1 | Grundlagen | 2020-07 |
 | 2 | Begriffe (terms) | 2022-08 |
 | 3 | Modellbasierte Mengenermittlung (model-based quantity take-off) | 2018-05 |
-| 4 | Anforderungen an den Datenaustausch (data exchange requirements) | 2020-08 (new draft "Modellierung von Fach- und Teilmodellen" 2026-05) |
+| 4 | Anforderungen an den Datenaustausch (data exchange requirements) | 2020-08 (new draft "Anforderungen an die Modellierung von Fach- und Teilmodellen" 2026-05) |
 | 5 | Datenmanagement | 2018-12 |
 | 6 | Betrieb (operation) | 2026-04 |
 | 7 | Prozesse | 2020-06 |
@@ -76,6 +76,8 @@ VDI 2552 sheets per the VDI handbook page (dates as listed there) [16]:
 | 11.5 / 11.7 / 11.8 | Aufzugstechnik / Türplanung / Fabrikplanung | 2023-09 / 2026-02 / 2023-09 |
 | 11.9, 11.10 | Bauphysik, Gebäudeautomation | drafts (2026) |
 | 12.1 / 12.2 | Structure and metadata for describing BIM use cases | 2022-10 / 2024-03 |
+
+QA re-check of the VDI page [16] confirmed all dates in this table (VDI 2552 Blatt 8.1 is 2019-01 with a 2026-07 draft; Blatt 11.7 Türplanung is 2026-02; Blatt 11.5 and 11.8 are 2023-09). The page also lists planned future sheets (Blatt 3 and 5 revisions, 8.2 revision, 11.4 Ökobilanzierung, 11.6 Brandschutz, 11.13 Bauen im Bestand) with dates in 2027-2028; treat those as project plans, not published guidelines.
 
 buildingSMART Deutschland states that the 11.x sheets aim at Open BIM exchange, especially IFC4 with the MVDs Reference View and Design Transfer View [18]. Sheet 11.1 describes methods to define exchange requirements (ER) that can be implemented in software and used as basis for technical certificates [17].
 
@@ -135,14 +137,14 @@ Typical AIA/BAP content (general practice, partly from background knowledge, unv
 ### 2.1 Mandate status
 - BIM is not legally mandatory and has no general public-procurement requirement; the employer usually decides, and the ÖNORM is agreed contractually (CMS expert guide, last updated 2017, so possibly outdated) [29].
 - ÖNORM A 6241-1 (BIM Level 2, replaced ÖNORM A 6240-4) and ÖNORM A 6241-2 (BIM Level 3 iBIM) were published in 2015 [29].
-- A new ÖNORM A 6241-2 edition with issue date 2026-09-01 is in the Austrian Standards shop: "Digital structure documentation - Part 2: Building Information modeling (BIM)", 59 pages, German, committee 273; it covers open BIM over the life cycle with IFC including the extensions in ÖNORM EN ISO 12006-3. The shop shows both "Draft" and "Current", so the status needs confirming (unverified) [30].
+- A new ÖNORM A 6241-2 edition with issue date 2026-09-01 is in the Austrian Standards shop: "Digital structure documentation - Part 2: Building Information modeling (BIM)", 59 pages, German, committee 273; it covers open BIM over the life cycle with IFC including the extensions in ÖNORM EN ISO 12006-3. The shop shows both "Draft" and "Current", so the status needs confirming (unverified; QA re-read of the shop page gave the same ambiguity and does not say which document it replaces) [30].
 - A research report says IFC-mapped definitions were adopted by Austrian Standards on 22 Nov 2023 and incorporated in ÖNORM A 6241-2 (snippet, unverified).
 
 ### 2.2 Vienna: openBIM building permit (MA 37)
 - Pilot operation of the openBIM permit procedure of the Vienna Building Police (Magistratsabteilung 37), based on the research project BRISE-Vienna [31].
 - Applicant submits the building application model (BAM, architectural model). IFC2x3 and IFC4 Add2 TC1 are permitted; ÖNORM A 6241-2 applies to modelling; requirements are delivered as PDF, XLSX and IDS files [31].
 - Property sets: ISO 16739 standard Psets, quantity sets (Qto), and a Vienna-specific set "WienBV"; LOG + LOI define LOIN per element class [31].
-- Status on the buildingSMART use case page: draft published 16 July 2024, last changed 13 Oct 2025; version 1.1 on 22 Nov 2024, 1.2 adds extended IDS with logical dependencies, 1.3 merges Excel files and improves PredefinedType export [31].
+- Status on the buildingSMART use case page (re-read in QA): status "Draft", maturity "Outlook"; published 16 July 2024, last changed 13 Oct 2025; version 1.1 on 22 Nov 2024, 1.2 adds extended IDS with logical dependencies (the page dates it 25 Apr 2024, which looks inconsistent with the 2025 timeline), 1.3 (9 Oct 2025) merges Excel files and improves PredefinedType export [31]. Content is licensed CC BY-NC-SA 4.0 and the page calls it best practice, not a legally binding guideline [31].
 - Today BIM plus PDF are submitted in parallel (the BIM does not replace the drawings yet) [31].
 - Actors: MA 37, applicant and plan author, TU Wien, Kammer der ZiviltechnikerInnen, buildingSMART Austria [31].
 

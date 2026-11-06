@@ -1,6 +1,6 @@
 # IFC entities cheat sheet: the ~150 classes people actually meet
 
-**Last researched: 2026-11-06**
+**Last researched: 2026-11-06** (fact-checked 2026-11-06, see `_meta/qa/qa-basics-1.md`; enumeration lists marked "QA" were re-read on the buildingSMART IFC4.3.x-development GitHub markdown, which can differ slightly from the final published HTML)
 
 ## In plain words
 
@@ -19,7 +19,7 @@ Conventions: `Ifc...` = entity; `...Type` = type object (the "family type" side)
 | IFC4.1, IFC4.2 | n/a | Intermediate non-final releases (alignment, then bridge/`IfcFacility`); folded into 4.3 [1]. |
 | IFC4.3 (4.3.0.0 ... 4.3.2.0 = ADD2) | `IFC4X3_ADD2` (4.3.2.0) [4] | Published as **ISO 16739-1:2024** (ISO stage date 2024-03-22; buildingSMART announced ISO approval 4 Jan 2024 and publication 2 Apr 2024) [3]. Adds roads, rail, ports/waterways, geotechnics, earthworks; renames `IfcBuildingElement` -> `IfcBuiltElement` [1][5]. buildingSMART names 4.3.2.0 as the latest official version; a later revision (update vs new Part 2) was being considered, status as of Nov 2026 not confirmed (unverified) [3]. |
 
-IFC4.3 numbers from the official release notes: 62 new occurrence entities, 294 new predefined types, 40 modified items, 24 deprecated entities [1].
+IFC4.3 numbers from the official release notes (the notes label them "IFC4.3 RC1", i.e. the first release candidate; QA re-read them): 62 new occurrence entities, 294 new predefined types, 40 modified items (mostly description changes), 24 deprecated entities [1]. Per domain: shared infrastructure 24 entities / 68 predefined types, railways 22 / 121, roads 7 / 39, ports and waterways 9 / 66. Final-release totals may differ.
 
 ---
 
@@ -72,31 +72,31 @@ Legend for the "Source" column: **R** = Revit, **A** = Archicad, other tools in 
 | Entity | Plain meaning | Typical source | IFC2x3 vs IFC4 vs IFC4.3 | PredefinedType examples |
 |---|---|---|---|---|
 | `IfcWall` | any wall | R: Walls; A: Wall tool | In 2x3 has no PT; IFC4 adds PT. 4.3: still the main wall class | `PARTITIONING, SOLIDWALL, SHEAR, PARAPET, PLUMBINGWALL, MOVABLE, RETAININGWALL, WAVEWALL, ELEMENTEDWALL, USERDEFINED, NOTDEFINED` (13 values in 4.3 incl. deprecated `STANDARD`, `POLYGONAL`) [7] |
-| `IfcWallStandardCase` | wall with constant thickness, vertical extrusion, material layer set usage | R (IFC2x3 Coordination View), A (straight walls) | **Deprecated** from IFC4 ADD2 TC1 on; docs say it may be imported but should not be exported [2][2b]; some national working groups want it kept because `IfcMaterialLayerSet` is not fully usable on `IfcWall` [10]. Revit IFC4 Reference View exports `IfcWall`, 2x3 CV2.0 exports StandardCase [8a] | none (PT `STANDARD` on `IfcWall` stands for it) |
-| `IfcWallElementedCase` | stud-framed wall with parts | rarely seen | Deprecated in IFC4 ADD2 TC1; community: use `IfcWall` + `ELEMENTEDWALL` [11] | - |
+| `IfcWallStandardCase` | wall with constant thickness, vertical extrusion, material layer set usage | R (IFC2x3 Coordination View), A (straight walls) | **Deprecated / discouraged for new export** - search summaries of the IFC4.3 and IFC4 ADD2 TC1 pages say so [2][2b], but QA found **no deprecation note** in the IFC4.3.x-development markdown of the entity (it only says "New entity in IFC2x" and that the material layer set usage "has to be given (enforced by where rule)") [26], so the exact version that deprecated it is **unverified**. The enumeration values `STANDARD` and `POLYGONAL` of `IfcWallTypeEnum` are marked deprecated (in IFC4) [7]. Some national working groups want StandardCase kept because `IfcMaterialLayerSet` is not fully usable on `IfcWall` [10]. Revit IFC4 Reference View exports `IfcWall`, 2x3 CV2.0 exports StandardCase [8a] | none (PT `STANDARD` on `IfcWall` stands for it) |
+| `IfcWallElementedCase` | stud-framed wall with parts | rarely seen | Marked "Deprecated" in the IFC4 ADD2 TC1 documentation (seen on a buildingSMART forum thread, QA); community: use `IfcWall` + `ELEMENTEDWALL` [11] | - |
 | `IfcSlab` | floor slab, roof slab, base slab, landing | R: Floors (and Roofs in some setups); A: Slab; A: Roof is exported as `IfcSlab` + `ROOF` in old translators [9] | PT added in IFC4; 4.3 adds infrastructure uses | `FLOOR, ROOF, LANDING, BASESLAB, APPROACH_SLAB, PAVING, WEARING, SIDEWALK, TRACKSLAB, USERDEFINED, NOTDEFINED` [12] |
 | `IfcRoof` | roof as a container of slabs/members | R: Roofs (category-level), A: Roof (modern translators, unverified) | IFC2x3: no PT; IFC4: PT | `FLAT_ROOF, SHED_ROOF, GABLE_ROOF, HIP_ROOF, HIPPED_GABLE_ROOF, GAMBREL_ROOF, MANSARD_ROOF, BARREL_ROOF, RAINBOW_ROOF, BUTTERFLY_ROOF, PAVILION_ROOF, DOME_ROOF, FREEFORM` [13] |
 | `IfcCovering` | thin finish layer: ceiling, floor finish, cladding, insulation | R: Ceilings; also Duct/Pipe Insulation (`INSULATION`), Duct Lining (`WRAPPING`) [14] | 2x3 has PT too (CEILING, FLOORING, CLADDING, ROOFING, INSULATION, MEMBRANE...) | `CEILING, FLOORING, CLADDING, ROOFING, MOLDING, SKIRTINGBOARD, INSULATION, MEMBRANE, SLEEVING, TOPPING, WRAPPING, COPING` [15] |
-| `IfcDoor` | door | R: Doors; A: Door | 2x3: `IfcDoorStyle` carries type info and `IfcDoor` has no PT; IFC4: `IfcDoorType` (replaces style); 4.3: types extended | `DOOR, GATE, TRAPDOOR, BOOM_BARRIER, TURNSTILE` (4.3 list) [16]; IFC4 had fewer values (unverified) |
-| `IfcWindow` | window | R: Windows; A: Window | same pattern: `IfcWindowStyle` (2x3) -> `IfcWindowType` | `WINDOW, SKYLIGHT, LIGHTDOME` (unverified) |
+| `IfcDoor` | door | R: Doors; A: Door | 2x3: `IfcDoorStyle` carries type info and `IfcDoor` has no PT; IFC4: `IfcDoorType` (replaces style); 4.3: types extended | `DOOR, GATE, TRAPDOOR, BOOM_BARRIER, TURNSTILE, USERDEFINED, NOTDEFINED` (4.3 list, QA-verified) [16]; IFC4 had fewer values (unverified) |
+| `IfcWindow` | window | R: Windows; A: Window | same pattern: `IfcWindowStyle` (2x3) -> `IfcWindowType` | `WINDOW, SKYLIGHT, LIGHTDOME, USERDEFINED, NOTDEFINED` (4.3, QA-verified) |
 | `IfcCurtainWall` | curtain wall assembly | R: Curtain Walls / Curtain Systems; A: Curtain Wall | IFC4 expects the panels (`IfcPlate` `CURTAIN_PANEL`/`IfcWindow`/`IfcDoor`) and mullions (`IfcMember` `MULLION`) aggregated via `IfcRelAggregates` | `NOTDEFINED` mostly |
-| `IfcPlate` | thin flat element (curtain panel, sheet, plate) | R/A curtain wall panels; steel plates (Tekla) | 2x3 had PT-less; IFC4 added PT | `CURTAIN_PANEL, SHEET, FLANGE_PLATE, BASE_PLATE, ...` (unverified) |
+| `IfcPlate` | thin flat element (curtain panel, sheet, plate) | R/A curtain wall panels; steel plates (Tekla) | 2x3 had PT-less; IFC4 added PT | `CURTAIN_PANEL, SHEET, FLANGE_PLATE, WEB_PLATE, STIFFENER_PLATE, GUSSET_PLATE, COVER_PLATE, SPLICE_PLATE, BASE_PLATE, USERDEFINED, NOTDEFINED` (4.3, QA-verified) |
 | `IfcMember` | linear non-load-bearing or structural bar: mullion, brace, rafter, stud, purlin | R: Structural Framework (braces), curtain mullions | IFC4 PT; 4.3 adds cables/arches | `BRACE, CHORD, COLLAR, MEMBER, MULLION, PLATE, POST, PURLIN, RAFTER, STRINGER, STRUT, STUD, STIFFENING_RIB, ARCH_SEGMENT, SUSPENSION_CABLE, SUSPENDER, STAY_CABLE, STRUCTURALCABLE, TIEBAR` [17] |
-| `IfcBeam` | horizontal load-bearing member | R: Structural Framing (beam); A: Beam | IFC4 PT | `BEAM, JOIST, HOLLOWCORE, LINTEL, SPANDREL, T_BEAM` (+`GIRDER_SEGMENT` in 4.3, unverified) |
-| `IfcColumn` | vertical load-bearing member | R: Structural Columns, Columns; A: Column | IFC4 PT | `COLUMN, PILASTER` (+`PIERSTEM` etc. in 4.x, unverified) |
-| `IfcStair` / `IfcStairFlight` | stair assembly / one flight | R: Stairs (Revit often needs overrides; Revit 'Stairs' category not mapped by default in the OSArch rule list [14]); A: Stair | IFC4 `IfcStair` can aggregate `IfcStairFlight` + landing `IfcSlab` | `STRAIGHT_RUN_STAIR, TWO_STRAIGHT_RUN_STAIR, QUARTER_WINDING_STAIR, SPIRAL_STAIR, CURVED_RUN_STAIR, USERDEFINED` (unverified) |
-| `IfcRamp` / `IfcRampFlight` | ramp | R: Ramps [14]; A: Slab/Stair tool variants | same | `STRAIGHT_RUN_RAMP, SPIRAL_RAMP, ...` (unverified) |
-| `IfcRailing` | railing, guardrail, handrail | R: Railings [14]; A: Railing | IFC4 PT | `HANDRAIL, GUARDRAIL, BALUSTRADE` (+ fence/barrier values in 4.3, unverified) |
+| `IfcBeam` | horizontal load-bearing member | R: Structural Framing (beam); A: Beam | IFC4 PT | `BEAM, JOIST, HOLLOWCORE, LINTEL, SPANDREL, T_BEAM, GIRDER_SEGMENT, DIAPHRAGM, PIERCAP, HATSTONE, CORNICE, EDGEBEAM, USERDEFINED, NOTDEFINED` (4.3, QA-verified; the last six bridge-oriented values are 4.3 additions) |
+| `IfcColumn` | vertical load-bearing member | R: Structural Columns, Columns; A: Column | IFC4 PT | `COLUMN, PILASTER, PIERSTEM, PIERSTEM_SEGMENT, STANDCOLUMN, USERDEFINED, NOTDEFINED` (4.3, QA-verified) |
+| `IfcStair` / `IfcStairFlight` | stair assembly / one flight | R: Stairs (Revit often needs overrides; Revit 'Stairs' category not mapped by default in the OSArch rule list [14]); A: Stair | IFC4 `IfcStair` can aggregate `IfcStairFlight` + landing `IfcSlab` | `STRAIGHT_RUN_STAIR, TWO_STRAIGHT_RUN_STAIR, QUARTER_WINDING_STAIR, QUARTER_TURN_STAIR, HALF_WINDING_STAIR, HALF_TURN_STAIR, TWO_QUARTER_WINDING_STAIR, TWO_QUARTER_TURN_STAIR, THREE_QUARTER_WINDING_STAIR, THREE_QUARTER_TURN_STAIR, SPIRAL_STAIR, DOUBLE_RETURN_STAIR, CURVED_RUN_STAIR, TWO_CURVED_RUN_STAIR, LADDER, USERDEFINED, NOTDEFINED` (4.3, QA-verified; `LADDER` is in the 4.3 list) |
+| `IfcRamp` / `IfcRampFlight` | ramp | R: Ramps [14]; A: Slab/Stair tool variants | same | `STRAIGHT_RUN_RAMP, TWO_STRAIGHT_RUN_RAMP, QUARTER_TURN_RAMP, TWO_QUARTER_TURN_RAMP, HALF_TURN_RAMP, SPIRAL_RAMP, USERDEFINED, NOTDEFINED` (4.3, QA-verified) |
+| `IfcRailing` | railing, guardrail, handrail | R: Railings [14]; A: Railing | IFC4 PT | `HANDRAIL, GUARDRAIL, BALUSTRADE, FENCE, USERDEFINED, NOTDEFINED` (4.3, QA-verified) |
 | `IfcFooting` | footing / foundation element | R: Structural Foundations; Wall Foundation | 4.3 PT list: | `FOOTING_BEAM, PAD_FOOTING, PILE_CAP, STRIP_FOOTING` (+`CAISSON_FOUNDATION`, deprecated since IFC4x2) [18] |
-| `IfcPile` | pile | R: via override | IFC4 PT | `BORED, DRIVEN, JETGROUTING, COHESION, FRICTION, SUPPORT` (unverified) |
-| `IfcShadingDevice` | louvres, awnings | R: override (Generic Model) | IFC4+ | `AWNING, JALOUSIE, SHUTTER, ...` (unverified) |
+| `IfcPile` | pile | R: via override | IFC4 PT | `BORED, DRIVEN, JETGROUTING, COHESION, FRICTION, SUPPORT, USERDEFINED, NOTDEFINED` (4.3, QA-verified) |
+| `IfcShadingDevice` | louvres, awnings | R: override (Generic Model) | IFC4+ | `JALOUSIE, SHUTTER, AWNING, USERDEFINED, NOTDEFINED` (4.3, QA-verified) |
 | `IfcChimney` | chimney | rare | IFC4 | `NOTDEFINED` |
 | `IfcBearing` | bridge bearing | civil tools | IFC4.2/4.3 era [6] | `ELASTOMERIC, POT, ...` (unverified) |
 | `IfcFurniture` / `IfcFurnishingElement` | movable furniture / equipment | R: Furniture, Casework, Specialty Equipment (override); A: Object | 2x3: `IfcFurnishingElement` generic; IFC4 adds `IfcFurniture`, `IfcSystemFurnitureElement`; Revit's older list shows `IfcFurnishingElement`, `IfcFurnitureType`, `IfcSystemFurnitureElementType` [14b] | `CHAIR, TABLE, DESK, BED, FILECABINET, SHELF, SOFA, TECHNICALCABINET, ...` (unverified) |
 | `IfcBuildingElementProxy` | "generic built thing", no semantic meaning | R: Generic Models (default), anything not mapped, in-place families, invalid IFC class names [19][20]; A: Morph (unverified) | exists in all versions; in 4.3 not deprecated but discouraged as spatial placeholder; use `IfcBuiltElement` directly for arbitrary built elements [5][5b]. The release-notes page lists it in a deprecation bullet list [1], but the entity page itself does not mark it deprecated [5b]. (Conflict: treat as "discouraged, not removed".) | `COMPLEX, ELEMENT, PARTIAL, PROVISIONFORVOID, PROVISIONFORSPACE, USERDEFINED, NOTDEFINED` (IFC4 values, unverified in 4.3) |
 | `IfcBuiltElement` | 4.3 name of the old `IfcBuildingElement`; non-abstract | any | **New name in 4.3** [1][5]; `IfcBuildingElement` in 2x3/IFC4 | - |
 | `IfcElementAssembly` | named assembly of elements (truss, rebar cage, stair + railing set) | R: Assemblies / Groups; Tekla assemblies | exists in all | `GIRDER, TRUSS, BRACED_FRAME, ...` (unverified) |
-| `IfcBuildingElementPart` | sub-part of a layered element (e.g. a layer of a wall) | A: "split composite into parts" (IFC4 RV option [9b]); R: option | IFC4+ | `INSULATION, PRECASTPANEL, APRON, ...` (unverified) |
+| `IfcBuildingElementPart` | sub-part of a layered element (e.g. a layer of a wall) | A: "split composite into parts" (IFC4 RV option [9b]); R: option | IFC4+ | `INSULATION, PRECASTPANEL, APRON, ARMOURUNIT, SAFETYCAGE, USERDEFINED, NOTDEFINED` (4.3, QA-verified) |
 | `IfcVirtualElement` | invisible boundary element/space separator | rare | all; 4.3 says to use it instead of proxy for spatial placeholders [5b] | - |
 | `IfcGeographicElement` | terrain, trees, vegetation | R: Topography (override), Planting | IFC4 (new); `IfcSite` terrain in 2x3 | `TERRAIN, VEGETATION, ...` (unverified) |
 | `IfcTransportElement` | elevator, escalator, moving walkway | R: override of Generic Models (see report of escalators dropping out of export when class stayed proxy [20]) | all | `ELEVATOR, ESCALATOR, MOVINGWALKWAY` |
@@ -124,7 +124,7 @@ Legend for the "Source" column: **R** = Revit, **A** = Archicad, other tools in 
 | `IfcZone` | group of spaces (a *system*, not spatial element) | R: Zone; A: zone grouping | IFC2x3 and later; uses `IfcRelAssignsToGroup` |
 | `IfcExternalSpatialElement` | outdoor space bounding region | rare | IFC4; no IFC2x3 counterpart, sometimes downgraded to `IfcSpace` [22] |
 | `IfcFacility` | umbrella for building/bridge/road/rail/marine | - | IFC4.3; subtypes `IfcBridge`, `IfcRoad`, `IfcRailway`, `IfcMarineFacility`; aggregated under project/site/another facility [6] |
-| `IfcFacilityPart` | sub-division of a facility (segment, junction, above/underground) | - | 4.3; replaces `IfcBridgePart` via a SELECT [1] |
+| `IfcFacilityPart` | sub-division of a facility (segment, junction, above/underground) | - | Introduced in IFC4.2 (release notes list it under the IFC4.2 spatial-structure basis); the 4.3 notes say `IfcBridgePart` is now covered by `IfcFacilityPart` through an EXPRESS SELECT (QA-checked) [1] |
 | `IfcBuiltSystem` | system of built elements | rare | 4.3 rename of `IfcBuildingSystem` [1] |
 | `IfcGrid` | grid lines (column grid) | R: Grids; A: Grid | positioning element, `IfcGridAxis` |
 | `IfcAnnotation` | 2D/3D annotation geometry | R: text, dimensions; in Revit mapping list [14b] | |
@@ -165,7 +165,7 @@ Practical Revit note: "Mechanical Equipment" cannot be split by the category tab
 | Entity | Plain meaning | Source | Notes |
 |---|---|---|---|
 | `IfcBeam`, `IfcColumn`, `IfcMember`, `IfcPlate`, `IfcFooting`, `IfcPile`, `IfcSlab`, `IfcWall` | physical structural elements (see 3.1) | R: Structural Framing/Columns/Foundation; A; Tekla | Revit hard fallback: Structural Beam -> `IfcBeam`, Structural Brace -> `IfcMember`, Structural Footing -> `IfcFooting`, Structural Column -> `IfcColumn` [14] |
-| `IfcReinforcingBar` | single rebar | R: Rebar [14]; Tekla; Allplan | PT `ANCHORING, EDGE, LIGATURE, MAIN, PUNCHING, RING, SHEAR, STUD, USERDEFINED` (unverified); has `NominalDiameter`, `BarLength`, `SteelGrade` |
+| `IfcReinforcingBar` | single rebar | R: Rebar [14]; Tekla; Allplan | PT `ANCHORING, EDGE, LIGATURE, MAIN, PUNCHING, RING, SHEAR, STUD, SPACEBAR, USERDEFINED, NOTDEFINED` (4.3, QA-verified); has `NominalDiameter`, `BarLength`, `SteelGrade` |
 | `IfcReinforcingMesh` | welded wire mesh | R: Fabric Sheet (limited) | |
 | `IfcReinforcingElement` / `IfcReinforcingBarType` / `IfcReinforcingMeshType` | rebar abstract/type | | present in the 4.3 structural elements domain [18] |
 | `IfcTendon`, `IfcTendonAnchor`, `IfcTendonConduit` | prestress tendon, anchor, duct | precast / bridge tools | `IfcTendonConduit` present in 4.3 domain list [18] |
@@ -183,14 +183,14 @@ Release-notes counts: shared infrastructure 24 new entities, railways 22, roads 
 
 | Entity | Plain meaning | Notes |
 |---|---|---|
-| `IfcAlignment` | centreline-like reference for roads/rail: horizontal + vertical (+ cant) layouts | Components `IfcAlignmentHorizontal`, `IfcAlignmentVertical`, `IfcAlignmentCant`, `IfcAlignmentSegment` [6c]; shape reps: `IfcCompositeCurve` (2D), `IfcGradientCurve` (3D without cant), `IfcSegmentedReferenceCurve` (3D with cant), polylines for survey data [6c]. Parent chain: `IfcLinearPositioningElement` -> `IfcPositioningElement` -> `IfcProduct` [6d] |
+| `IfcAlignment` | centreline-like reference for roads/rail: horizontal + vertical (+ cant) layouts. The release notes discuss alignment as an IFC4.1 addition and an enhanced definition in 4.3 (the entity name itself is not listed in the notes) | Components `IfcAlignmentHorizontal`, `IfcAlignmentVertical`, `IfcAlignmentCant`, `IfcAlignmentSegment` [6c]; shape reps: `IfcCompositeCurve` (2D), `IfcGradientCurve` (3D without cant), `IfcSegmentedReferenceCurve` (3D with cant), polylines for survey data [6c]. Parent chain: `IfcLinearPositioningElement` -> `IfcPositioningElement` -> `IfcProduct` [6d] |
 | `IfcReferent` | named station/chainage marker on an alignment (e.g. km 12+500) | positioning element [6d] |
-| `IfcLinearPlacement` | "place this at distance X along alignment, offset Y" | placement kind alongside `IfcLocalPlacement` [6]; rail version `IfcLinearPlacementWithInclination` [1] |
+| `IfcLinearPlacement` | "place this at distance X along alignment, offset Y" | placement kind alongside `IfcLocalPlacement` [6]; the release notes list linear placement as an IFC4.1 feature (ISO 19148-based) and the rail version `IfcLinearPlacementWithInclination` as new in 4.3 [1] |
 | `IfcRoad` | road facility | new in 4.3 [1] |
 | `IfcRailway` | railway facility | new in 4.3 [1] |
 | `IfcBridge` | bridge facility | listed under the IFC4.2 release in the notes [1], part of 4.3 |
 | `IfcMarineFacility` | port/waterway facility | new in 4.3 [1] |
-| `IfcFacilityPart` | segment / junction / sub-structure of a facility | 4.3; replaces `IfcBridgePart` [1] |
+| `IfcFacilityPart` | segment / junction / sub-structure of a facility | introduced in IFC4.2, extended in 4.3 where it covers `IfcBridgePart` [1] (the dev-docs `IfcFacilityPart` page names `IfcProduct` as supertype for placement and says it "provides for spatial breakdown of built facilities", QA) |
 | `IfcPavement`, `IfcCourse` | pavement; layered course | `IfcCourseTypeEnum`: `ARMOUR, FILTER, BALLASTBED, CORE, PAVEMENT, PROTECTION` [24]; pavement is also expressed with `IfcSlab` PT `PAVING`, `WEARING` [12] |
 | `IfcKerb` | kerb | new in 4.3 roads [1] |
 | `IfcRail`, `IfcTrackElement` | rail, track elements | new in 4.3 railways [1] |
@@ -201,7 +201,7 @@ Release-notes counts: shared infrastructure 24 new entities, railways 22, roads 
 | `IfcMooringDevice`, `IfcNavigationElement`, `IfcConveyorSegment`, `IfcLiquidTerminal` | ports and waterways elements | new in 4.3 [1] |
 | `IfcPlant` | vegetation/plant | new in 4.3 [1] |
 | `IfcCivilElement` | generic civil element (IFC4.2) | deprecated in 4.3 per release notes [1] |
-| `IfcSectionedSolidHorizontal`, `IfcSectionedSurface` | geometry swept along an alignment through cross-sections | `IfcSectionedSolidHorizontal` named for facility body geometry [6]; `IfcSectionedSurface` new in 4.3 roads [1] |
+| `IfcSectionedSolidHorizontal`, `IfcSectionedSurface` | geometry swept along an alignment through cross-sections | `IfcSectionedSolidHorizontal` named for facility body geometry [6] (the release notes list it as a new IFC4.1 geometry representation, not a 4.3 one); `IfcSectionedSurface` new in 4.3 roads [1] |
 
 ### 3.7 Assemblies, groups, systems, types
 
@@ -283,10 +283,11 @@ Known behaviours reported by users:
 | `IfcBuildingElement` -> `IfcBuiltElement` (also `...Type`) | IFC4.3.0.0 | [1][5] |
 | `IfcBuildingSystem` -> `IfcBuiltSystem` | 4.3 | [1] |
 | `IfcElectricDistributionBoard` -> `IfcDistributionBoard` | 4.3 | [1] |
-| `IfcBridgePart` -> `IfcFacilityPart` (SELECT) | 4.3 | [1] |
+| `IfcBridgePart` -> covered by `IfcFacilityPart` (EXPRESS SELECT) | 4.3 notes (`IfcFacilityPart` itself dates from IFC4.2) | [1] |
 | `IfcVibrationIsolator`, `IfcVibrationDamper` -> within `IfcImpactProtectionDevice` | 4.3 | [1] |
 | `IfcCivilElement`, `IfcGeographicElementTypeEnum`, `IfcRelServicesBuildings` deprecated | 4.3 | [1] |
-| `IfcWallStandardCase`, `IfcWallElementedCase` deprecated; enum `STANDARD`, `POLYGONAL` deprecated (use `IfcWall` + PT) | IFC4 ADD2 TC1 and onward | [2][2b][7][11] |
+| `IfcWallStandardCase`, `IfcWallElementedCase` deprecated (StandardCase: per search summaries, exact version unverified, see 3.1); enum `STANDARD`, `POLYGONAL` deprecated (use `IfcWall` + PT) | IFC4 ADD2 TC1 and onward (ElementedCase: confirmed for the ADD2 TC1 docs; enums: marked "deprecated in IFC4") | [2][2b][7][11] |
+| `IfcRelServicesBuildings` deprecated, use `IfcRelReferencedInSpatialStructure` | IFC4.3.0.0 ("IFC4.3.0.0 DEPRECATION", QA-verified) | [1] |
 | `IfcDoorStyle`/`IfcWindowStyle` -> `IfcDoorType`/`IfcWindowType` | 2x3 -> IFC4 | (unverified) general schema knowledge; Revit's 2x3-style list still names the Styles [14b] |
 | `IfcMaterialList` (2x3) vs `IfcMaterialConstituentSet` (IFC4) | 2x3 -> IFC4 | [22] |
 | `IfcDateAndTime` (2x3) -> `IfcDateTime` (IFC4); `NumberOfRiser` -> `NumberOfRisers` on `IfcStairFlight` | 2x3 -> IFC4 | [22] |
@@ -332,7 +333,7 @@ Illustrative (invented) requests for an MCP tester, with what a good answer shou
 
 ## Common pitfalls and misconceptions
 
-- **"IfcWallStandardCase is the right wall class."** It is deprecated since IFC4 ADD2 TC1; modern exporters write `IfcWall`; consumers must still read StandardCase [2][2b]. Some users depend on StandardCase because `IfcMaterialLayerSetUsage` handling [10].
+- **"IfcWallStandardCase is the right wall class."** It is reported as deprecated (IFC4 ADD2 TC1 / IFC4.3 docs per search summaries; exact version unverified, see 3.1); modern exporters write `IfcWall`; consumers must still read StandardCase [2][2b]. Some users depend on StandardCase because `IfcMaterialLayerSetUsage` handling [10].
 - **"A proxy means the exporter failed."** Often just means the Revit category (Generic Models) or an invalid override was used [19][20]. Fix is an `IfcExportAs` value or mapping table change.
 - **`IfcExportAs` typos** silently produce proxies [14].
 - **Type vs. occurrence confusion**: `IfcDoor` (instance in the model) vs. `IfcDoorType` (family type); PT often lives on the type [5b].
@@ -350,7 +351,8 @@ Illustrative (invented) requests for an MCP tester, with what a good answer shou
 ## Gaps
 
 - The official IFC4.3 HTML documentation (standards.buildingsmart.org, ifc43-docs mirror) returned HTTP 403/redirects to a 403 site for direct fetches; entity details were taken from the buildingSMART GitHub IFC4.3.x-development markdown (development branch, may differ from final ADD2 text) and from search summaries of the official pages.
-- Enumerations flagged "(unverified)" (door/window/stair/pipe/beam etc.) come from schema knowledge, not re-fetched pages.
+- Enumerations flagged "(unverified)" (pipe segment/fitting, furniture, bearing, transport element, electrical and other MEP lists) come from schema knowledge, not re-fetched pages. In QA (2026-11-06) the following were re-read on the IFC4.3.x-development markdown and corrected or confirmed: Wall, Door, Window, Beam, Column, Stair, Ramp, Railing, Plate, Pile, Shading device, Building element part, Reinforcing bar, Duct fitting, Space. Paths for IfcPipeSegmentTypeEnum and IfcTransportElementTypeEnum returned 404 in the guessed locations.
+- `IfcWallStandardCase`: the exact version that deprecated it could not be confirmed (see 3.1 row). The official IFC4.3 HTML (standards.buildingsmart.org) returned HTTP 403 again in QA.
 - Revit MEP default category mappings and the current (2025/2026) Revit IFC4 mapping table were not found on a primary page.
 - Several forum threads were seen as search results only (titles/URLs), not opened.
 - No suspicious or pirated sites were encountered or linked. The web search quota ran out partway through, so IFC2x3->IFC4 MEP-class specifics were not searched.
@@ -397,3 +399,4 @@ Illustrative (invented) requests for an MCP tester, with what a good answer shou
 27. BIM Corner, IFC export from Revit (community): https://bimcorner.com/exporting-ifc-from-revit-part-1-mapping/
 28. Graphisoft, Type Mapping for IFC Export: https://help.graphisoft.com/AC/26/INT/_AC26_Help/121_IFC/121_IFC-35.htm
 29. Graphisoft Community, IFC 4.3 in Archicad 29: https://community.graphisoft.com/t5/Project-data-BIM/IFC-4-3-schema-implementation-in-Archicad-29/m-p/680785
+30. IFC4.3.x-development enumeration pages re-read in QA (raw GitHub markdown, e.g. https://github.com/buildingSMART/IFC4.3.x-development/blob/master/docs/schemas/shared/IfcSharedBldgElements/Types/IfcStairTypeEnum.md ; the same folder holds IfcBeamTypeEnum, IfcColumnTypeEnum, IfcRampTypeEnum, IfcRailingTypeEnum, IfcPlateTypeEnum, IfcShadingDeviceTypeEnum; IfcPileTypeEnum and IfcReinforcingBarTypeEnum are in docs/schemas/domain/IfcStructuralElementsDomain/Types; IfcBuildingElementPartTypeEnum in shared/IfcSharedComponentElements/Types; IfcDuctFittingTypeEnum in domain/IfcHvacDomain/Types)

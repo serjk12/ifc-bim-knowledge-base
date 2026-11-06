@@ -8,6 +8,8 @@ IFC (Industry Foundation Classes, buildingSMART, ISO 16739) is the neutral file 
 
 **Research-quality warning (read first).** This document was produced under a hard limit: the web-search tool refused every query (search budget exhausted at the start of the run), so only direct page fetches of guessed or known URLs were possible. Many vendor help sites returned 403/404 or empty shells. Facts confirmed from a fetched page carry a [n] marker. Everything else comes from general domain knowledge and is marked "(unverified)". Treat unverified items as leads to check, not as facts. See "Gaps" at the end.
 
+**QA update 2026-11-06 (fact-check pass).** WebFetch of vendor pages worked this time (web search did not: its budget was spent), so these items were upgraded from "unverified" to verified and are marked "QA-verified": Archicad IFC versions and menu path (Graphisoft help), Archicad 30 as current version (Wikipedia, released 7 Oct 2026), Tekla IFC 4.3 / certification (Tekla 2026 help), Renga IFC4 integration and ownership (rengabim.com), Vectorworks IFC4 export certification (Wikipedia wording), BricsCAD IFC 4.3 certification claim (Wikipedia wording, with a promotional-tone warning on the article), FreeCAD default schema (source code), Bonsai schema choice and save behaviour (Bonsai docs), Solibri legacy status (solibri.com). Still unverified: Allplan, Bentley, nanoCAD, BIMBase/Glodon/PKPM, GLOOBE, Edificius, SketchUp (help page 404), Rhino (help page 404), Civil 3D extension details.
+
 ## Background: IFC versions and views (context for all tools)
 
 - IFC2x3 was released in February 2006; IFC4 in March 2013 (with later add-ons in 2015, 2016, 2017); IFC4.3 is listed up to "IFC4.3 Add2" (2024). IFC4.1 and IFC4.2 are shown as withdrawn. IFC is registered with ISO as ISO 16739-1:2024. [1]
@@ -21,14 +23,14 @@ IFC (Industry Foundation Classes, buildingSMART, ISO 16739) is the neutral file 
 
 | Tool | IFC schemas (as found) | Certification (as found) | Where settings live | Evidence |
 |---|---|---|---|---|
-| Archicad (Graphisoft) | IFC2x3 and IFC4 (unverified) | Certified for several MVDs (unverified detail) | File > Interoperability > IFC (translators, IFC Manager) (unverified path) | Only Wikipedia/marketing pages readable [4] |
-| Tekla Structures | IFC2X3, IFC4, IFC4.3 listed; ifcXML only with 2x3 | buildingSMART certification for IFC2x3 and IFC4 import and export | Export dialog; File > Settings > IFC object conversion settings; Manage tab > Convert IFC objects | Official docs [5][6] |
+| Archicad (Graphisoft) | IFC2x3, IFC4 and IFC4.3, import and export (QA-verified on the Archicad 29 help page [19]; the page also says its IFC data follows the certified IFC2x3 TC1 standard) | Certified for several MVDs (unverified detail) | File > Interoperability > IFC > IFC Translators (QA-verified on the Archicad 27 help [20]); IFC Project Manager / IFC Manager hold the mappings | Graphisoft help [19][20]; Wikipedia [4] |
+| Tekla Structures | IFC2X3, IFC4, IFC4.3 listed for export; ifcXML only with 2x3 | buildingSMART certification for IFC2x3 and IFC4 import and export; IFC 4.3 is not in the list of certified MVDs (QA re-verified on the Tekla 2026 help [21]) | Export dialog; File > Settings > IFC object conversion settings; Manage tab > Convert IFC objects | Official docs [5][6][21] |
 | Allplan | IFC2x3, IFC4 (unverified) | Certified (unverified detail) | File > Export > IFC (unverified path) | Not verified |
 | Vectorworks | IFC2x3, IFC4 (partly unverified) | First architectural developer with IFC4 Export Certification, April 2019 | File > Export > Export IFC Project (unverified) | Wikipedia [7] |
 | Bentley (OpenBuildings, OpenRoads, etc.) | IFC2x3, IFC4 (unverified) | Not verified | iModel/IFC export in each product (unverified) | Not verified |
 | Civil 3D | IFC 4.3 via an extension | Not verified | "IFC 4.3 Extension for Autodesk Civil 3D" topic exists in the 2025 Help | Help index [8] |
 | BricsCAD BIM | IFC 4.3 (per Wikipedia) | Described as certified for IFC 4.3 import and export | Commands such as IFCEXPORT/IFCIMPORT (unverified) | Wikipedia [9] |
-| Renga | IFC2x3, IFC4 (unverified) | Not verified | Not verified | Not verified |
+| Renga | The Renga website mentions "integration with structural analysis software and other dedicated BIM software products via IFC4" (QA-verified [22]); IFC2x3 not confirmed | Not verified | Not verified | Renga website [22] |
 | nanoCAD | IFC export in BIM modules (unverified) | Not verified | Not verified | Not verified |
 | BIMBase / Glodon / PKPM | Own formats plus IFC (unverified) | Not verified | Not verified | Not verified |
 | GLOOBE | Not verified | Not verified | Not verified | Not verified |
@@ -40,14 +42,16 @@ IFC (Industry Foundation Classes, buildingSMART, ISO 16739) is the neutral file 
 
 ### Archicad (Graphisoft, Hungary / Nemetschek group)
 
-- Graphisoft was a founder of the OPEN BIM concept and is an active buildingSMART member. [4][14] Wikipedia lists Archicad version 30 (2026) as current stable. [4]
+- Graphisoft was a founder of the OPEN BIM concept and is an active buildingSMART member. [4][14] Wikipedia lists Archicad version 30 (2026) as current stable; QA-verified: the infobox gives the release date as 7 October 2026. [4]
+- QA-verified IFC versions: the Archicad 29 help page says Archicad "handles IFC2x3, IFC4, and IFC4.3 for both import and export" [19]. (The Graphisoft openBIM marketing page [14] does not mention IFC versions or certification.)
+- QA-verified menu path and property import behaviour (Archicad 27 help [20]): **File > Interoperability > IFC > IFC Translators**; the translator's "Property Mapping" preset for import defaults to **"Import as IFC Properties"** (all IFC properties are imported and appear as IFC Properties, e.g. in Find & Select); the alternative **"Import as Archicad Properties"** maps selected IFC properties to Archicad properties via a mapping table (needed for Graphic Overrides, Autotext labels, collision detection) and ignores unlisted ones.
 - Import/export: Archicad imports and exports IFC, DWG, DXF and BCF. [4]
 - Settings (all unverified, the help site would not load): export and import behaviour is controlled by "IFC Translators" (named presets for export and import). A translator bundles schema/MVD choice, geometry conversion (extrusions/BREP), what is exported (properties, classification, element types), and the mapping rules. The "IFC Manager" holds mapping tables: Type mapping (Archicad element/classification to IFC entity), Property mapping (Archicad properties to IFC property sets) and Classification mapping. Look under File > Interoperability > IFC. Archicad 28 help is at help.graphisoft.com/AC/28/INT/ (the root page loads but its IFC topic URLs could not be discovered).
 - Typical issues users report (unverified, general community knowledge): wrong IFC entity because of missing mapping (Objects exported as IfcBuildingElementProxy), property sets missing because the translator does not export user-defined properties, walls and slabs exported as Breps with no type information when "Export geometry as BREP" is chosen, large model size from composite structures, and differences between IFC2x3 and IFC4 handling of quantities.
 
 ### Tekla Structures (Trimble)
 
-- Official docs (2025): IFC schemas listed are IFC 2X3, IFC 4 and IFC 4.3. Certified MVDs cover IFC 2x3 and IFC 4, for both import and export. IFC export has buildingSMART International certification. [5]
+- Official docs (2025): IFC schemas listed are IFC 2X3, IFC 4 and IFC 4.3. Certified MVDs cover IFC 2x3 and IFC 4, for both import and export. IFC export has buildingSMART International certification. [5] (QA: the 2026 help page says the same - export "supports the IFC 2X3, IFC 4, and IFC 4.3 schemas", certified MVDs are IFC 2x3 and IFC 4, and it does not say whether import supports IFC 4.3 [21].)
 - Formats: .ifc and .ifcXML (ifcXML only with IFC 2x3), compressed (.ifcZIP) or uncompressed. [5]
 - Objects exported: beams, columns, braces, slabs, panels, plates, reinforcing bars, pours, bolts with nuts and washers. [5]
 - Property mapping: IFC property sets are defined in property set configuration files. You can modify existing sets and their binding to IFC entities, add buildingSMART property sets, or create new sets from template attributes and user-defined attributes (UDAs). [5] The product guide has separate topics "Modify property sets for IFC export" and "Create new property sets for IFC export". [5]
@@ -78,13 +82,13 @@ Not verified in this run. Leads (unverified): Bentley exports IFC from MicroStat
 
 ### BricsCAD BIM (Bricsys, Belgium, Hexagon group)
 
-- Wikipedia says only BricsCAD BIM supports IFC, describes it as "certified for Industry Foundation Classes (IFC) 4.3 import and export", and says Bricsys joined buildingSMART International in December 2016. [9] This certification claim comes from Wikipedia, not from the buildingSMART list (unverified).
+- Wikipedia says only BricsCAD BIM supports IFC, describes it as "certified for Industry Foundation Classes (IFC) 4.3 import and export" (citing a Bricsys page titled "BricsCAD BIM and IFC 4.3 Certification"), and says Bricsys joined buildingSMART International in December 2016 (a cited announcement is dated 19 December 2016). [9] The article carries promotional-tone / conflict-of-interest warnings (QA-verified). This certification claim comes from Wikipedia and a vendor page, not from the buildingSMART list (unverified); note that Nordic BIM, in contrast, says no software was certified for IFC 4.3 at the time of its page (see `../01_ifc_basics/08_domains_mep_structural_infra_4d5d_fm.md`, section 1).
 - BIMIFY uses AI to classify generic 3D geometry into IFC-compliant BIM elements. [9] That classification step is where IFC entities are assigned, so wrong classification gives wrong IfcType on export.
 - Settings and commands: IFCEXPORT / IFCIMPORT and the BIM classification panel (unverified; the help page URL guessed returned 404).
 
 ### Renga (Russia; Renga Software, joint venture of ASCON and 1C)
 
-Not verified. Wikipedia page and help site were not reachable. Leads (unverified): Renga Architecture / Renga Structure / MEP; import and export IFC (IFC2x3, IFC4); relevance for Russian state requirements for information models (see below). Native terms: Ренга; информационная модель = information model.
+Partly verified (QA 2026-11-06): the Renga website says "Renga Software is a joint venture of 1C and ASCON" and offers integration with structural analysis and other BIM products "via IFC4" (the page does not state import vs export or other IFC versions) [22]. Leads (unverified): Renga Architecture / Renga Structure / MEP; import and export IFC (IFC2x3, IFC4); relevance for Russian state requirements for information models (see below). Native terms: Ренга; информационная модель = information model.
 
 ### nanoCAD (Nanosoft / Нанософт, Russia)
 
@@ -199,3 +203,7 @@ None of the questions below were found in live forums during this run (search wa
 16. https://docs.bonsaibim.org/ (Bonsai docs home; community links osarch.org)
 17. https://support.tekla.com/doc/tekla-structures/2025/int_ifc_general_info (Tekla IFC general info)
 18. https://support.tekla.com/doc/tekla-structures/2025/int_ifc_interoperability_concepts (Tekla geometry concepts)
+19. https://help.graphisoft.com/AC/29/INT/_AC29_Help/121_IFC/121_IFC-1.htm (Archicad 29 help, IFC overview: IFC2x3, IFC4, IFC4.3 import/export; read by QA 2026-11-06)
+20. https://help.graphisoft.com/AC/27/INT/_AC27_Help/121_IFC/121_IFC-27.htm (Archicad 27 help, Property Mapping for IFC import; menu path File > Interoperability > IFC > IFC Translators; read by QA 2026-11-06)
+21. https://support.tekla.com/doc/tekla-structures/2026/int_ifc_export (Tekla 2026 IFC export; read by QA 2026-11-06)
+22. https://rengabim.com/en/ (Renga website; read by QA 2026-11-06)

@@ -4,7 +4,7 @@
 
 IFC (Industry Foundation Classes, ISO 16739) is an open file format for building models. Around it grows an ecosystem that is not a single vendor product: volunteer communities (OSArch, the IfcOpenShell/Bonsai developers), national buildingSMART chapters, government programs that publish their own export rules (Singapore, Netherlands, Denmark), and many small add-ins that fix or extend what Revit, Archicad, SketchUp or Rhino export. For a QA tester of MCP servers this matters because (a) test requests will mention these names ("export with the OSArch mapping", "check against IFC+SG", "open it in Bonsai"), (b) several community projects are themselves MCP-like tools (`ifcmcp` inside IfcOpenShell, an "IDS MCP Server" in awesome lists) and (c) national templates define what a "correct" IFC export looks like in a given country. This document maps that landscape, labels what was verified on primary pages, and flags what could not be verified.
 
-Last researched: 2026-11-06
+Last researched: 2026-11-06. QA pass 2026-11-06: the OSArch chat page, the OSArch Revit setup wiki page, the revit-ifc releases page, the CORENET X IFC+SG Excel mapping page, the IfcOpenShell/Autodesk/Awesome-AECO repository metadata (GitHub API) were re-read and agree with this text; small additions noted inline (see `_meta/qa/qa-standards-2.md`).
 
 **Research limits (read first):** the web-search budget of this run was exhausted before any search could run, so everything below comes from direct page fetches of known primary URLs. buildingsmart.org and technical.buildingsmart.org returned HTTP 403 to the fetcher, so chapter lists and "rooms" pages could not be read. Items from general knowledge are marked "(unverified)". See "Gaps".
 
@@ -75,7 +75,7 @@ The OSArch wiki page "Revit setup for OpenBIM" is the best community-made recipe
 
 | Tool | Host app | What it does | Verified? |
 |---|---|---|---|
-| **revit-ifc** (Autodesk, open source, LGPLv2) | Revit / Revit LT 2019+ | IFC export, link IFC, export UI; overrides the version shipped with Revit. Supports "current annual version and two previous"; issue templates (Problem Report, Enhancement, Inquiry). Recent tags: IFC_v27.4.0.30 and v27.3.0.12 (Revit 2027), IFC_v25.4.40 added IFC4.3 Reference View exchange requirements [23][24] | Yes |
+| **revit-ifc** (Autodesk, open source, LGPLv2) | Revit / Revit LT 2019+ | IFC export, link IFC, export UI; overrides the version shipped with Revit. Supports "current annual version and two previous"; issue templates (Problem Report, Enhancement, Inquiry). Recent tags (re-read in QA; the releases page shows day and month only): IFC_v27.4.0.30 (Revit 2027, 30 Oct, marked Latest), v27.3.0.12 (13 Aug), v27.0.1.1 (22 Apr), v27.0.1 (9 Apr, first for Revit 2027); IFC_v25.4.40 (14 Jan) added IFC4.3 Reference View exchange requirements, and the same change is noted for the 24.3.40 and 26.4.1 lines [23][24] | Yes |
 | **OSArch mapping/psets files** | Revit | Class mapping, shared parameter files, Pset template (see section 1) [6] | Yes |
 | **bSDD Revit plugin** | Revit | Classification via bSDD [19] | Yes |
 | **pyRevit** | Revit | Rapid application development environment (Python/IronPython/CPython, C#); GPL-3.0; extensions can be installed/shared. No IFC-specific tool on the repo front page [25] | Yes (IFC extensions: none found) |
@@ -97,7 +97,7 @@ The OSArch wiki page "Revit setup for OpenBIM" is the best community-made recipe
 
 ### Singapore: IFC+SG (CORENET X)
 - Definition: "IFC+SG defines how BIM models are structured for CORENET X submission"; base standard labelled IFC4 [28]. It combines IFC with Singapore-specific property sets (SGPsets) [29].
-- **IFC+SG Excel Mapping File**: for each building element lists the IFC entity, mandatory SGPsets, standard Psets, properties and controlled values. Download on the page: `industry-mapping-09-2026.xlsx`, "Version: 22 September 2026", start with the "CX Pilot Mapping" tab. Used with the CORENET X Code of Practice and the Glossary of Identified Components [29]. (The page also shows "Last Updated 16 May 2024", which is inconsistent.)
+- **IFC+SG Excel Mapping File**: for each building element lists the IFC entity, mandatory SGPsets, standard Psets, properties and controlled values. Download on the page: `industry-mapping-09-2026.xlsx`, "Version: 22 September 2026", start with the "CX Pilot Mapping" tab. Used with the CORENET X Code of Practice and the Glossary of Identified Components [29]. (The page also shows "Last Updated 16 May 2024", which is inconsistent; the page additionally shows an unlabelled "14 Oct 2026" date, re-read in QA.)
 - Official ecosystem page lists 11 tools: BIMvision, BIMcollab Zoom and BCF Manager, 1IFC (IFC merge), DiRootsOne, Bimeco Validator, BuiltSearch, Revizto, Dynamo scripts, GingerBIM, Revit "Interoperability Tools (Model Checker)" [26].
 
 ### Netherlands: BIM basis ILS

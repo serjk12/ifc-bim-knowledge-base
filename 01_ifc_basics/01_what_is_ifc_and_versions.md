@@ -1,6 +1,6 @@
 # What IFC is: history, versions, ISO, buildingSMART, software support
 
-Last researched: 2026-11-06
+Last researched: 2026-11-06 (fact-checked 2026-11-06, see `_meta/qa/qa-basics-1.md`)
 
 ## In plain words
 
@@ -21,8 +21,8 @@ IFC (Industry Foundation Classes) is an open, vendor-neutral file format and dat
 ## 2. buildingSMART International and chapters
 
 - **buildingSMART International (bSI)** is the non-profit that develops and maintains openBIM standards: IFC, MVD/IDM, bSDD, BCF, IDS, plus the software certification programme. [2][22]
-- **Name history**: 1994 Autodesk invited about twelve US companies into a consortium to advise on C++ classes for integrated applications; 1995 membership opened as the "Industry Alliance for Interoperability"; later renamed "International Alliance for Interoperability" (IAI) (sources give 1996 or 1997, so treat the exact year as unverified); 2005 renamed buildingSMART because the old name was judged too long and complex. [1][2][3]
-- **Chapters**: bSI works through national or regional chapters (roughly 30 countries and regions per Wikipedia, which is a secondary source), for example UK & Ireland, German-speaking region, Nordic, Netherlands/Benelux, France, Italy, Spain, Japan, Korea, Singapore, Australasia, North America. Status levels exist ("Chapter-in-formation", "Developing Chapter", "Full Chapter"). [2][40] The exact current roster changes; use the official chapter directory (https://www.buildingsmart.org/chapter-directory/). Chapters publish local guidance (national IFC mandates, templates), which is often what a user actually asks about.
+- **Name history**: 1994 Autodesk invited about twelve US companies into a consortium to advise on C++ classes for integrated applications; September 1995 membership opened as the "Industry Alliance for Interoperability"; renamed "International Alliance for Interoperability" (IAI) in May 1996 (QA: Wikipedia gives May 1996; an earlier draft said "1996 or 1997"); 2005 renamed buildingSMART because the old name was judged too long and complex. [1][2][3]
+- **Chapters**: bSI works through national or regional chapters (about 38 distinct chapters in the Wikipedia list at QA time; earlier draft said "roughly 30"; Wikipedia is a secondary source), for example UK & Ireland, German-speaking region, Nordic, Netherlands/Benelux, France, Italy, Spain, Japan, Korea, Singapore, Australasia, North America. Status levels exist ("Chapter-in-formation", "Developing Chapter", "Full Chapter"). [2][40] The exact current roster changes; use the official chapter directory (https://www.buildingsmart.org/chapter-directory/). Chapters publish local guidance (national IFC mandates, templates), which is often what a user actually asks about.
 - The 2024 bSI publication "Global IFC Mandates" lists countries/clients that require IFC (it includes Singapore, Denmark, Japan, Poland, among others per search snippets; the PDF itself could not be fetched, so details are unverified). [34] A Nordic report states that IFC2x3 is the most used version and that BIM requirements usually come from clients (often public bodies), not from national law. [35]
 
 ## 3. History and version table
@@ -37,10 +37,10 @@ Dates differ between sources (publication date of a candidate, official release,
 4. **IFC2x3 (Feb 2006)**: the first widely implemented version; submitted to ISO and published as **ISO/PAS 16739:2005** (Publicly Available Specification). **IFC2x3 TC1** (Technical Corrigendum 1; version 2.3.0.1, listed as published 2007-07) fixed problems and is the form people mean by "IFC2x3". [1][3][4]
 5. **IFC4 (March 2013)**, formerly called IFC2x4, became **ISO 16739:2013**. [1][3]
 6. **IFC4 Add1 (2015)** and **Add2 (2016)**: addenda fixing pilot-implementation issues; Add1 was the baseline for the first Reference View / Design Transfer View, Add2 improved geometry definitions for certification. **IFC4 Add2 TC1 (version 4.0.2.1, listed Oct 2017)** is what became **ISO 16739-1:2018**. [3][4][9]
-7. **IFC4.1** (infrastructure alignment work, first extension) and **IFC4.2** (April 2019, per Wikipedia): research/intermediate releases, now listed as **withdrawn** by buildingSMART. [1][4] (The date given for IFC4.1 is garbled in the source: unverified.)
-8. **IFC4.3**: development through release candidates (e.g. RC4, which some tools still reference), **approved by ISO in January 2024**, officially published **April 2024 as IFC 4.3.2.0 (= IFC4.3 ADD2) = ISO 16739-1:2024**. [4][6][7][10] There is no separate "final" base IFC4.3 listed as official; people say "IFC4.3" but the schema identifier is `IFC4X3_ADD2`. [1][23]
+7. **IFC4.1** (infrastructure alignment work, first extension) and **IFC4.2** (April 2019, per Wikipedia - checked in QA): research/intermediate releases, now listed as **withdrawn** by buildingSMART. [1][4] (The date given for IFC4.1 is garbled in Wikipedia ("2018-86"): unverified. The IFC release notes put alignment, linear placement and `IfcSectionedSolidHorizontal` in IFC4.1, and `IfcBridge` / `IfcFacilityPart` in IFC4.2.)
+8. **IFC4.3**: development through release candidates (e.g. RC4, which some tools still reference), **approved by ISO in January 2024** (buildingSMART announcement 4 Jan 2024; its New Year message says 3 Jan), officially published **April 2024 (announcement 2 Apr 2024) as IFC 4.3.2.0 (= IFC4.3 ADD2) = ISO 16739-1:2024**; the specification database row reads "4.3.2.0 / IFC 4.3 ADD2 / ISO 16739-1:2024 / 2024-04 / Official" (seen in search results, QA-checked). [4][6][7][10] There is no separate "final" base IFC4.3 listed as official; people say "IFC4.3" but the schema identifier is `IFC4X3_ADD2`. [1][23]
 9. **IFC4.4**: described in the buildingSMART database as in development, an extension of 4.3 (unverified in detail). [4]
-10. **IFC5**: "next generation IFC", in development. The public repository `buildingSMART/IFC5-development` contains **alpha examples only** (JSON-based "IFCX", schema in TypeSpec, a viewer hosted at ifc5.technical.buildingsmart.org) and warns that features are incomplete, schemas will change, and the examples are for education and testing, not production. [11] Community material says its composition model is influenced by OpenUSD and ECS-style data (secondary/unverified). IFC5 is not usable as a delivery format today.
+10. **IFC5**: "next generation IFC", in development. The public repository `buildingSMART/IFC5-development` contains **alpha examples only** (JSON-based; the README says the JSON schema and extensions will be published on ifcx.dev - the term "IFCX" is not used in the README itself; schema source in TypeSpec; a viewer hosted at ifc5.technical.buildingsmart.org) and warns that the examples are preliminary, work in progress, "for educational and testing purposes only" and not suitable for production without refinement; it also asks not to create derivatives of the examples. [11] Community material says its composition model is influenced by OpenUSD and ECS-style data (secondary/unverified). IFC5 is not usable as a delivery format today.
 
 ### 3.2 Version table
 
@@ -59,9 +59,9 @@ Dates differ between sources (publication date of a candidate, official release,
 | IFC4.2 | 2019 (April) | withdrawn [4] | `IFC4X2` (unverified) | Intermediate |
 | **IFC4.3 ADD2 (4.3.2.0)** | 2024 (April publication; ISO approval Jan 2024) | **ISO 16739-1:2024** | `IFC4X3_ADD2` | Infrastructure: facilities, alignment, roads, rail, bridges, ports, waterways; Alignment-based View [4][6][8][29] |
 | IFC4.4 | in development | not published | n/a | Extension of 4.3 (unverified) [4] |
-| IFC5 | alpha | none | n/a | JSON-based IFCX alpha; not for production [11] |
+| IFC5 | alpha | none | n/a | JSON-based alpha examples (schema to be published on ifcx.dev per the repo README); not for production [11] |
 
-National adoptions exist: for example Russia has **ГОСТ Р 10.0.02-2019/ИСО 16739-1:2018** (national version of the 2018 edition, in force since 2019-09-01; I found no sign of a GOST R for the 2024 edition); the European adoption is listed as EN ISO 16739-1:2020 (seen only as a catalogue title: unverified). [36]
+National adoptions exist: for example Russia has **ГОСТ Р 10.0.02-2019/ИСО 16739-1:2018** (national version of the 2018 edition, reported as in force since 2019-09-01; the catalogue page timed out in QA, so the date is unverified; I found no sign of a GOST R for the 2024 edition); the European adoption **EN ISO 16739-1:2020** (title "Part 1: Data schema (ISO 16739-1:2018)", published 2 Mar 2020 in the Estonian EVS catalogue) is listed there as **withdrawn from 15 Apr 2024** and replaced by **EN ISO 16739-1:2024** (valid from 15 Apr 2024) (QA-verified in the EVS catalogue). [36]
 
 ## 4. What changed in IFC4.3 (infrastructure)
 
@@ -70,7 +70,7 @@ National adoptions exist: for example Russia has **ГОСТ Р 10.0.02-2019/ИС
 - **`IfcAlignment`** reworked (horizontal, vertical, cant, segments), linear placement along an alignment, track/rail elements (`IfcRail`, `IfcTrackElement`), `IfcSectionedSurface`, `IfcOpenCrossProfileDef`, mooring and navigation devices. [29][30]
 - The class hierarchy was reviewed because it was "very building-focused". [29] (From general spec knowledge, not verified in these sources: `IfcBuildingElement` was renamed `IfcBuiltElement` in 4.3.)
 - For **building-only** projects 4.3 is mostly a backward-compatible superset of IFC4 and brings little extra. [28]
-- Official MVDs for 4.3: **Reference View** and **Alignment-based View (AbV)**, both official; a Design Transfer View for 4.3 is not official. [19] AbV is described as a selection of concept templates for alignment-based exchange. [29]
+- Official MVDs for 4.3: a buildingSMART forum answer of 6 Nov 2024 says "there are two official ones for 4.3" without naming them; they are usually given as **Reference View** and **Alignment-based View (AbV)** (names from the 4.3 documentation as summarised earlier; not re-read in QA). A Design Transfer View for 4.3 "never materialised into an official MVD" (same forum answer). [19] AbV is described as a selection of concept templates for alignment-based exchange. [29]
 
 ## 5. Differences that matter to users
 
@@ -96,15 +96,15 @@ National adoptions exist: for example Russia has **ГОСТ Р 10.0.02-2019/ИС
 
 ## 6. Software support and certification
 
-**Certification**: bSI runs a software certification programme (compliance). It is per tool, per version, per MVD and per direction (import/export); the certified list is on buildingSMART's site (b-cert). [22] A Nordic BIM guide stated that at the time of writing **no software was certified for IFC4.3** (undated, may be outdated), and my search found no confirmation of an IFC4.3 or Alignment-based View certified product; the bSI "software implementations" list contains vendor self-declared claims that bSI does not verify. [10][22] Examples of IFC4 certification: Archicad received IFC4 Reference View export certification (v23, 2019) and import certification appears as delivered on Graphisoft's roadmap (2024 entry); BricsCAD announced IFC4 Architectural Reference Exchange export certification on 28 Jan 2025. [21][45][46] Tekla's export carries buildingSMART certification for IFC2x3 and IFC4 model views; IFC4.3 is not in the certified list there. [17]
+**Certification**: bSI runs a software certification programme (compliance). It is per tool, per version, per MVD and per direction (import/export); the certified list is on buildingSMART's site (b-cert). [22] A Nordic BIM guide (page dated 11 May 2026) states that **no software is currently certified for IFC4.3** and that certification is expected to start "soon" (status after May 2026 unverified: the buildingSMART certified-software page returned 403), and my search found no confirmation of an IFC4.3 or Alignment-based View certified product; the bSI "software implementations" list contains vendor self-declared claims that bSI does not verify. [10][22] Examples of IFC4 certification: Archicad received IFC4 Reference View export certification (v23, 2019) and import certification appears as delivered on Graphisoft's roadmap (2024 entry); BricsCAD announced "IFC4 Architectural Reference Exchange Export Certification" on 28 Jan 2025 (export only; QA-verified on the Bricsys news page). [21][45][46] Tekla's 2026 export help explicitly calls only the IFC2x3 **Coordination view 2.0** "certified" ("should be your default export type"); it does not state certification for its IFC4 or IFC4.3 views (an earlier draft claimed certification for IFC2x3 and IFC4 views, which the page does not say). [17]
 
 | Product | IFC versions (per vendor docs, as found) | Notes |
 |---|---|---|
-| **Revit** (with Autodesk open-source IFC add-in, `Autodesk/revit-ifc`, LGPLv2) | Export setups: IFC 2x3 Coordination View 2.0, IFC 2x3 CV, IFC 2x2 CV, IFC 2x3 GSA Concept Design BIM 2010, IFC4 Reference View, IFC4 Design Transfer View. IFC4.3 is **not** a built-in setup in Revit 2026 help, but release notes 25.3.40 / 25.4.40 / 26.4.1 say "Added IFC4.3 Reference View exchange requirements" [12][13][14] | Menu: File > Export > IFC (Modify Setup for options); import via File > Open > IFC or Insert > Link IFC. Maintained for current + two previous Revit versions [12]. MEP incomplete. No official statement of full IFC4.3 export found (unverified) |
-| **Archicad** (Graphisoft) | IFC2x3, IFC4, IFC4.3 import and export (Archicad 29 help) [15] | File > Interoperability > IFC; translators set in "IFC Translation Setup". Import by Open / Merge / Hotlink. A user thread reports 4.3 depth is limited (schema-specific entities/properties not fully handled) - single user opinion [16] |
-| **Tekla Structures 2026** | Export IFC2x3, IFC4, IFC4.3 (IFC4X3_ADD2) with Reference View, Design Transfer View and Bridge view; IFC import of 4.3 supported; rebar assemblies need IFC4 not 2x3 [17] | File > Export > IFC |
+| **Revit** (with Autodesk open-source IFC add-in, `Autodesk/revit-ifc`, LGPLv2) | Export setups: IFC 2x3 Coordination View 2.0, IFC 2x3 CV, IFC 2x2 CV, IFC 2x3 GSA Concept Design BIM 2010, IFC4 Reference View, IFC4 Design Transfer View. IFC4.3 is **not** in the version list of the Revit 2026 exporter help (26.4.1), but the exporter release notes for **24.3.40 / 25.4.40 / 26.4.1** (QA-corrected: an earlier draft said "25.3.40") each say "Added IFC4.3 Reference View exchange requirements", and releases 25.4.3 / 27.3.0.12 / 27.4.0.30 mention IFC4x3 export fixes (groups as IfcSystem types, IfcSlab entity type, pipe-fitting alignment, wall geometry) [12][13][14]. The 26.4.1 help also lists built-in setups "IFC 2x3 Basic FM Handover View", "IFC 2x3 COBie 2.4 Design Deliverable" and three IFC 4 Reference View setups (Architecture, Structural, BuildingService) [14] | Menu: File > Export > IFC (Modify Setup for options) - not confirmed on the fetched Autodesk help pages (unverified); import via File > Open > IFC or Insert > Link IFC. Open-source exporter is maintained for the current + two previous Revit versions (README, QA-verified) [12]. MEP incomplete. No official statement of full IFC4.3 export found (unverified) |
+| **Archicad** (Graphisoft) | IFC2x3, IFC4, IFC4.3 import and export (Archicad 29 help) [15] | File > Interoperability > IFC (menu path not shown on the fetched help page: unverified); translators set in "IFC Translation Setup". Import by Open / Merge / Hotlink. A user thread reports 4.3 depth is limited (schema-specific entities/properties not fully handled) - single user opinion [16] |
+| **Tekla Structures 2026** | Export IFC2x3, IFC4, IFC4.3 (IFC4X3_ADD2). Export types per the 2026 help: IFC2x3 - Coordination view 1.0 / 2.0, Surface geometry, Steel fabrication view; IFC4 and IFC4.3 - Reference view, Design transfer view; IFC4 only - Precast view; IFC4.3 only - Bridge view. IFC import of 4.3 supported; rebar assemblies need IFC4 not 2x3 [17] | File > Export > IFC (QA-verified) |
 | **Bentley** OpenRoads / OpenRail Designer | Export to IFC; corridor options (alignment, semantics) available with IFC4x3 (older docs refer to Release Candidate 4) [24][25] | OpenBuildings: a community answer said no IFC4.3 export option at the time (undated); newer status unverified |
-| **Autodesk Inventor 2026** | IFC 4x3 in Export Building Components and Simplify to Revit [26] | |
+| **Autodesk Inventor 2026** | IFC 4x3 "has been included for both the Export Building Components workflow and Simplify to Revit" (QA-verified on the Inventor 2026 What's New page) [26] | |
 | **IfcOpenShell / Bonsai** (open source) | Parsing of IFC2X3 TC1, IFC4 Add2 TC1, IFC4x1, 4x2, 4x3 Add2; geometry support mainly IFC2X3 and IFC4 per README (may be outdated) [23] | Python API used by many tools and test harnesses; `IFC4X3` maps to `IFC4X3_ADD2` |
 | **BricsCAD BIM** | IFC4 certified export (2025) [21] | |
 
@@ -165,7 +165,7 @@ Illustrative (invented examples of what testers or users might ask):
 
 ## Common pitfalls and misconceptions
 
-- **"IFC4.3 is the newest, so always use it."** False for most building projects: tool support and certification lag, and 4.3 adds little for buildings. Roads, rail, bridges need it. [10][28]
+- **"IFC4.3 is the newest, so always use it."** False for most building projects: tool support and certification lag (Nordic BIM, 11 May 2026: no certified software), and 4.3 adds little for buildings. Roads, rail, bridges need it. [10][28]
 - **"IFC4 = IFC4.3."** Different editions: ISO 16739-1:2018 (IFC4 Add2 TC1) vs ISO 16739-1:2024 (IFC4.3.2.0). Entity names can differ (e.g. IfcBuiltElement, unverified).
 - **"IFC2x3 is dead / not ISO."** IFC2x3 was published as ISO/PAS 16739:2005; it remains the commonly delivered version and the 2013/2018 editions are the ISO standards for IFC4. [3][4]
 - **"Design Transfer View is an official, certified view."** It is not (draft/unofficial); only Reference View is certified. [18][20]
@@ -174,14 +174,15 @@ Illustrative (invented examples of what testers or users might ask):
 - **IFC export is not lossless round trip**: Revit help warns re-exported linked IFC may lose data. [14]
 - **"IFC means certified."** "Exports IFC" is not "certified IFC4 RV export". Check the version, view, direction (import/export) and the product release.
 - **Statements of "support" by vendors vs actual quality**: opening an IFC4.3 file does not guarantee correct data or geometry. [10]
-- **IFC5 hype**: alpha JSON examples only; the repo itself prohibits derivatives and production use. [11]
+- **IFC5 hype**: alpha JSON examples only; the repo README says they are for educational/testing purposes, not production, and asks not to create derivatives. [11]
 - **Unrelated "IFC"**: International Finance Corporation (World Bank) pollutes search results; add "Industry Foundation Classes".
 
 ## Gaps
 
 - buildingSMART.org, technical.buildingsmart.org, standards.buildingsmart.org and iso.org blocked direct fetching (HTTP 403); facts from them come from search-result summaries and are cross-checked against secondary pages. In particular the release dates for IFC2x3 TC1 (2007-07), IFC4 Add2 TC1 (2017-10) and IFC4.3 (2024-04) come from the bSI database as summarised by search, not read directly.
 - Exact IFC4.1 date, schema ids `IFC4X1`/`IFC4X2`, `IFC2X2`: unverified.
-- Current official list of IFC4.3-certified software: not found; check b-cert / buildingSMART certified software list.
+- Current official list of IFC4.3-certified software: not found; check b-cert / buildingSMART certified software list (page returned 403 in QA on 2026-11-06).
+- QA 2026-11-06: not re-verified (pages 403, timeout or search quota exhausted): ISO/TC 59/SC 13 assignment, IFC2x3 TC1 date (2007-07), IFC4.4 status, ГОСТ Р 10.0.02-2019 entry-into-force date, IfcOpenShell geometry-support statement (PyPI page failed to load), Bentley OpenRoads/OpenBuildings IFC4x3 statements, IFC4.1 date.
 - Revit's native IFC4.3 export status: only the open-source exporter release notes were found.
 - Global IFC Mandates PDF (2024) and national requirements: not read. 
 - No suspicious or pirated sites were encountered or linked. Several mirror/aggregator pages (wiki mirrors, LLM-generated encyclopedias, converter-vendor marketing pages) were seen and deliberately not used as sources.

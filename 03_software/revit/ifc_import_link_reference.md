@@ -7,6 +7,8 @@ Revit can bring an IFC file into a project in two quite different ways. **Open I
 Last researched: 2026-11-06
 
 > Research note and limits (read this first). The web-search tool was exhausted in this run, and Autodesk Help (help.autodesk.com), buildingSMART and ISO pages were not fetchable (403 / page not found). Facts below therefore come mainly from the **official Autodesk `revit-ifc` GitHub repository** (README, releases, issues and maintainer comments, read through the GitHub API) and Wikipedia. Everything else is background knowledge and is marked **(unverified)**. Menu names and version numbers can differ between Revit releases; check against the Revit build you test.
+>
+> **QA pass 2026-11-06.** Release dates and years were re-read from the GitHub releases API: 27.3.0.12 = 2026-08-13, 25.4.3 = 2025-08-11, 24.3.40 = 2026-01-14 (all as already written here, confirmed). The Autodesk help topic for the Revit 2026 IFC section did not contain Link/Open IFC details (it only says Revit "provides fully certified IFC import and export based on buildingSMART IFC data exchange standards"), so the UI paths in section 2 stay "(unverified)". The GitHub issue statuses quoted below (#15, #223, #321, #522, #566, #710, #928, #951, #970, #990, #1019 ...) are as read in the first pass; a re-check through the GitHub API was blocked by rate limiting (HTTP 403), so "open"/"closed" may have changed since. Version fact added: from add-on 26.4.1 (Revit 2026), back-ported to 25.4.40 and 24.3.40, the *exporter* writes IFC4.3 (schema `IFC4X3_ADD2`) - this does not change how Revit's *importer* handles that header (see issue #928 in section 6).
 
 ---
 

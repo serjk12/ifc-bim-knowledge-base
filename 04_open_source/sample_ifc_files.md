@@ -4,7 +4,7 @@
 
 IFC (Industry Foundation Classes, ISO 16739-1) is the neutral file format for building and infrastructure models. To test an MCP server that opens, queries or edits IFC (or that drives Revit and exports IFC), you need real files. Good ones are free and public. They differ in IFC version (2x3, 4, 4.3), discipline (architecture, structure, MEP, infrastructure), size, and how "clean" they are. This note is a map of the public sources, with link, licence, version and "what it is good for". It also lists purpose-built broken files and ways to make your own edge-case files. Links only: nothing here was downloaded, and nobody should download from this document blindly. Check each licence first.
 
-Last researched: 2026-11-06
+Last researched: 2026-11-06. QA pass 2026-11-06: the Certification-datasets, Community-Sample-Test-Files, IfcOpenShell/files and KIT IFC Examples pages were re-fetched and the folder structure, naming conventions, version labels and "NOT official" statements agree with this text; one licence caveat added (see `_meta/qa/qa-standards-2.md`).
 
 Research limits: the web-search tool ran out of budget early in this session. Everything below comes from direct page reads of GitHub repos, the IFC wiki and Wikipedia. No forum or blog search was possible, so the "questions" section is illustrative, not harvested (see Gaps).
 
@@ -34,7 +34,7 @@ Research limits: the web-search tool ran out of budget early in this session. Ev
 - Link: https://github.com/buildingSMART/Certification-datasets [1]
 - The repo people remember as `buildingSMART/Sample-Test-Files` now opens as **Certification-datasets**. The README says previous user-curated content "has been moved" to the community organisation (see section 3) [1]. Old links and old tutorials may point to paths that no longer exist.
 - Purpose (README): "simple models and files used for educational, implementation and certification purposes" [1].
-- Licence: `LICENSE` file says the work is under Creative Commons Attribution 4.0 International; copyright buildingSMART International Ltd [1].
+- Licence: `LICENSE` file says the work is under Creative Commons Attribution 4.0 International; copyright buildingSMART International Ltd [1]. QA caveat: on re-reading the repository page only the copyright line of the LICENSE file was visible, and the GitHub API reports the licence as "NOASSERTION" (not auto-detected), so check the LICENSE file itself before redistributing.
 - Structure: one folder per schema version, named with the official identifier [1]:
   - `IFC 2.3.0.1 (IFC 2x3 TC1)`
   - `IFC 4.0.2.1 (IFC 4 ADD2 TC1)` : contains `Simple-Scene`, and `ISO Spec - ReferenceView_V1.2` [1]
@@ -90,7 +90,7 @@ Caution: the KIT road is **IFC4x3_RC2** (a release candidate), not the final IFC
 
 - Repo: https://github.com/IfcOpenShell/files [12]. Main IfcOpenShell repo: https://github.com/IfcOpenShell/IfcOpenShell (its `test/input` folder is a link to this `files` repo at a pinned commit) [21].
 - README: "a collection of IFC files that are useful for testing" IfcOpenShell. Mostly regression/crash files named after bugs [12].
-- Licence: not stated on the README page I read, and the library is LGPL (Bonsai GPL) [22]. Treat the sample files as licence-unknown (unverified). Do not redistribute inside your own deliverables without checking.
+- Licence: not stated on the README page (re-confirmed in QA: no licence statement on the page, and the GitHub API reports no licence for the repository), and the library is LGPL (Bonsai GPL) [22]. Treat the sample files as licence-unknown (unverified). Do not redistribute inside your own deliverables without checking.
 - Naming conventions (very useful when you pick a test) [12]:
   - number prefix = GitHub issue number (`487.ifc`)
   - `--augmented` = quantities added with `IfcConvert --calculate-quantities`

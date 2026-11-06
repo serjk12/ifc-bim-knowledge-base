@@ -1,3 +1,5 @@
+<a id="russian"></a>
+
 # IFC / BIM Knowledge Base — как люди на самом деле работают с IFC и Revit
 
 **Русский** | [English](#english)
@@ -96,7 +98,7 @@
 
 # IFC / BIM Knowledge Base — how people really work with IFC and Revit
 
-[Русский](#ifc--bim-knowledge-base--как-люди-на-самом-деле-работают-с-ifc-и-revit) | **English**
+[Русский](#russian) | **English**
 
 > **Status.** Research wave 1 is finished and written up. **Wave 2** (more languages and countries) is still being added: new files will appear under `research_raw/wave2/`, and the summary documents and exports will be refreshed.
 > New to BIM? Open [00_START_HERE_EN.md](00_START_HERE_EN.md) first. Need a map of every file: [INDEX.md](INDEX.md).

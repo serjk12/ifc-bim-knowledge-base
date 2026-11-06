@@ -19,19 +19,21 @@ For an MCP tester: when an AI tool "opens an IFC", "checks it against requiremen
 
 Evidence quality: primary sources (GitHub specs, docs, release notes) are marked [n]. Blogs and forums are labelled as community. Many buildingSMART web pages (buildingsmart.org, technical.buildingsmart.org, standards.buildingsmart.org, iso.org) returned HTTP 403 to the fetch tool, so some facts come from search-engine snippets of those pages (marked "snippet") or from background knowledge (marked "(unverified)").
 
+QA pass 2026-11-06 (see [../_meta/qa/qa-standards-1.md](../_meta/qa/qa-standards-1.md)): ISO/IFC version mapping, IDS 1.0 release data, Validation Service release table, BCF/OpenCDE/bSDD API facts, ISO 29481 editions and certification statements were re-checked against primary or near-primary pages. Items that were corrected are noted inline; items that could still not be confirmed stay marked "(unverified)".
+
 ## Map of the family
 
 | Standard | Question it answers | Format | Status (as researched) |
 |---|---|---|---|
 | IFC (ISO 16739-1) | What is in the model? | STEP `.ifc` (also `.ifcXML`, `.ifcZIP`, IFC5: JSON-like IFCX) | IFC2x3 TC1, IFC4 ADD2 TC1, IFC4.3 ADD2 are the usable releases; IFC5 in development |
 | MVD / mvdXML | Which part of IFC is used for this exchange? | mvdXML (XML) | mvdXML 1.1 (2016) [40]; IFC4 RV and DTV; IFC4.3 RV and Alignment-based View [31][32] |
-| IDM (ISO 29481) | What information is exchanged, by whom, when? | Process maps; Part 3 is an XML/data schema | Part 1: 2016 edition; Part 2: 2025 edition; Part 3: 2022 [33][34][35] |
+| IDM (ISO 29481) | What information is exchanged, by whom, when? | Process maps; Part 3 is a data schema | Part 1: ISO 29481-1:2025 (3rd edition, Nov 2025; the 2016 edition is the previous one); Part 2: ISO 29481-2:2025 (2nd edition, Dec 2025); Part 3: ISO 29481-3:2022 (Sep 2022) [33][34][35][42] |
 | IDS | Does this IFC contain what I asked for? | `.ids` (XML, XSD) | v1.0, final standard, June 2024 [5][17] |
 | bSDD | What are the agreed names, classes, properties, units? | Online service, REST/GraphQL API | Live service; API v1 documented [27][28] |
-| BCF | Which problem, where, who is responsible? | BCF-XML (zip `.bcf`), BCF-API (REST) | BCF-XML 2.1 and 3.0; BCF-API 3.0 [21][22][23] |
+| BCF | Which problem, where, who is responsible? | BCF-XML (zip `.bcf`), BCF-API (REST) | BCF-XML 2.1 and 3.0 (older 1.0/2.0 used `.bcfzip`); BCF-API 3.0 is current, with 1.0 and 2.1 as earlier API versions [21][22][23] |
 | OpenCDE | How does software talk to a CDE? | REST/JSON, OAuth 2 | Foundation API 1.1, Documents API 1.0, BCF API 3.0 [23][25][26] |
 | Validation Service | Is this IFC valid? | Web app + API | v1.0.5 (30 Sep 2026), out of beta since 20 Mar 2026 [3] |
-| Software certification | Does this program read/write IFC correctly? | Test routines (b-Cert) | Active for IFC2x3 CV 2.0 and IFC4 RV/DTV [36] |
+| Software certification | Does this program read/write IFC correctly? | Test routines (b-Cert) | Two active services (IFC2x3 CV 2.0; IFC4 RV/DTV); programme under redevelopment since 2022 [36] |
 
 ### How they connect (typical flow)
 
@@ -44,7 +46,7 @@ Evidence quality: primary sources (GitHub specs, docs, release notes) are marked
 ## IFC (brief; the base of everything)
 
 - Official schema releases commonly used: IFC2x3 (TC1), IFC4 (ADD2 TC1) and IFC4.3 (ADD2). Validation Service accepts exactly `IFC2X3`, `IFC4`, `IFC4X3_ADD2` in the schema identifier [1].
-- ISO numbers: ISO 16739-1:2018 for IFC4 ADD2 TC1 and ISO 16739-1:2024 for IFC4.3 (unverified, from background knowledge; check iso.org).
+- ISO numbers (verified against the buildingSMART IFC Specifications Database via search snippet [1b]): IFC 4.0.2.1 = "IFC4 ADD2 TC1" = ISO 16739-1:2018 (database date 2017-10, status Official); IFC 4.3.2.0 = "IFC4.3 ADD2" = ISO 16739-1:2024 (database date 2024-04, status Official, the latest official version). IFC 4.0.2.0 is marked Retired, so 4.0.2.1 is the current IFC4 release. IFC 4.4 is in development and IFC5 is a separate refactoring effort. IFC2x3 TC1 (2.3.0.1) is also listed as Official (ISO/PAS 16739:2005).
 - IFC4.3 adds infrastructure (alignment, roads, rail, bridges). `IfcAlignment` is valid only in IFC4X3_ADD2 [1].
 - Files: STEP Physical File, ISO 10303-21, extension `.ifc`. The Validation Service accepts only unzipped `.ifc` up to 256 MB [1].
 
@@ -53,7 +55,7 @@ Evidence quality: primary sources (GitHub specs, docs, release notes) are marked
 ### What and status
 
 - IDS defines information requirements in a form humans can read and software can check. It supports the "exchange information requirements" idea of ISO 19650 (snippet [17]).
-- **IDS 1.0 became a buildingSMART Final Standard in June 2024** (announcement dated 4 June 2024; the standards page gives 1 June 2024 as the approval date; snippet [17]). Wikipedia also says v1.0 was published June 2024 [20].
+- **IDS 1.0 became a buildingSMART Final Standard in June 2024** (the standards page gives 1 June 2024 as the approval date and the announcement is dated 4 June 2024, snippet [17]; the GitHub release `v1.0.0` was published on 3 June [5b]). The release notes state that the Standards Committee Executive approved it after a unanimous positive vote of the Standards Committee, that more than 200 people from 34 countries took part in a three-stage effort, that more than 20 products implemented it at release, and that talks about a CEN and/or ISO publication had started [5b]. As of this QA pass no IDS 1.1 release was found; buildingSMART still describes feedback collection for IDS 1.1 and 2.0 (search snippet). Wikipedia also says v1.0 was published June 2024 [20].
 - Source of truth: GitHub `buildingSMART/IDS`, schema file `Schema/ids.xsd`, user manual `Documentation/UserManual`, implementers docs `Documentation/ImplementersDocumentation`, test cases `TestCases` [5][6].
 - IDS does not describe geometry in detail (from a pre-final announcement, snippet [17]; treat as unverified for current text).
 - Supported IFC schemas: IFC2X3, IFC4, IFC4X3_ADD2 [7].
@@ -135,7 +137,7 @@ Out of scope: project-, national- or organisation-specific requirements. bSI poi
 
 ### Outcomes and rules
 
-- Outcome statuses: pass, error, warning; plus *not applicable* and *disabled* (hidden by default; a checkbox shows them) [1]. Pass results are hidden by default.
+- Outcome statuses: pass, error, warning; plus *not applicable* and *disabled* [1]. Pass, disabled and not-applicable results are hidden by default (a checkbox shows them); the status icons are only shown as an image in the user guide, so their exact legend could not be quoted [1].
 - *Activation rules* never return an error; used to collect metrics (e.g. DOC000, TAS000 tessellated geometry activation) [3 snippet].
 - Rules are Gherkin `.feature` files in the `ifc-gherkin-rules` repository, each tagged exactly one of `@implementer-agreement`, `@informal-proposition`, `@industry-practice`. Rule code = three letters (functional part) + three digits, e.g. `ALB002` (alignment layout), `ALB003` (allowed entities nested in alignment), `SPS001` (spatial structure), `GEM...` (geometry), `IFC430`/`IFC431` (entities excluded from IFC4.3 Reference View and Alignment-based View MVDs) [2][3].
 - bSDD compliance check: temporarily disabled since v0.6.6 [1].
@@ -146,14 +148,14 @@ Out of scope: project-, national- or organisation-specific requirements. bSI poi
 
 | Version | Date | Notable |
 |---|---|---|
-| 1.0.0 | 2026-03-20 | Exit from beta, DOC000 activation rule, allowlisting, digital signature toggle |
+| 1.0.0 | 2026-03-20 | Exit from beta, DOC000 activation rule, 6 rule fixes, allowlisting, Redis queue, file retention policy, new logo |
 | 1.0.1 | 2026-04-29 | IFC106 replaces IFC105, BOM8 syntax error |
 | 1.0.2 | 2026-06-30 | IFC430, IFC431 (IFC4.3 MVD exclusions) |
 | 1.0.3 | 2026-08-06 | TAS000, preview environment for next major release |
 | 1.0.4 | 2026-09-01 | RFT000/RFT001 (IfcReferent), invalid MVD headers shown in UI |
 | 1.0.5 | 2026-09-30 | Fixes to ALS005, ALS006, ALB023 |
 
-The user guide page I fetched described version 0.8.4 [1], i.e. the documentation can lag behind the service.
+The user guide page I fetched described version 0.8.4 [1], i.e. the documentation can lag behind the service. The release table above was re-read in the QA pass (forum thread, pages 1 and 2 [3]) and matches. Earlier milestones that testers may see in older material: v0.6 (22 Apr 2024) moved the platform to Django/Celery/Redis/PostgreSQL and added the "Not-Applicable" status; v0.7.8 (28 Jul 2025) introduced API rate limiting, v0.7.9 (25 Aug 2025) an API file size limit, v0.8.1 (16 Oct 2025) API pagination; v0.8.2 (10 Nov 2025) renamed "Digital Signature" to "Digital Application Authentication" [3].
 
 ### Validation vs IDS (do not confuse)
 
@@ -161,33 +163,33 @@ Validation Service = "is this valid IFC, regardless of project?" IDS = "does thi
 
 ## MVD and mvdXML
 
-- **MVD** = a defined subset of the IFC schema for a use case. **mvdXML** is the machine-readable format for MVD rules; latest mvdXML is 1.1 (February 2016) [40].
+- **MVD** = a defined subset of the IFC schema for a use case. **mvdXML** is the machine-readable format for MVD rules; the latest official mvdXML is 1.1 (published February 2016, per the 2017 MVD whitepaper [40]). Versions 1.2 and 1.3 exist only as community work: buildingSMART's technical page says they did not follow the buildingSMART process and were not voted on by the Standards Committee (search snippet [40b]).
 - **IFC2x3 Coordination View 2.0 (CV2.0)**: the most widely implemented view; architecture, structure and MEP coordination; Archicad is certified for import and export [30].
 - **IFC4** splits CV into **Reference View (RV)** (one-way, reference-model workflows) and **Design Transfer View (DTV)** (limited editable exchange; "not meant for round-trip") [30].
-- **IFC4.3**: two official MVDs per the IFC 4.3.2 documentation: **Reference View** and **Alignment-based View (AbV)** (infrastructure superset of RV). The Design Transfer View was intended but never published as an official MVD for 4.3 [31]. An AbV 1.0 for IFC 4.3.2.0 went to a Standards Committee vote closing 18 Sept 2025; the outcome was not confirmed in my sources (snippet [32]). The IFC4.3 MVD documentation was marked "under development" in 2024-era forum discussion [31]. The `IFC4.3.mvdxml` file is a generated artifact in the output repository [31].
-- Practical: Revit and Archicad offer IFC export settings named after these views (Archicad "Model View Definitions" help [30]). Revit export option names ("IFC2x3 Coordination View 2.0", "IFC4 Reference View", "IFC4 Design Transfer View") come from the open-source Revit IFC exporter (unverified here; the Autodesk help page could not be fetched).
+- **IFC4.3**: a forum answer from a buildingSMART contributor (6 Nov 2024) says "there are two official ones for 4.3" and points to the IFC 4.3.2 documentation without naming them; the two are **Reference View** and **Alignment-based View (AbV)** (infrastructure superset of RV) according to the documentation as summarised in my earlier pass and the AbV project plan. The same thread says the Design Transfer View "never materialised into an official MVD" for 4.3 and was an intended, not yet defined, MVD [31]. An AbV 1.0 for IFC 4.3.2.0 went to a Standards Committee vote closing 18 Sept 2025; the domain-news page lists the consultation as closed and one snippet says a minority opposed it, but the outcome report was not found, so approval is not confirmed (snippet [32]). The IFC4.3 MVD documentation was marked "under development" in 2024-era forum discussion [31]. The `IFC4.3.mvdxml` file is a generated artifact in the output repository [31].
+- Practical: Revit and Archicad offer IFC export settings named after these views (Archicad "Model View Definitions" help [30]). The Autodesk IFC exporter help (2023 edition) lists the Revit setup names "IFC 2x3 Coordination View 2.0", "IFC 4 Reference View" and "IFC 4 Design Transfer View" (plus older/other built-in setups such as "IFC 2x3 Coordination View", "IFC 2x3 GSA Concept Design BIM 2010", "IFC 2x3 Basic FM Handover View", "IFC 2x3 COBie 2.4 Design Deliverable") and an "IFC Modify Setup" button [43]. Note the spaces in the real UI strings ("IFC 4 Reference View", not "IFC4 Reference View"); that help page does not state the File > Export menu path or whether IFC 4.3 is offered (unverified for Revit 2026/2027).
 
 ## IDM (ISO 29481)
 
 - **IDM** documents business processes and the information exchanged: who, when, what information, in which format.
-- ISO 29481-1 (methodology and format): 2016 edition published 1 May 2016; a later edition may exist (sources disagree; check iso.org) [35].
-- ISO 29481-2 (interaction framework): 2012 edition withdrawn; edition 2 of 2025 (one ISO page still labelled it a Final Draft) [33].
-- ISO 29481-3:2022 (data schema): machine-readable storage/exchange of IDM specifications [34].
+- ISO 29481-1 (methodology and format): **ISO 29481-1:2025, third edition, November 2025** (ISO/TC 59/SC 13; 32 pages; reseller listings give 23 or 24 Nov 2025 as the date) [42]. The previous edition is ISO 29481-1:2016 (published 1 May 2016) [35]. (Earlier wording of this file, "2016 edition, a later edition may exist", was outdated.)
+- ISO 29481-2 (interaction framework): **ISO 29481-2:2025, second edition, December 2025** [33]. The first edition dates from 2012 (first-edition date from background knowledge, unverified); a Slovak national listing shows the EN ISO version superseding EN ISO 29481-2:2016 [33].
+- ISO 29481-3:2022 "Information delivery manual - Part 3: Data schema" (published 6 Sep 2022, status Published): machine-readable storage/exchange of IDM specifications [34][44].
 - Relation: IDM (process) leads to MVD (technical subset of IFC) and IDS (checkable requirements) (summary of [30][31][20]; conceptual).
 
 ## BCF (BIM Collaboration Format)
 
 ### BCF-XML (file) [21][22]
 
-- Versions: **2.1** and **3.0** (3.0 documented on the `release_3_0` branch; 3.0 is based on 2.1). Extension `.bcf` (since 2.1; earlier `.bcfzip`) [22].
-- A BCF file is a zip: root files `bcf.version`, `extensions.xml` (required in 3.0), optional `project.bcfp`, `documents.xml`; one folder per topic named by lowercase GUID containing `markup.bcf`, `.bcfv` viewpoints, snapshots (PNG/JPEG, longest side up to 1500 px), optional bitmaps; attachments in `Documents/` [22].
-- Topic required fields: `Guid`, `TopicType`, `TopicStatus`, `Title`, `CreationDate`, `CreationAuthor`. Optional: `Priority`, `Labels`, `DueDate`, `AssignedTo`, `Description`, `Stage`, `ServerAssignedId`, `ReferenceLink` [22].
-- Viewpoints are immutable; contain camera (perspective or orthogonal), component selection/visibility/colouring, clipping planes, lines. Components identified by `IfcGuid` (preferred) or `AuthoringToolId`, plus `OriginatingSystem` [22].
+- Versions: **2.1** and **3.0** (3.0 documented on the `release_3_0` branch; the BCF-API repository states that BCF 3.0 is based on 2.1 [23]). Extension `.bcf` ("introduced since BCFv2.1"); versions 1.0 and 2.0 used `.bcfzip` [22].
+- A BCF file is a zip: root files `bcf.version`, `extensions.xml` (both required in 3.0), optional `project.bcfp`, `documents.xml`; one folder per topic named by lowercase GUID containing `markup.bcf`, `.bcfv` viewpoints, snapshots (PNG/JPEG; the spec text says the longest dimension "should not exceed" 1500 px, a recommendation rather than a hard limit), optional bitmaps; attachments in `Documents/` [22].
+- Topic required fields: attributes `Guid`, `TopicType`, `TopicStatus`; elements `Title`, `CreationDate`, `CreationAuthor`. Optional: `Priority`, `Labels`, `DueDate`, `AssignedTo`, `Description`, `Stage`, `ServerAssignedId`, `ReferenceLink` [22].
+- Viewpoints are immutable ("should never be changed once created"; add a new viewpoint instead); contain camera (perspective or orthogonal), component selection/visibility/colouring, clipping planes, lines. Components are identified by `IfcGuid` ("must be provided, if possible"), with `AuthoringToolId` as the fallback; at least one of the two is needed, plus `OriginatingSystem` [22].
 - 2.0 to 2.1 schema changes: project name added, due date added, comment status fields removed, etc. [24]. A direct 2.1 to 3.0 changelog was not found in the sources fetched (gap).
 
 ### BCF-API [23]
 
-- RESTful, version 3.0; all implementations must implement the OpenCDE Foundation API; TLS required.
+- RESTful, version 3.0 (the repository also keeps the older 1.0 and 2.1 API specifications); all implementations must implement the OpenCDE Foundation API ("implement the Foundation API first, then the BCF API"); TLS required.
 - Resources: `/bcf/{version}/projects/...` with projects, topics, comments, viewpoints (snapshots, bitmaps, selection/colouring/visibility), documents, event feeds; project extensions define allowed statuses, labels, users.
 - Swagger/OpenAPI file is the reference and may be updated at any time [23].
 
@@ -201,24 +203,24 @@ IfcOpenShell's BCF library supports BCF-XML 2.1 and 3.0 and BCF-API 3.0 (snippet
 - Terminology: *Dictionary* (formerly domain) contains *Classes* (formerly classifications) and *Properties*; class-to-property links use a *ClassProperty* object. Without custom URI, items get `https://identifier.buildingsmart.org/...` URIs (snippet [29]).
 - API base `https://api.bsdd.buildingsmart.org`; test environment `https://test.bsdd.buildingsmart.org` (no SLA, developers only) [28].
 - Public methods need no login; secured methods use Azure AD B2C / OAuth2 with a client id obtained from buildingSMART [28].
-- Documented endpoints: Dictionary, SearchList (search classes in a dictionary), Class (details plus properties). Contract on SwaggerHub `buildingSMART/Dictionaries/v1`. GraphQL at `/graphqls` (secured) [27][28].
-- Clients must send a `User-Agent`/`X-User-Agent` as `application/version`. Breaking changes yield a new API version; the old one is supported for six months. The `identifier.buildingsmart.org` JSON output is deprecated for system-to-system calls [28].
+- Documented endpoints: Dictionary (lists dictionaries such as IFC or ETIM), SearchList (search classes in a dictionary), Class (details plus properties); `api/Class/vX` and `api/Property/vX` are the replacement for requesting JSON from identifier URLs. Contract on SwaggerHub `buildingSMART/Dictionaries/v1`; the repository README mentions only v1, no v2. GraphQL: `https://api.bsdd.buildingsmart.org/graphqls` (secured); on the test server `.../graphql` (unsecured) and `.../graphqls` (secured); GraphQL requests must be POST, so the URLs do nothing in a browser [27][28].
+- Clients must send a `User-Agent`/`X-User-Agent` as `application/version` (doc example: `Autodesk.Revit/2024`). Breaking changes yield a new API version; both versions are supported for 6 months after the change. The `identifier.buildingsmart.org` JSON output is "now DEPRECATED" for system-to-system calls [28].
 - The bSDD repository does not host the data or the service code, only docs and templates [27].
 - In IDS the `uri` parameter can point to bSDD, but is not checked [9][11].
 
 ## OpenCDE APIs [25][26][23]
 
-- **Foundation API 1.1** (released together with Documents API 1.0): `GET /foundation/versions` (public), `GET /foundation/{version}/auth` (OAuth 2.0 details: authorization code, implicit, password grants; dynamic client registration), `GET /foundation/{version}/current-user`.
+- **Foundation API 1.1** (the repository's `release_1_1` branch; "released together with Documents API 1.0"; the BCF-API page still links Foundation API v1.0): `GET /foundation/versions` (public), `GET /foundation/{version}/auth` (OAuth 2.0 details: authorization code, implicit, password grants; dynamic client registration), `GET /foundation/{version}/current-user`.
 - **Documents API 1.0**: user selects documents in the CDE web UI; client gets download links (`/select-documents`, `/upload-documents`, `/document-versions`); polling no more often than every 5 minutes. Automatic CDE-to-CDE sync not yet supported.
 - **BCF API 3.0**: issues. BCF can reference files through `open-cde-documents` URLs.
 - Governance: the Open CDE workgroup meets fortnightly [21][23].
 
 ## Software certification
 
-- Two active tracks: **IFC2x3 Coordination View 2.0** and **IFC4** (Reference View and Design Transfer View, export and import certified separately; round-trip is not covered) (snippet [36]).
-- Process: vendors run automated test routines defined by bSI and receive a certificate only after passing all tests; certified vendors may display the logo (snippet [36]).
-- Examples: Bricsys got IFC4 Architectural Reference Exchange export certification (announced 28 Jan 2025); Vectorworks IFC4 RV 1.2 import certification (2023); Graphisoft IFC4 RV import certification listed as delivered in March 2025 (snippets [36]).
-- Criticism (community forum): a user described the process as a black box and expensive; another noted listings lacked reports; "snapshot in time or renewed?" is a recurring question [36].
+- Two active tracks: **IFC2x3 Coordination View 2.0** and **IFC4** (Reference View and Design Transfer View, export and import certified separately; round-trip is not covered) (snippet [36]). The programme has been "under redevelopment" since 2022, with multiple options for certification and validation of IFC data and software planned (snippet [36]); no confirmed IFC4.3 certification track was found in this pass (one third-party page says no software was certified for IFC4.3; secondary, may be outdated).
+- Process: vendors run automated test routines defined by bSI and receive a certificate only after passing all tests; certified vendors may display the logo (snippet [36]). A buildingSMART representative wrote in the forum thread (first post 9 Jul 2023) that the old b-Cert certified a vendor using a tool, not a specific version, with certificates valid for five years, that the tests are not public, and that the system is being replaced by one based on Validation Service metrics [36]. (An earlier forum snippet said a certificate is issued for a specific product and version; treat that as unreliable.)
+- Examples: Bricsys announced on 28 Jan 2025 an "IFC4 Architectural Reference Exchange Export Certification" given by buildingSMART International (page does not name a BricsCAD version) [36]; Vectorworks IFC4 RV 1.2 import certification (2023) and Graphisoft IFC4 RV import certification listed as delivered in March 2025 (snippets [36], not re-verified).
+- Criticism (community forum): a user described the process as a black box and expensive; others criticised missing IFC4 reports and unlisted toolkits, and some say they avoid requiring certified software in EIRs, asking for IFC2x3 or IFC4 exports instead [36].
 - Certification is not the same as the Validation Service, and IDS support lists are not certification [18].
 - bSI also has "use case certification" and a redeveloped certification programme; I could not fetch those pages (gap).
 
@@ -230,7 +232,7 @@ IfcOpenShell's BCF library supports BCF-XML 2.1 and 3.0 and BCF-API 3.0 (snippet
 
 ## IFC5 / IFCX
 
-- Repository `buildingSMART/IFC5-development` holds "IFC 5 alpha Examples" that are preliminary, "not suitable for production use"; the schema is written in TypeSpec in `/schema`; JSON schemas to be published at ifcx.dev [37].
+- Repository `buildingSMART/IFC5-development` holds "IFC 5 alpha Examples" that are preliminary and incomplete ("not suitable for production use without further refinement"); the schema is defined in TypeSpec in `/schema`; JSON schemas "will be published on ifcx.dev" (future tense in the README; the README itself does not use the word "IFCX") [37].
 - bSI announced that the "IFCX Core & Modularisation" final project plan passed a further approval stage and moves to funding and delivery, seeking sponsors (dated 26 Aug 2026 per search snippet; unverified, page returned 403) [37].
 - Community reaction (forum, OSArch): some expect 5-10 years before real use; concern about proprietary extensions (community opinion) [37].
 - Third-party summary claims OpenUSD-influenced composition and JSON-first serialisation (unverified).
@@ -242,9 +244,9 @@ IfcOpenShell's BCF library supports BCF-XML 2.1 and 3.0 and BCF-API 3.0 (snippet
 2. Which IFC version should I export from Revit for coordination: IFC2x3 CV2.0 or IFC4 Reference View? (illustrative)
 3. Is IFC4 Design Transfer View still worth using? (illustrative; see [30][31])
 4. Is there an official IFC4.3 Design Transfer View? (real topic: [31], answer: no, never published)
-5. Is certification a snapshot in time or renewed? (real thread: https://forums.buildingsmart.org/t/is-certification-a-snapshot-in-time-or-is-it-renewed/4862)
+5. Is certification a snapshot in time or renewed? (real thread, first post 9 Jul 2023, title "Is certification a 'snapshot in time' or is it renewed?": https://forums.buildingsmart.org/t/is-certification-a-snapshot-in-time-or-is-it-renewed/4862)
 6. What does "IFC4 certified" actually verify? (real discussion, see forum thread above)
-7. Why does the Validation Service say my IfcGuid is not a 128-bit number / GlobalId invalid? (real thread: https://forums.buildingsmart.org/t/fatal-error-ifcguid-is-not-a-128-bit-number/3137)
+7. Why does a checker say "IfcGuid is not a 128-bit number" / my GlobalId is invalid? (real thread, 19 Nov 2020, title "Fatal error - IfcGuid is not a 128-bit number": discusses that the 22-character IfcGloballyUniqueId encoding has only 2 meaningful bits in its first character, so some strings are not valid UUID encodings; the thread predates the current Validation Service releases: https://forums.buildingsmart.org/t/fatal-error-ifcguid-is-not-a-128-bit-number/3137)
 8. How do I write an IDS requiring `Pset_WallCommon.FireRating` on all walls? (illustrative; answer in property facet [9])
 9. How do I make an IDS check all elements (there is no "IfcElement" wildcard)? (illustrative; answer: list subtypes, [13])
 10. Can IDS check geometry (wall thickness, clearance)? (illustrative; mostly no, only properties/quantities)
@@ -279,7 +281,7 @@ IfcOpenShell's BCF library supports BCF-XML 2.1 and 3.0 and BCF-API 3.0 (snippet
 
 ## Gaps and notes
 
-- Web search budget ran out before I could verify: current bSI "rooms" list, Revit/Autodesk IFC export documentation, certification fees and expiry, BCF 2.1 vs 3.0 official change list, bSDD API v2 (not mentioned in sources), mvdXML 1.1 current repository URL.
+- Web search budget ran out before I could verify: current bSI "rooms" list, Revit/Autodesk IFC export documentation for Revit 2026/2027 (menu path, whether IFC 4.3 is offered), certification fees, BCF 2.1 vs 3.0 official change list, mvdXML 1.1 current repository URL. QA pass 2026-11-06 partly resolved these: certification validity (five years per a bSI forum reply), bSDD API (only v1 documented), Revit setup names (2023 help). Still open: outcome of the AbV 1.0 vote, the date of ISO 29481-2's first edition, exact IDS approval-vote details beyond the GitHub release text.
 - Hosts that returned HTTP 403 to fetch: buildingsmart.org, technical.buildingsmart.org, standards.buildingsmart.org, iso.org, mdpi.com. Facts from these come from search snippets.
 - No suspicious or pirated sites encountered; none linked.
 - Mirrors of IfcOpenShell on third-party hosts appeared in search; I did not use them as sources.
@@ -287,10 +289,12 @@ IfcOpenShell's BCF library supports BCF-XML 2.1 and 3.0 and BCF-API 3.0 (snippet
 ## Sources
 
 - [1] Validation Service user guide: https://buildingsmart.github.io/validate/user/index.html
+- [1b] buildingSMART IFC Specifications Database (version table, via search snippet; page itself returns 403): https://technical.buildingsmart.org/standards/ifc/ifc-schema-specifications/ ; IFC overview: https://www.buildingsmart.org/standards/bsi-standards/industry-foundation-classes/
 - [2] Validation rule details: https://buildingsmart.github.io/validate/dev/rule_details.html
 - [3] Validation Service release notes (forum): https://forums.buildingsmart.org/t/validation-service-updates/4992?page=2 and https://forums.buildingsmart.org/t/validation-service-updates/4992
 - [4] bSI Validation Service page (snippet): https://technical.buildingsmart.org/services/validation-service/
 - [5] IDS repository: https://github.com/buildingSMART/IDS
+- [5b] IDS release v1.0.0 (3 Jun 2024): https://github.com/buildingSMART/IDS/releases/tag/v1.0.0
 - [6] IDS user manual: https://github.com/buildingSMART/IDS/blob/development/Documentation/UserManual/README.md
 - [7] IDS specifications: https://raw.githubusercontent.com/buildingSMART/IDS/development/Documentation/UserManual/specifications.md
 - [8] partOf facet: https://raw.githubusercontent.com/buildingSMART/IDS/development/Documentation/UserManual/partof-facet.md
@@ -326,4 +330,8 @@ IfcOpenShell's BCF library supports BCF-XML 2.1 and 3.0 and BCF-API 3.0 (snippet
 - [38] Chapters (snippets): https://www.buildingsmart.org/chapter-directory/ ; https://www.buildingsmart.org/?p=32217
 - [39] Xbim IDS validator (snippet): https://www.github.com/xBimTeam/Xbim.IDS.Validator
 - [40] MVD whitepaper and policy: https://standards.buildingsmart.org/documents/bS_LDWG_MVD_Whitepaper_final_2017.pdf ; https://www.buildingsmart.org/wp-content/uploads/2021/05/20210425_MVD-policy_IFC4.x.pdf
+- [40b] mvdXML technical page (snippet): https://technical.buildingsmart.org/standards/ifc/mvd/mvdxml/
 - [41] BCF in IfcOpenShell (snippet): https://docs.ifcopenshell.org/bcf.html
+- [42] ISO 29481-1:2025 (edition 3, Nov 2025; catalogue snippet): https://www.iso.org/standard/88515.html ; Canadian listing: https://scc-ccn.ca/standardsdb/standards/8190063
+- [43] Autodesk IFC exporter help (2023): https://up.autodesk.com/2023/RVT/ADSKIFCExporterHelp.htm
+- [44] ISO 29481-3:2022 "Part 3: Data schema" (catalogue mirror, published 6 Sep 2022): https://genorma.com/en/standards/iso-29481-3-2022

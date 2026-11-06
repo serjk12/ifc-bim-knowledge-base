@@ -7,6 +7,8 @@ Revit is Autodesk's BIM authoring program; its native `.rvt` file is proprietary
 Last researched: 2026-11-06
 
 > Research limits for this document: the web-search quota was exhausted after the first calls, so most facts come from fetching the official GitHub repository pages and source files directly (read as text only, nothing downloaded). Autodesk help pages and buildingSMART pages could not be read (JavaScript-only pages or HTTP 403). Anything from memory or general practice is marked "(unverified)". See "Gaps".
+>
+> **QA pass 2026-11-06:** the release table was re-read from the GitHub API and four wrong years were fixed (section 2); the Autodesk IFC Exporter help 25.2 (`up1.autodesk.com/2025/RVT/ADSKIFCExporterHelp_25_2.htm`) and the Revit 2025/2027 help topics on user-defined property sets were readable this time and confirmed the Property Sets option labels, the four Coordinate Base choices (Shared Coordinates is the default), and the user-defined property set file rules (section 7). The "File > Export > IFC" menu path is still not confirmed on an Autodesk page (the help topic fetched only says "Export a Model to IFC").
 
 ---
 
@@ -35,20 +37,24 @@ Facts from the repository README and release pages [1][2][18]:
 
 ### Release numbering and recent releases
 
-Tag format: `IFC_v<RevitYear-2000>.<minor>.<patch>[.<build>]`, e.g. `IFC_v27.4.0.30` = Revit 2027. The releases page shows dates without the year [2]; the issue tracker context (2026 issue dates) implies the 27.x releases are 2026 (unverified).
+Tag format: `IFC_v<RevitYear-2000>.<minor>.<patch>[.<build>]`, e.g. `IFC_v27.4.0.30` = Revit 2027. The GitHub releases web page shows dates without the year [2]. **QA 2026-11-06: the years below were read from the GitHub API (`published_at`), and the first-pass table had wrong years for four rows** (v26.4.1, v26.4.0, v25.4.40, v24.3.40). Corrected table:
 
-| Tag | Date shown | Revit | Notes [2][3][4][5] |
+| Tag | Published (UTC date) | Revit | Notes [2][3][4][5] |
 |---|---|---|---|
-| IFC_v27.4.0.30 | 30 Oct | 2027 | Extended properties go to their own property set named after the containing element (not "Other"); fixes: mapped parameters missing from user-defined sets, wall shift with "Show Parts", wall geometry for IFC2x3 and IFC4x3, IFC parameters dialog when editing family type parameters [3] |
-| IFC_v27.3.0.12 | 13 Aug | 2027 | Bug fixes only: export to network location, room geometry, assemblies, ramps exported as IfcSlab, MEP duplicates, footing/slab/stair base quantities, ObjectType for IfcProject (IFC4/IFC4x3), predefined type when changing "Export to IFC As", user-defined property sets on project (#971) [4] |
-| IFC_v27.0.1.1 | 22 Apr | 2027 | Shared parameters can be added to user-defined property sets; room geometry shift fix (#924) [2] |
-| IFC_v27.0.1 | 9 Apr | 2027 | First IFC extension for Revit 2027 [5] |
-| IFC.v26.4.1 | 18 Dec | 2026 | Adds IFC4.3 Reference View exchange requirements [2] |
-| IFC_v26.4.0 | 30 Oct | 2026 | Assembly placement, rebar material, space elevation (#907) fixes [2] |
-| IFC_v25.4.40 | 14 Jan | 2025 | Adds IFC4.3 Reference View exchange requirements [2] |
-| IFC_v24.3.40 | 14 Jan | 2024 | Adds IFC4.3 Reference View exchange requirements; fixes in Regulatory Requirement View and Link IFC placement [2] |
+| IFC_v27.4.0.30 | 2026-10-30 | 2027 | Extended properties go to their own property set named after the containing element (not "Other"); fixes: mapped parameters missing from user-defined sets, wall shift with "Show Parts", wall geometry for IFC2x3 and IFC4x3, IFC parameters dialog when editing family type parameters [3] |
+| IFC_v27.3.0.12 | 2026-08-13 | 2027 | Bug fixes only: export to network location, room geometry, assemblies, ramps exported as IfcSlab, MEP duplicates, footing/slab/stair base quantities, ObjectType for IfcProject (IFC4/IFC4x3), predefined type when changing "Export to IFC As", user-defined property sets on project (#971), colours in IFC4 Reference View not matching the model [4] |
+| IFC_v27.0.1.1 | 2026-04-22 | 2027 | Shared parameters can be added to user-defined property sets; room geometry shift fix (#924) [2] |
+| IFC_v27.0.1 | 2026-04-09 | 2027 | First IFC extension for Revit 2027 [5] |
+| IFC_v25.4.40 | 2026-01-14 | 2025 | "Added IFC4.3 Reference View exchange requirements" (back-port) [2] |
+| IFC_v24.3.40 | 2026-01-14 | 2024 | "Added IFC4.3 Reference View exchange requirements" (back-port); fixes in Regulatory Requirement View and Link IFC placement. The notes text of this release says "IFC Exporter 25.3.40 for Revit 2024", which does not match its tag (typo in the release text) [2] |
+| IFC.v26.4.1 | 2025-12-18 | 2026 | **First release with** "Added IFC4.3 Reference View exchange requirements" [2] |
+| IFC_v26.4.0 | 2025-10-30 | 2026 | Assembly placement, rebar material, space elevation (#907) fixes [2] |
+| IFC_v25.4.4 | 2025-10-30 | 2025 | Major release 25.4.4 for Revit 2025 (no IFC4.3 note) [2] |
+| IFC_v25.4.3 | 2025-08-11 | 2025 | Includes "Removed deprecated attributes LandTitleID / SiteAddress in IFC4.3"; Open IFC items listed in the import reference [2] |
+| IFC_v26.1.0 | 2025-04-24 | 2026 | (no IFC4.3 note) [2] |
+| IFC_v24.3.20 | 2025-01-16 | 2024 | (no IFC4.3 note) [2] |
 
-Practical reading: IFC4.3 export in Revit exists as "IFC4.3 Reference View" and "IFC4.3 Design Transfer View [Unofficial]" [14]; the 2024/2025/2026 updates are what added it to older Revit years [2]. The file header produced for it names schema `IFC4X3_ADD2` [24].
+Practical reading: IFC4.3 export in Revit exists as "IFC4.3 Reference View" and "IFC4.3 Design Transfer View [Unofficial]" [14]. QA-corrected chronology: the 4.3 Reference View exchange requirements first appeared in add-on **26.4.1 (18 Dec 2025, Revit 2026)** and were back-ported to **25.4.40 (Revit 2025) and 24.3.40 (Revit 2024) on 14 Jan 2026** (the first pass wrongly dated the back-ports to 2025 and 2024). The file header produced for it names schema `IFC4X3_ADD2` [24].
 
 ## 3. IFC versions / MVDs available in the setup
 
@@ -73,7 +79,7 @@ Built-in setups created in code (15 entries, by internal id): IFC2x3CV2, IFC2x3,
 
 "IFC4 Reference View" is a buildingSMART MVD (Model View Definition) that limits what is exported, while the "Design Transfer View" is not a certified view, hence "[Unofficial]" [14]. Whether a given Revit build is buildingSMART-certified for a view must be checked on buildingSMART's certification pages (not readable in this research) (unverified).
 
-Related schema facts (unverified here, buildingSMART pages returned 403): IFC2x3 TC1 and IFC4 (ADD2 TC1) are ISO 16739:2013 and ISO 16739-1:2018; IFC4.3 ADD2 is the latest, published as a newer edition of ISO 16739-1. Check exact numbers at buildingsmart.org before quoting.
+Related schema facts (ISO and buildingSMART pages returned 403, so the numbers are from memory, (unverified)): IFC2x3 TC1 corresponds to the ISO/PAS 16739:2005 line, IFC4 to ISO 16739:2013, IFC4 ADD2 TC1 to ISO 16739-1:2018 and IFC4.3 ADD2 (4.3.2.0) to ISO 16739-1:2024 (the 2024 designation is confirmed by Wikipedia and the buildingSMART repository README). QA note: the first-pass sentence "IFC2x3 TC1 and IFC4 (ADD2 TC1) are ISO 16739:2013 and ISO 16739-1:2018" mixed the editions up; IFC2x3 is not ISO 16739:2013. Check exact numbers at iso.org before quoting.
 
 ### File types
 
@@ -213,15 +219,17 @@ Four ways to control properties:
 3. User-defined property set file (legacy text file) selected under "Export user defined property sets".
 4. Newer "Property Mapping" and "Parameter Mapping" tabs in the setup (UI in `IFCPropertyMapping` with property filter and Revit property selector), with templates saved as `.txt` ("IFC Property Mapping Files / Setups") [14][19]. Config field `PropertyMapping` stores the template name; a flag `isNewParameterMappingEnabled` switches the new mode on and the legacy flags (Revit psets, common psets, base quantities, material psets, schedules, user-defined psets) are ignored in that mode [9]. Hence the new UI is a replacement for the old checkboxes, not an addition.
 
-Legacy user-defined property set file syntax (from the Revit IFC Manual and the shipped sample "DefaultUserDefinedParameterSets.txt"; content from memory, (unverified), verify against a real file):
+Legacy user-defined property set file syntax. QA 2026-11-06: re-checked against the header of the shipped sample "DefaultUserDefinedParameterSets.txt" in the repository and the Autodesk Revit 2025 help page for the user-defined property set text file:
 ```
 # comment line
 PropertySet:   <PsetName>   I|T   <IfcEntity>[, <IfcEntity> ...]
    <PropertyName>   <DataType>   [<RevitParameterName>]
 ```
-- `I` = instance-level pset, `T` = type-level pset.
-- Tabs separate fields; if the Revit parameter name is omitted, it equals the property name.
-- Data types include Text, Label, Identifier, Boolean, Logical, Integer, Real, Length, Area, Volume, PlaneAngle (list unverified).
+- `I` = instance-level pset, `T` = type-level pset. Per the Autodesk help, starting with Revit 2024.1 the flag is no longer required (you can write `I`) [verified].
+- Tabs separate fields (verified: Autodesk help says the header and property lines are tab-separated); if the Revit parameter name is omitted, it equals the property name.
+- The help example reads `#PropertySet:<tab>ColumnPSet<tab>I<tab>IfcColumn, IfcColumnType`, followed by property lines such as `CommentsProp ... Text ... Comments`. In the shipped sample file the example lines are commented out with `#` (the sample's own COBie example, a `COBie_Specification` set on `IfcElementType` with properties such as NominalLength, Shape, Material, Finish mapped to `COBie.Type.*` parameters, is shown as comments), so a real definition needs the leading `#` removed - this is the template's comment convention, check it on your copy.
+- Since exporter version 24.1.0, type properties are exported only if the file names a type entity (e.g. `IfcElementType`) [verified on the template header].
+- Data types: the template header lists them alphabetically starting "Acceleration, AngularVelocity, Area, AreaDensity, Boolean ..." and including Length, Mass, Text, Volume; the help page itself shows only `Text` and says the supported types are listed in the sample template. The shorter list in the first pass (Text, Label, Identifier, Boolean, Logical, Integer, Real, Length, Area, Volume, PlaneAngle) is therefore incomplete; check the template for the exact spellings (full list not reproduced here, (unverified)).
 - File default name: `<setup name>.txt` in the add-in directory (e.g. "IFC+SG Property Sets.txt", "IFC2x3 COBie 2.4 Design Deliverable.txt") [9].
 - 27.0.1.1 added support for shared parameters in user-defined sets; 27.3.0.12 and 27.4.0.30 fixed several mapping bugs [2][3][4].
 - Duplicate property names within one set: the later wins; empty string does not overwrite [code reading of PropertySetDescription.cs].
@@ -230,8 +238,8 @@ Mapped-parameter precedence: if a Revit built-in parameter and a shared paramete
 
 ## 8. Newest versions (2025-2027) and the new property-mapping UI
 
-- Revit 2025 line: add-on 25.4.40 (Jan) added IFC4.3 RV; users still report 25.4.40 in 2026 bug reports [2][21].
-- Revit 2026 line: 26.4.0 / 26.4.1; known open problems: IFC4x3 RV header says `CoordinationView` (#1013, Autodesk reproduced in 2026.4, not in 2027, logged internally, workaround: manual header edit which does not guarantee conformance) [24]; joined-geometry walls with masses regression (#1014) [25].
+- Revit 2025 line: add-on 25.4.40 (14 Jan **2026**) added IFC4.3 RV; users still report 25.4.40 in 2026 bug reports [2][21].
+- Revit 2026 line: 26.4.0 (30 Oct 2025) / 26.4.1 (18 Dec 2025, first with IFC4.3 RV); known open problems: IFC4x3 RV header says `CoordinationView` (#1013, Autodesk reproduced in 2026.4, not in 2027, logged internally, workaround: manual header edit which does not guarantee conformance) [24]; joined-geometry walls with masses regression (#1014) [25].
 - Revit 2027 line: 27.0.1 (first), 27.0.1.1, 27.3.0.12, 27.4.0.30 [2]. Newest verified release at research date: 27.4.0.30 (30 Oct) [3]. README uses Revit 2027 as the build example [18].
 - Property/category/parameter mapping is now UI-driven with templates (Category Mapping / Parameter Mapping / Property Mapping tabs) [14].
 - A write-access pre-check was added in the 26.1/27 add-ons and blocks export to some network shares (#981) [23].

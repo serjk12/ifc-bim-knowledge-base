@@ -1,6 +1,6 @@
 # Mainland China: BIM/IFC standards and BIM-based review
 
-**Last researched: 2026-11-06 (fact-checked in QA pass 2026-11-06; see `_meta/qa/qa-standards-2.md`)**
+**Last researched: 2026-11-06 (fact-checked in two QA passes on 2026-11-06; see `_meta/qa/qa-standards-2.md` and [../../_meta/qa/qa-standards-1.md](../../_meta/qa/qa-standards-1.md))**
 
 > **RESEARCH STATUS WARNING (read first).** This document was produced under a severely limited research session: the web-search budget was exhausted before any search ran, and most primary Chinese sources (MOHURD, the national standards platform, Baidu Baike, ISO, buildingSMART chapter pages) were unreachable (HTTP 403/404, DNS or TLS errors). Only two sources were actually read (listed in Sources). Everything else is background knowledge and is marked **(unverified)**. Treat every standard number, date and document number marked unverified as a lead to confirm, not a fact. No URLs were invented; where an official link is unknown it is omitted. A QA pass later the same day re-checked the standard numbers, effective dates, several MOHURD document numbers and the Shenzhen data standard against search results and standards-database pages; items it confirmed now carry a source number [3]-[16], the rest stay **(unverified)**.
 
@@ -20,7 +20,10 @@ The only item directly confirmed in this session is the first row's name and its
 | GB/T 51301-2018 | 建筑信息模型设计交付标准 | Standard for BIM Delivery in Design | Defines model element granularity/LOD-like levels and delivery content; issued 2018-12-26, effective 2019-06-01 [6]. |
 | GB/T 51447-2021 | 建筑信息模型存储标准 | BIM Storage Standard | Defines BIM data storage logical architecture, aligned with IFC; announced by MOHURD as announcement No. 160 of 2021 (2021-09-08), effective 2022-02-01 [7]. |
 | JGJ/T 448-2018 | 建筑工程设计信息模型制图标准 | Standard for graphic expression of building information modeling (database title) | Industry standard (JGJ = construction industry); issued 2018-12-06, effective **2019-06-01** [8] (an earlier draft of this document said 2019-03-01, which was wrong). |
-| GB/T 25507-2010 | 工业基础类平台规范 | IFC platform specification | Listed as an identical adoption (IDT) of **ISO/PAS 16739:2005 (IFC2x platform)**, i.e. the IFC2x generation, not IFC2x3 or IFC4; issued 2010-12-01, effective 2011-05-01 [9] (commercial database listing; status per that listing: valid). |
+| GB/T 25507-2010 | 工业基础类平台规范 | IFC platform specification | Listed as an identical adoption (IDT) of **ISO/PAS 16739:2005 (IFC2x platform)**, i.e. the IFC2x generation, not IFC2x3 or IFC4; issued 2010-12-01, effective 2011-05-01 [9] (commercial database listing; status per that listing: valid). The SAMR national standards platform (openstd.samr.gov.cn) lists the same number, name, publication date 2010-12-01, implementation date 2011-05-01 and status 现行 (in force) [17]. |
+| **GB/T 45393.1 to .5-2025** | 信息技术 建筑信息模型（BIM）软件 第1部分：通用要求 / 第2部分：参数化模型 / 第3部分：模型视图定义 / 第4部分：网格模型 / 第5部分：数据接口 | Information technology - BIM software, Parts 1-5 (general requirements; parametric model; **model view definition**; mesh model; **data interface**) | **Added in QA.** Five recommended national standards, all status 现行 on the SAMR platform [17]: Part 2, 4, 5 published 2025-03-28, effective 2025-10-01; Part 1 and 3 published 2025-04-25, effective 2025-11-01. Relevant to IFC/MVD-style exchange in China, but whether they adopt or reference ISO 16739/IFC directly is **unverified** (only the titles and dates were read). |
+
+Note on coverage: the SAMR platform (openstd.samr.gov.cn) states that engineering-construction standards are not included in it, and searches there for GB/T 51212, 51235, 51269, 51301 and 51447 returned nothing; their dates above therefore still come from commercial or secondary databases [3]-[8], not from an official MOHURD/SAMR page.
 
 Practical consequences (all unverified unless stated):
 - GB/T 51269 gives the classification table codes (e.g. 41-xx element classes, unverified) used in model properties; Chinese models often carry a "分类编码" / "构件编码" parameter.
@@ -36,7 +39,7 @@ Federal-style "who mandates" in China is layered:
 | National | MOHURD | 2015 "关于推进建筑信息模型应用的指导意见" (document number 建质函〔2015〕159号, cited as such in several provincial documents [10]): targets BIM usage rate in new large public projects by 2020 (target details unverified). |
 | National | MOHURD | 2016-2020 "建筑业信息化发展纲要" (建质函〔2016〕183号, issued 2016-08-23 per a secondary list [11]): lists accelerating BIM adoption as a main task. |
 | National | MOHURD and other ministries | 2020 "关于推动智能建造与建筑工业化协同发展的指导意见" (建市〔2020〕60号, confirmed by local implementing documents [12]): smart construction and industrialised building; targets 2025 and 2035. |
-| National | MOHURD | 14th Five-Year Plan for the construction industry (2022, believed 建市〔2022〕11号): BIM-based review and delivery, CIM platforms. |
+| National | MOHURD | "“十四五”建筑业发展规划" (14th Five-Year Plan for the construction industry), notice **建市〔2022〕11号**, dated 19 Jan 2022 - number, title and date **verified** on gov.cn [18]. The notice page itself contains no BIM wording (the plan is an attachment); that it covers BIM-based review/delivery and CIM platforms is background knowledge (unverified). |
 | National | MOHURD | CIM basic platform technical guidelines (2020, number unverified). |
 | Provincial/municipal | Housing bureaus, planning/natural resources bureaus | Local BIM application guidelines; BIM mandatory for government-invested projects above an area/investment threshold (thresholds vary by city, unverified). |
 
@@ -158,12 +161,14 @@ All questions below are **(illustrative)**; no real forum questions could be ret
 - [14] buildingSMART Poland, "IFC Mandate" material: https://buildingsmart.org.pl/wp-content/uploads/2024/10/IFC-Mandate-Final-1.pdf (PDF text not machine-readable in this session; the Shenzhen figures come from a search-engine summary of it, unverified).
 - [15] buildingSMART chapter directory: https://www.buildingsmart.org/community/chapter-directory/buildingsmart-china and https://www.buildingsmart.org/community/chapter-directory/buildingsmart-hong-kong
 - [16] BIMBase / PKPM-BIM context (CABR article reprint and CIC exhibit page, vendor claims): https://m.thepaper.cn/baijiahao_29995484 and https://citac.cic.hk/en-hk/exhibitions/exhibits/611
+- [17] SAMR national standards platform (official; search result pages for 建筑信息模型 and 工业基础类): https://openstd.samr.gov.cn/bzgk/gb/std_list?p.p1=0&p.p90=circulation_date&p.p91=desc&p.p2=建筑信息模型 ; https://openstd.samr.gov.cn/bzgk/gb/std_list?p.p1=0&p.p90=circulation_date&p.p91=desc&p.p2=工业基础类 (the page's result counter reads 0 although the table lists rows; the table rows were used).
+- [18] State Council policy library (gov.cn), notice 建市〔2022〕11号, 19 Jan 2022: https://www.gov.cn/zhengce/zhengceku/2022-01/27/content_5670687.htm
 
 ## Gaps
 
 - The web-search budget was exhausted (zero searches ran); no search-engine results were available.
-- QA pass: MOHURD full-text notices, 建市〔2022〕11号, Guangzhou/Nanjing/Hunan/Chongqing/Xiong'an specifics and the GB/T 51447 clause details could still not be confirmed from primary pages; commercial standards-database listings [3]-[9] were used for dates and are not official MOHURD pages.
+- QA pass: MOHURD full-text notices, Guangzhou/Nanjing/Hunan/Chongqing/Xiong'an specifics and the GB/T 51447 clause details could still not be confirmed from primary pages (mohurd.gov.cn does not resolve from the fetch tool; Baidu Baike returns 403); commercial standards-database listings [3]-[8] were used for dates and are not official MOHURD pages. 建市〔2022〕11号 and GB/T 25507-2010 / GB/T 45393-2025 were confirmed on official pages (gov.cn, SAMR) in a second QA pass [17][18].
 - Unreachable or failed (original session): mohurd.gov.cn (DNS error), buildingsmart.org chapters pages (HTTP 403), iso.org (403), standards.buildingsmart.org IFC4.3 docs (403), Baidu Baike (403), bimbase.com (TLS error), zh.wikipedia IFC page (404), en.wikipedia "BIM in China" (404).
-- Not verified at all: effective dates of all GB/T standards, MOHURD document numbers, Shenzhen "SZ-IFC", Guangzhou/Nanjing/Hunan/Chongqing/Xiong'an specifics, GB/T 51447 content details, buildingSMART China chapter, official portals, real forum questions, open-source projects.
+- Still not verified from an official page: effective dates of GB/T 51212/51235/51269/51301/51447 and JGJ/T 448 (commercial databases only), MOHURD document numbers 建质函〔2015〕159号, 建质函〔2016〕183号 and 建市〔2020〕60号 (secondary/local documents only), Shenzhen mandate thresholds, Guangzhou/Nanjing/Hunan/Chongqing/Xiong'an specifics ("XDB" is unverified), GB/T 51447 content details, official portals, real forum questions, open-source projects.
 - No suspicious or pirated sites were encountered.
 - Recommended follow-up: rerun with search access, targeting MOHURD standards announcements, the national standards platform, and city housing bureau sites.

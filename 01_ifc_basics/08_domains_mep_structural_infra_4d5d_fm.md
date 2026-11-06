@@ -22,6 +22,8 @@ Last researched: 2026-11-06
 
 Versions in the wild: IFC2x3 (still very common in Russia/CIS and in many national requirements), IFC4 (Reference View / Design Transfer View in Revit 2022+ (unverified exact start)), IFC 4.3 (ISO 16739-1:2024, see section 4). IFC 4.3 was approved by ISO in January 2024 [9][11] and published as ISO 16739-1:2024 [10]; the buildingSMART development repository calls the formal release "4.3.2.0" and says it is CC BY-ND licensed [14]. Nordic BIM notes that, at the time of its page (undated), no software was certified for IFC 4.3 and that building deliverables should still be specified as IFC 4 or 2x3 [13]. Certification status changes; check the buildingSMART software list before asserting it.
 
+QA 2026-11-06 notes on this paragraph: (a) the Construction Management article is dated 5 Jan 2024 and says IFC 4.3 "received 100% approval" and ISO would publish it as the latest version of ISO 16739; it does not itself mention "4.3.2.0" or "ISO 16739-1:2024" (those come from the buildingSMART repository README and Wikipedia). (b) The GitHub README confirms: the formal 4.3.2.0 release is ISO-approved, published on buildingSMART's standards site and the ISO website, static releases are CC BY-ND 4.0; the `ifc4.3-main` branch is the development version with minor post-ISO fixes. (c) The Nordic BIM page [13] shows a date of "May 11, 2026" and still says that no software is currently certified for IFC 4.3 and advises specifying IFC 4 or IFC 2x3 for buildings; the page does not say when that statement was written. Vendors' own pages differ (Tekla's help lists certified MVDs only for IFC 2x3 and IFC 4; Wikipedia says BricsCAD BIM is "certified for IFC 4.3 import and export" citing a Bricsys page) - treat any "certified for 4.3" claim as vendor-stated until checked on buildingSMART's list.
+
 ---
 
 ## 2. MEP (HVAC, plumbing, electrical, fire protection)
@@ -40,14 +42,14 @@ All MEP content sits under `IfcDistributionElement`. The practical split (names 
 | `IfcFlowStorageDevice` | Stores medium/energy | `IfcTank`, `IfcElectricFlowStorageDevice` |
 | `IfcFlowTreatmentDevice` | Cleans/conditions | `IfcFilter`, `IfcInterceptor` |
 | `IfcEnergyConversionDevice` | Converts energy | `IfcBoiler`, `IfcChiller`, `IfcCoil`, `IfcHeatExchanger`, `IfcUnitaryEquipment` |
-| Distribution boards | In an IfcOpenShell thread an author models an `IfcDistributionBoard` together with `IfcLightFixture`, `IfcSwitchingDevice`, `IfcOutlet` [25]; in IFC4 the board entity was named `IfcElectricDistributionBoard` (unverified rename) | |
+| Distribution boards | In an IfcOpenShell thread an author models an `IfcDistributionBoard` together with `IfcLightFixture`, `IfcSwitchingDevice`, `IfcOutlet` [25]; in IFC4 the board entity was named `IfcElectricDistributionBoard`; QA-verified: that entity is marked **DEPRECATED** in the IFC 4.3 line ("may be imported, but shall not be exported by applications"; status changed to Deprecated for IFC4x3_RC1), a subtype of `IfcFlowController`; the replacement used in the IfcOpenShell thread is `IfcDistributionBoard` | |
 | `IfcDistributionControlElement` | Sensors, actuators, controllers | `IfcSensor`, `IfcActuator`, `IfcController` |
 
 The `PredefinedType` attribute (and `ObjectType` when it is `USERDEFINED`) narrows the meaning, e.g. a pipe segment can be `RIGIDSEGMENT` or `FLEXIBLESEGMENT` (unverified exact enum list). Russian-language practice: ОВиК = HVAC, ВК = water supply/sewage, ЭОМ = electrical; these map to different `IfcDistributionSystem.PredefinedType` values (e.g. `VENTILATION`, `DOMESTICCOLDWATER`, `ELECTRICAL`) (unverified enum names).
 
 ### 2.2 Ports and connectivity (the part that breaks most often)
 
-- A port (`IfcDistributionPort`) is "a product's inlet or outlet for a substance"; its `FlowDirection` is SINK (inlet), SOURCE (outlet), SINKANDSOURCE (or undefined) [19]. If the port has a system type, it may only connect to ports with the same system type [19].
+- A port (`IfcDistributionPort`) is "a product's inlet or outlet for a substance"; its `FlowDirection` is SINK (inlet), SOURCE (outlet), SOURCEANDSINK (both), or NOTDEFINED [19] (QA fix: the enumeration value is spelled `SOURCEANDSINK`, as verified in `IfcFlowDirectionEnum`; the first pass wrote "SINKANDSOURCE", which is the wording used in the entity description text, not the enum literal). Two ports connect only if they share the same system type and have opposite directions (one SOURCE, one SINK) [19] (QA-verified).
 - Port-to-port connection is `IfcRelConnectsPorts`; the MVD "Port Connectivity" template for the IFC4 Add2 Reference View describes this for ducts, pipes and air terminals [20].
 - Port-to-element: in IFC2x3 `IfcRelConnectsPortToElement`; in IFC4 fixed ports are attached with `IfcRelNests` (works for types and occurrences), while `IfcRelConnectsPortToElement` is reserved for "dynamic" ports and applies only to occurrences [19][21]. Per a forum answer, Revit's IFC4 exporter writes `IfcRelNests` and cannot define dynamic connections, whereas for IFC2x3 it writes `IfcRelConnectsPortToElement` [21]. (Forum statement about exporter source code; verify per Revit version.)
 - Flow direction logic in Bonsai: setting one port to source/sink sets the connected port to the opposite; direction describes how an element is used, not a physical property, and tees/wyes/manifolds have more than two ports [23].
@@ -90,11 +92,11 @@ Values live in three places, and a good test checks all of them (names below are
 | Geometry | 3D solids | Centrelines, mid-surfaces, points |
 | Export from authoring tools | Everyday and reliable | Patchy |
 
-The IFC 4.3 structural analysis domain lists `IfcStructuralAnalysisModel`, `IfcStructuralCurveMember`, `IfcStructuralCurveMemberVarying` and `IfcStructuralLoadCase` among its entities [26-schema, see Sources]. Typical supporting entities (unverified list): `IfcStructuralPointConnection` (nodes, supports), `IfcStructuralCurveConnection`, `IfcStructuralLoadGroup`, `IfcStructuralLoadCase`, `IfcStructuralResultGroup`, `IfcStructuralPointAction`/`...LinearAction`/`...PlanarAction` for loads. The analytical item usually links to the physical element with `IfcRelAssignsToProduct` (unverified; I could not confirm it from the sources fetched).
+The IFC 4.3 structural analysis domain lists `IfcStructuralAnalysisModel`, `IfcStructuralCurveMember`, `IfcStructuralCurveMemberVarying` and `IfcStructuralLoadCase` among its entities [26-schema, see Sources]. Typical supporting entities (unverified list): `IfcStructuralPointConnection` (nodes, supports), `IfcStructuralCurveConnection`, `IfcStructuralLoadGroup`, `IfcStructuralLoadCase`, `IfcStructuralResultGroup`, `IfcStructuralPointAction`/`...LinearAction`/`...PlanarAction` for loads. The analytical item links to the physical element with `IfcRelAssignsToProduct` (QA-verified: the `IfcStructuralItem` documentation states that building elements and their structural idealisations "can be expressed by instances of IfcRelAssignsToProduct"; `IfcRelConnectsStructuralActivity` is a different thing - it attaches an action/reaction to a member, connection or element).
 
 State of tool support (all from forum/vendor pages, treat as snapshots):
 - Revit's built-in IFC exporter: forum users report that analytical elements are not exported, or produce a near-empty file; one 2024-era thread repeats this; the Geometry Gym RevitIFC plug-in is cited as offering a "Structural Analysis" export option [26].
-- Archicad: experimental "IFC Structural Analysis Model Import/Export" using the "Structural Analytical View" MVD; import for IFC2x3 and IFC4, export only IFC2x3; exports 1D and 2D members with geometry, profiles and materials; the page does not describe supports or loads; imported members become columns/beams by orientation [27].
+- Archicad: experimental "IFC Structural Analysis Model Import/Export" using the "Structural Analytical View" MVD (QA-verified on the Archicad 27 help: must be switched on under Options > Work Environment > More Options > Experimental Features; Graphisoft says it may change or be removed); import for IFC2x3 and IFC4, export only IFC2x3; exports 1D and 2D members with geometry, profiles and materials; the page does not describe supports or loads; imported members become columns/beams by orientation [27].
 - Modelling rigid links: a buildingSMART forum thread discusses representing them as curve members with a rigid-link material and using `IfcStructuralCurveMemberVarying` to distinguish them [28].
 
 ### 3.2 Reinforcement
@@ -138,7 +140,7 @@ State of tool support (all from forum/vendor pages, treat as snapshots):
 ### 4.2 Tunnels status
 
 - Tunnels were not in the initial IFC 4.3 content; entities were planned for IFC 4.4 [12][15]. The NIBS COBie V3 mapping page also marks tunnel entities as IFC4.4 [35].
-- A buildingSMART forum reply said the work of the "IFC for Tunnel" project would go into an update of IFC 4.3.2.0 and might be called 4.4 "or something else" [16].
+- A buildingSMART forum reply (dated 24 March 2025, the only reply in the thread; QA-verified) said the work of the "IFC for Tunnel" project would go into an update of IFC 4.3.2.0 and might be called 4.4 "or something else" [16]. The IFC 4.3.x documentation of `IfcFacility` itself names `IfcTunnel` only as an example of a future facility type, while listing `IfcBuilding`, `IfcBridge`, `IfcRailway`, `IfcRoad` and `IfcMarineFacility` as the existing subtypes (QA-verified).
 - A March 2026 buildingSMART Germany article (seen only as a search excerpt) reports that a Project Proposal for IFC 4.4 exists, with an ISO process to follow, and that IFC 4.4 is broader than just tunnels [17]. A buildingSMART statement (seen in search excerpts only) says 4.4 is meant to add to 4.3 without invalidating it.
 - Practical answer for testers: "Does IFC 4.3 support tunnels?" Not as a complete domain (unverified for individual 4.3.x additions); tunnel-lining content is the 4.4/next-update topic. You can still model tunnel parts with generic classes (`IfcBuildingElementProxy`, `IfcCivilElement`, `IfcGeotechnicalElement` subtypes; unverified).
 
@@ -155,19 +157,19 @@ State of tool support (all from forum/vendor pages, treat as snapshots):
 ### 4.4 Linear placement
 
 - `IfcLinearPlacement` is an `IfcObjectPlacement` subtype alongside `IfcLocalPlacement` and `IfcGridPlacement` [see Sources, search excerpt].
-- IFC4.1/4.2 form: `PlacementRelTo`/basis curve plus an `IfcDistanceExpression` carrying `DistanceAlong`, optional `OffsetLateral`, `OffsetVertical`, `OffsetLongitudinal` and `AlongHorizontal` (horizontal projection vs 3D distance) [7]. The IFC 4.3 form uses `IfcPointByDistanceExpression` (same distance/offset slots plus a basis curve) and an optional `CartesianPosition` (third-party implementation notes; the forms are not interchangeable) [8].
+- IFC4.1/4.2 form: `PlacementRelTo`/basis curve plus an `IfcDistanceExpression` carrying `DistanceAlong`, optional `OffsetLateral`, `OffsetVertical`, `OffsetLongitudinal` and `AlongHorizontal` (horizontal projection vs 3D distance) [7]. The IFC 4.3 form uses `IfcPointByDistanceExpression` (same distance/offset slots plus a basis curve) and an optional `CartesianPosition` (third-party implementation notes; the forms are not interchangeable) [8]. QA-verified against the IFC 4.3.x source: in 4.3 `IfcLinearPlacement` is a specialisation of `IfcObjectPlacement` whose `RelativePlacement` must be an `IfcAxis2PlacementLinear` ("placement that provides location and orientation confined to the context of a curve"; always 3D in nature), and `CartesianPosition` is an optional fallback for applications that cannot handle linear placement.
 - In plain terms: place a bridge pier or a sign "at station 1+250, 2.5 m left of the centreline, 0.3 m above it" instead of giving X/Y/Z. If the alignment moves, the objects move.
 
 ### 4.5 Facilities and parts (road, rail, bridge, marine)
 
 (Entity names from the schema, background knowledge, unverified in this session.)
 
-- Facilities: `IfcFacility` with subtypes `IfcBridge`, `IfcRoad`, `IfcRailway`, `IfcMarineFacility`, plus `IfcBuilding`; parts: `IfcFacilityPart` with subtypes such as `IfcBridgePart`, `IfcRoadPart`, `IfcRailwayPart`, `IfcMarinePart`. Caution: the NIBS COBie V3 table lists IfcRail, IfcRoad and IfcTunnel under "IFC4.4" [35]; treat this as a flag for a possible naming or version mismatch and verify in the IFC 4.3 entity listing [1].
+- Facilities: `IfcFacility` with subtypes `IfcBridge`, `IfcRoad`, `IfcRailway`, `IfcMarineFacility`, plus `IfcBuilding`; parts: `IfcFacilityPart` with subtypes such as `IfcBridgePart`, `IfcRoadPart`, `IfcRailwayPart`, `IfcMarinePart`. Caution: the NIBS COBie V3 table lists "IfcRail, IfcRoad, IfcTunnel (IFC4.4)" in its Facility row [35] (QA-verified wording). Because the IFC 4.3.x `IfcFacility` documentation already lists `IfcRoad` and `IfcRailway` as existing subtypes (and `IfcTunnel` only as a future example), the "(IFC4.4)" label in the NIBS table is at best imprecise for road and rail; use the IFC 4.3 entity listing [1], not the NIBS label, to decide what exists in 4.3.
 - Road elements: `IfcPavement`, `IfcCourse` (layers), `IfcKerb`; earthworks: `IfcEarthworksCut`, `IfcEarthworksFill`, `IfcReinforcedSoil`, `IfcEarthworksElement`; geotechnics: `IfcGeotechnicalStratum`, `IfcBorehole`, `IfcSolidStratum`.
 - Rail: `IfcRail`, `IfcTrackElement`, `IfcRailway`, plus signalling, power and telecom devices (signal, mast, cable carrier, etc.).
 - Bridges: `IfcBridge` with `IfcBridgePart` (SUPERSTRUCTURE, SUBSTRUCTURE, ABUTMENT, PIER, DECK...), elements such as `IfcDeepFoundation`, `IfcBearing`, `IfcBeam`, `IfcTendon`.
-- Ports and waterways: `IfcMarineFacility` with `IfcMooringDevice`, `IfcNavigationElement`, `IfcWaterway`-style parts (unverified names).
-- Most authoring tools do not yet write all of this. In the cited materials, Archicad 29 is named as importing and exporting IFC 4.3 [13]; Tekla writes IFC 4.3 but certified views are 2x3/4 [29-2026]. Revit's native IFC exporter is documented for IFC2x3 and IFC4 (unverified whether a 4.3 option exists in a given release; check release notes).
+- Ports and waterways: `IfcMarineFacility` with `IfcMooringDevice`, `IfcNavigationElement` (unverified names). QA note: I do not believe there is an `IfcWaterway` entity in IFC 4.3 (the first pass wrote "IfcWaterway-style parts"); waterways are modelled as `IfcMarineFacility` with a `PredefinedType` (e.g. canal or navigational channel; enum values from memory, (unverified)).
+- Most authoring tools do not yet write all of this. QA-verified on vendor pages (2026-11-06): the Archicad help (version 29 page) says Archicad handles IFC2x3, IFC4 and IFC4.3 for import and export [13]; Tekla's 2026 help says IFC export "supports the IFC 2X3, IFC 4, and IFC 4.3 schemas" but lists certified MVDs only for IFC 2x3 and IFC 4 [29-2026]; the open-source Revit IFC exporter has an "IFC4.3 Reference View" option (exchange requirements) added in add-on 26.4.1 (released 2025-12-18) and back-ported to 25.4.40 and 24.3.40 (2026-01-14), see `../03_software/revit/ifc_export_reference.md`. Whether any of this is buildingSMART-certified for 4.3 is a separate question (see section 1).
 
 ### 4.6 Tests that make sense for infrastructure
 
@@ -228,7 +230,7 @@ State of tool support (all from forum/vendor pages, treat as snapshots):
 
 ### 7.2 COBie sheets and IFC mapping
 
-COBie V3 table from NIBS (IFC 4.3 unless noted) [35]; the COBie 2.4 sheet names (Contact, Facility, Floor, Space, Zone, Type, Component, System, Assembly, Connection, Spare, Resource, Job, Impact, Document, Attribute, Coordinate, Issue, plus PickLists) are from background knowledge.
+COBie V3 table from NIBS (IFC 4.3 unless noted) [35] (QA-verified: the NIBS "IFC Table A" lists exactly these V3 sheets: Instruction, Company, Facility, Level, SpaceType, Space, Zone, Type, Component, System, Resource, Job, Event, Package, Risk, Document, Attribute, Coordinate, PickList); the COBie 2.4 sheet names (Contact, Facility, Floor, Space, Zone, Type, Component, System, Assembly, Connection, Spare, Resource, Job, Impact, Document, Attribute, Coordinate, Issue, plus PickLists) are from background knowledge.
 
 | COBie sheet | What it holds | IFC mapping |
 |---|---|---|
@@ -260,7 +262,7 @@ Where typical COBie columns come from (property set names from background knowle
 ### 7.4 Tools
 
 - Bonsai (BlenderBIM) and BIMserver COBie plugins are named by the OSArch wiki as implementing the mapping correctly; Bonsai can write CSV/ODS [38]. A Python IFC-to-COBie converter was reported finished for all sheets in October 2019, alpha quality, CSV output with a log of missing data [36].
-- Revit: no native "COBie IFC" button; typical flows use IFC export with property sets plus a COBie add-in or Excel mapping, or COBie parameters via shared parameters (unverified product specifics). Bentley OpenBuildings has COBie spreadsheet population help [see Sources].
+- Revit: no native "COBie spreadsheet" button, but the IFC exporter (open-source `Autodesk/revit-ifc`) ships a setup "IFC2x3 COBie 2.4 Design Deliverable View" with COBie company/project info tabs (QA-verified from the exporter resource file, see `../03_software/revit/ifc_export_reference.md`); typical flows add a COBie add-in or Excel mapping, or COBie parameters via shared parameters (product specifics unverified). The repository's `DefaultUserDefinedParameterSets.txt` also contains a commented `COBie_Specification` example set on `IfcElementType` (QA-verified). Bentley OpenBuildings has COBie spreadsheet population help [see Sources].
 - Related modern approaches: IDS (Information Delivery Specification) and LOIN to state which data are required, and ISO 19650 asset information requirements (AIR).
 
 ---
@@ -330,7 +332,8 @@ FM / COBie
 
 - The official buildingSMART specification pages (standards.buildingsmart.org, ifc43-docs.standards.buildingsmart.org, www.buildingsmart.org) could not be fetched (HTTP 403); I relied on search excerpts, forum threads, NIBS, OSArch, vendor help and background knowledge. Attribute lists for `IfcTaskTime`, alignment segments, structural entities, pset names and `IfcFacilityPart` subtypes are therefore marked unverified.
 - The web-search quota was exhausted before searches in German (Trasse/Gradiente/Überhöhung; German national infrastructure BIM requirements), Chinese and Japanese (CIM/线形/道路 national standards), and Civil 3D / Revit-specific IFC 4.3 export capabilities. These remain open.
-- Not verified: whether any Revit release writes IFC 4.3; whether Revit exports `IfcStructuralAnalysisModel` in the latest releases; exact Revit export option names for rebar and base quantities.
+- Not verified: whether Revit exports `IfcStructuralAnalysisModel` in the latest releases; exact Revit export option names for rebar and base quantities. (QA 2026-11-06: resolved - the Revit IFC exporter does write IFC4.3 via the "IFC4.3 Reference View" option since add-on 26.4.1, 2025-12-18; resolved - Archicad and Tekla IFC 4.3 statements checked on vendor help pages.)
+- QA 2026-11-06 still unverifiable: ISO catalogue page for ISO 16739-1:2024 and the buildingSMART approval page (HTTP 403); the buildingSMART Germany roadmap article (empty page); `IfcTaskTime` and `IfcRelConnectsStructuralElement` entity pages (404 on the mirrors tried); `IfcMarineFacility` enumeration; chapter-level claims about reinforcing-element hierarchy (the `IfcReinforcingBar` page confirms supertype `IfcElementComponent` and an `IfcReinforcingBarRoleEnum` role attribute only).
 - The buildingSMART Germany roadmap article (Porto, March 2026) was seen only as a search excerpt; the fetch returned an empty page.
 - Not reproduced because of suspicious or irrelevant nature: none skipped as malicious. Two aggregator pages (infralens.in listing ISO 16739-1:2024 as an "Indian Standard", and a skill-marketplace page for a COBie "skill") were not used as facts because they conflict with or are secondary to official sources.
 

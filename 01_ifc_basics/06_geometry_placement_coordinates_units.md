@@ -4,7 +4,7 @@
 
 **Last researched: 2026-11-06**
 
-Source markers like [3] refer to the Sources section. "(unverified)" marks claims that I could not confirm from a page I actually read. Note: in this research session the buildingSMART HTML spec pages and Autodesk support articles returned HTTP 403 to my fetch tool, so spec facts were read from the buildingSMART GitHub documentation sources (same text as the IFC 4.3 spec) and Autodesk articles are cited only from search snippets (marked).
+Source markers like [3] refer to the Sources section. "(unverified)" marks claims that I could not confirm from a page I actually read. Note: in this research session the buildingSMART HTML spec pages and Autodesk support articles returned HTTP 403 to my fetch tool, so spec facts were read from the buildingSMART GitHub documentation sources (same text as the IFC 4.3 spec) and Autodesk articles are cited only from search snippets (marked). **QA pass 2026-11-06:** spec facts on `IfcMapConversion`, `IfcProjectedCRS`, `IfcMapConversionScaled`, `IfcRigidOperation`, `IfcPolygonalFaceSet`, `IfcUnitAssignment`, `IfcGeometricRepresentationContext` and the Revit "Coordinate Base" option names were re-read against the GitHub docs sources and the Autodesk IFC Exporter help 25.2; corrections are marked "QA".
 
 ---
 
@@ -16,7 +16,7 @@ Source markers like [3] refer to the Sources section. "(unverified)" marks claim
 - The spec says an identifier and a type *should* be provided, and the items must fit the declared type (rule `CorrectItemsForType`) [5]. A test that claims "SweptSolid" but contains a mesh is a legitimate finding.
 
 ### 1.2 Contexts
-- One 3D context with `ContextType = 'Model'` is mandatory, a 2D `'Plan'` context is optional; at most one of each [6].
+- One 3D context with `ContextType = 'Model'` is mandatory, a 2D `'Plan'` context is optional; at most one of each [6]. (QA: the spec lists the recognised `ContextType` values as `'Model'`, `'Plan'` and `'NotDefined'`; `Precision` is described as typically in the 1E-5 to 1E-8 range; `TrueNorth` defaults to (0,1) when absent [6].)
 - `CoordinateSpaceDimension` (2 or 3), `Precision` (a tolerance, typically 1E-5 to 1E-8, below which two points are the same), `WorldCoordinateSystem` and `TrueNorth` live here [6].
 - `IfcGeometricRepresentationSubContext` carries view or scale dependent variations (its parent is the Model or Plan context). Typical sub-context identifiers seen in practice are Body, Axis, FootPrint, Box (these are common ArchiCAD/Revit/IfcOpenShell conventions; the exact list of ContextIdentifier values is not in the page I read, so treat as (unverified)) [6].
 
@@ -63,7 +63,7 @@ Source markers like [3] refer to the Sources section. "(unverified)" marks claim
 | Robustness | Needs correct profile orientation / extrusion direction | Very robust; "what you see" | Topology errors possible |
 | Fidelity of curves | Exact | Approximate (depends on tolerance) | Exact for advanced |
 
-Facts from the spec: `IfcTriangulatedFaceSet` is a tessellated face set where every face is a triangle; `Closed = TRUE` makes it a Brep-like solid, `FALSE` a face-based surface; indices are one-based [10]. `IfcPolygonalFaceSet` allows polygonal faces with holes (`IfcIndexedPolygonalFaceWithVoids`) and was new in **IFC4 Addendum 2** [11]. Both reference an `IfcCartesianPointList3D`, so shared vertices keep the file smaller than classic `IfcFacetedBrep` which repeats points per face [10][11] (the file-size comparison itself is common knowledge, not a quoted statement, (unverified) as a number).
+Facts from the spec: `IfcTriangulatedFaceSet` is a tessellated face set where every face is a triangle; `Closed = TRUE` makes it a Brep-like solid, `FALSE` a face-based surface; indices are one-based [10]. `IfcPolygonalFaceSet` allows polygonal faces with holes (`IfcIndexedPolygonalFaceWithVoids`) and was new in **IFC4 Addendum 2** (verified in the entity's own version note [11]; so an "IFC4" file written before ADD2, or a reader built for IFC4 ADD1, may not know it). Both reference an `IfcCartesianPointList3D`, so shared vertices keep the file smaller than classic `IfcFacetedBrep` which repeats points per face [10][11] (the file-size comparison itself is common knowledge, not a quoted statement, (unverified) as a number).
 
 QA hint: a "small" IFC that suddenly grows by 5-10x after a round trip usually means parametric solids were converted to meshes (typical for exports aimed at viewing). Common practice, no source (unverified).
 
@@ -109,7 +109,7 @@ If *any* link in the chain carries a large translation or a rotation, everything
 ### How to check in a file
 - Walk `ObjectPlacement` up to the root for a few elements and sum the translations. Large sums (say > 10 km, or > 1e5 in project units) are suspicious.
 - Compare the absolute position of `IfcSite`, `IfcBuilding`, first storey and a wall: they should differ by plausible amounts (storey Z = level elevation).
-- IfcOpenShell: `ifcopenshell.util.placement.get_local_placement(element.ObjectPlacement)` returns the 4x4 absolute matrix (function name from IfcOpenShell API; I did not fetch its doc page, (unverified)).
+- IfcOpenShell: `ifcopenshell.util.placement.get_local_placement(element.ObjectPlacement)` returns the 4x4 absolute matrix (QA 2026-11-06: confirmed in `ifcopenshell/util/placement.py` v0.8.0, signature `get_local_placement(placement=None)`; it returns the identity matrix for `None` and recursively multiplies the parent chain via `PlacementRelTo`; the same module also has `get_storey_elevation`).
 
 ---
 
@@ -129,14 +129,14 @@ The same spec text suggests the *project base point and survey point should idea
 Revit has three reference points:
 | Revit element | Role | Can move? |
 |---|---|---|
-| **Internal Origin** | Hidden fixed origin of the Revit database; all geometry is stored relative to it. Keep content within about 16 km (10 miles) of it [22][23] | No (fixed) |
+| **Internal Origin** | Hidden fixed origin of the Revit database; all geometry is stored relative to it. Keep content within about 16 km (10 miles) of it [22][23] (the figure comes from two community blogs; the Autodesk page that states the exact limit was not readable, so treat the number as (unverified); other Autodesk/community texts quote other distances, e.g. recommending much smaller distances for performance) | No (fixed) |
 | **Project Base Point (PBP)** | Origin of the *project* coordinate system (the "0,0" the designers see). Has `E/W`, `N/S`, `Elev` and **Angle to True North** [21] | Yes (but it is easiest to leave it on the Internal Origin [22]) |
 | **Survey Point** | Surveyor's common point (e.g. property corner). With **Shared Coordinates** it defines the relation to the survey/GIS system | Yes (clipped by default; moving it changes the shared coordinate system [22]) |
 
 "**Shared coordinates**" is an Autodesk concept; IFC has no such thing, it only has the WCS and map conversion [24] (statement made in the Autodesk/revit-ifc issue thread; also stated in an Autodesk Community answer seen in search results).
 
 ### 3.3 Revit IFC export: "Coordinate Base" (a.k.a. Project Origin) options
-In the IFC Export setup (General tab), the **Coordinate Base** option offers (names as seen across the sources): **Project Base Point**, **Survey Point**, **Shared Coordinates**, and **Internal Origin** (the Internal Origin and the PBP can come with Project North or True North variants, six options in total per one author) [20][22]. Autodesk's own article titles/snippets say: if coordinates come out wrong, check the base; make sure at least one set (Shared Coordinates, Survey Point, Project Base Point, Internal Origin) matches the other disciplines' coordinate system [Autodesk articles, snippet-only, 28].
+In the IFC Export setup (General tab), the **Coordinate Base** option offers four choices (verified QA 2026-11-06 on Autodesk's IFC Exporter help 25.2): **Shared Coordinates (default)**, **Survey Point**, **Project Base Point**, **Internal Origin**. The open-source exporter's resource file additionally has the two "oriented in True North" variants ("Project Base Point oriented in True North", "Internal Origin oriented in True North"), i.e. six entries in the UI list [20][22]; see `../03_software/revit/ifc_export_reference.md` section 4. Autodesk's own article titles/snippets say: if coordinates come out wrong, check the base; make sure at least one set (Shared Coordinates, Survey Point, Project Base Point, Internal Origin) matches the other disciplines' coordinate system [Autodesk articles, snippet-only, 28].
 
 What each means in practice:
 - **Project Base Point**: the PBP lands at the IFC (0,0,0) and the building is near the origin. Recommended by the OSArch workflow, together with entering an EPSG code, in Revit IFC 19.4.0.0 / 20.2.0.0 / 21.1.0.0 and later (IFC4 only) [20].
@@ -184,7 +184,7 @@ IFC2x3 has no map conversion entities. Two mechanisms:
 - In formula form (derived from the same order): with scale s and angle θ, `E = Eastings + s*(x cosθ - y sinθ)`, `N = Northings + s*(x sinθ + y cosθ)`, `H = OrthogonalHeight + s*z`.
 - Attributes [1]: `Eastings`, `Northings`, `OrthogonalHeight` (height relative to the vertical datum), `XAxisAbscissa`, `XAxisOrdinate` (the easting/northing components of the local x axis; if no rotation, 1 and 0), `Scale` (default 1.0; **must** be given when source and map units differ, e.g. feet to metres, or millimetres to metres = 0.001).
 - IfcOpenShell notes: both abscissa and ordinate being 0 is treated as (1, 0), and files may hold non-unit vectors, so tools normalise them [27]. The user-guide formula `atan2(abscissa, ordinate)` was challenged on the buildingSMART forum; the spec text uses ordinate over abscissa [19][1].
-- `IfcMapConversionScaled` applies separate factors per axis to scale coordinates, not units [1]. `IfcRigidOperation` is mentioned in the 2025 Fit Check [16] and read by IfcOpenShell [27] (details not fetched, (unverified)).
+- `IfcMapConversionScaled` is a subtype of `IfcMapConversion` that adds `FactorX`, `FactorY`, `FactorZ`; they multiply the respective axis after the uniform `Scale` and before the rotation, and scale coordinates, not units. It is a **new entity in IFC4X3_ADD1** (IFC 4.3.1.0) [1] (QA verified from the entity source). `IfcRigidOperation` (also **new in IFC4X3_ADD1**) "specifies an offset in the coordinate reference system" and "does not specify any conversion or distortion": attributes `FirstCoordinate`, `SecondCoordinate`, `Height` (translation above/below the coordinate surface). It is mentioned in the 2025 Fit Check [16] and read by IfcOpenShell [27]. Because both are post-4.3.0 additions, an older 4.3 reader may not know them.
 - `IfcMapConversion` is a subtype of `IfcCoordinateOperation` whose `SourceCRS` is the geometric representation context and `TargetCRS` is an `IfcProjectedCRS`; the context links to it via the inverse `HasCoordinateOperation`. With several contexts they must all reference the same operation instance [6]. It does not handle projection from a geodetic CRS [1].
 - `IfcProjectedCRS` [2][3]:
   - `Name`: the unambiguous identifier, "should come from the EPSG list and carry the EPSG namespace", e.g. `EPSG:5555`; **only one EPSG code** in Name. If no code fits, `Name = 'WKT'` and an `IfcWellKnownText` is provided [3].
@@ -299,7 +299,8 @@ Illustrative (invented, for test design):
 
 ## Gaps
 
-- buildingSMART HTML spec pages and Autodesk support articles were not fetchable (HTTP 403); facts were taken from the buildingSMART GitHub docs and search snippets. Revit "Coordinate Base" option wording should be re-checked in the Revit version being tested.
+- buildingSMART HTML spec pages and Autodesk support articles were not fetchable (HTTP 403); facts were taken from the buildingSMART GitHub docs and search snippets. Revit "Coordinate Base" option wording should be re-checked in the Revit version being tested (QA: the four base names were confirmed on the 25.2 exporter help; the two True-North variants come from the exporter resource file).
+- QA 2026-11-06 re-verified against GitHub sources: `IfcProjectedCRS` EPSG examples (EPSG:5555 = ETRS89 / UTM zone 32N + DHHN92 height; EPSG:9286 = ETRS89 + NAP height; EPSG:9306 = HS2 Survey Grid + HS2-VRF height), `IfcUnitAssignment` rule WR01 and single monetary unit, `IfcGeometricRepresentationContext` (TrueNorth informational when a coordinate operation exists). Not re-verified: LoGeoRef literature (secondary), Autodesk articles (403), Revit 16 km figure, `PointCloud` deprecation in 4.3.2.0, sub-context identifier list.
 - LoGeoRef original papers (FIG 2018, ISPRS 2024) and the buildingSMART User Guide for Geo-referencing PDF could not be read as text; definitions come from the City2BIM IFCGeoRefChecker wiki.
 - Not verified: ContextIdentifier values, exact behaviour of IFC4 Reference View vs Design Transfer View regarding tessellation, IfcRigidOperation details, Archicad Survey Point behaviour, Bonsai/web-ifc docs (pages were 404/unreachable).
 - Search budget was exhausted before native-language searches (German, Russian, Chinese, Japanese) could be performed; national georeferencing practice (e.g. German ETRS89/UTM, Dutch RD/NAP, British grids) is covered only by the examples in the spec [2][16].

@@ -4,7 +4,7 @@
 
 An `.ifc` file is just a plain-text file. Every line in its DATA section is one "object" or "fact" about the building, numbered with a local number like `#12`, written in a very old but simple format called STEP Part 21 (ISO 10303-21). The top of the file (the header) says which IFC version the file uses and, often, which "exchange scenario" (MVD) it was made for. Strings with non-Latin letters (Cyrillic, Chinese, German umlauts) are not stored as raw letters but as escape codes such as `\X2\0421...\X0\`, which is why a text editor shows "garbage" even though the file is fine. The same data can also be stored as XML (ifcXML), zipped (ifcZIP), JSON (ifcJSON, not yet an official release) or RDF (ifcOWL). For an MCP tester: the `#12` number is only valid inside one file and changes on every export; the 22-character GlobalId is the identity that is meant to be stable.
 
-Last researched: 2026-11-06
+Last researched: 2026-11-06 (fact-checked 2026-11-06, see `_meta/qa/qa-basics-1.md`)
 
 > Research note. Most buildingSMART pages (technical.buildingsmart.org, standards.buildingsmart.org) returned HTTP 403 to the fetch tool, so facts from them were taken from search-result excerpts and are marked "(via search excerpt)". The web-search budget ran out before the "tools" and "real questions" topics were fully covered; see "Gaps".
 
@@ -44,7 +44,7 @@ END-ISO-10303-21;                  <- closing line
 
 Facts from [1]:
 - The HEADER has a fixed order. The first edition defines FILE_DESCRIPTION, FILE_NAME, FILE_SCHEMA; the second adds optional FILE_POPULATION, SECTION_LANGUAGE, SECTION_CONTEXT (IFC files use the first three).
-- `FILE_DESCRIPTION(description_list, implementation_level)`: implementation level is typically `'2;1'`; the first digit is the version, the second the conformance class.
+- `FILE_DESCRIPTION(description_list, implementation_level)`: implementation level is typically `'2;1'`; per Wikipedia (QA-checked) the first number is the version ("2" refers to the 1995 technical corrigendum) and the second is the conformance option ("1" = internal mapping of complex entity instances, the more compact form). FILE_POPULATION, SECTION_LANGUAGE and SECTION_CONTEXT are valid only in second-edition files.
 - `FILE_NAME(name, time_stamp, author_list, organization_list, preprocessor_version, originating_system, authorization)`; time stamp is ISO 8601.
 - `FILE_SCHEMA` names the governing EXPRESS schema(s).
 
@@ -133,7 +133,7 @@ The schema is distributed as EXPRESS (`.exp`), XSD (for ifcXML), and for IFC4 al
 
 ## 6. String encoding, `\X2\...\X0\`, and why Notepad "garbles" Cyrillic and Chinese
 
-Rule: the classic STEP physical file only allows printable characters 32-126 from the ISO 8859-1 code table; every other character must be escaped [4] (via search excerpt). Current IFC documentation says allowed characters come from ISO 10646 (Unicode), file encoding is per ISO 10303-21/-28, and a string must not exceed 32767 octets after encoding and escaping [IFC 4.3 IfcText page, via search excerpt: 30b].
+Rule: the classic STEP physical file only allows printable characters 32-126 from the ISO 8859-1 code table; every other character must be escaped [4] (via search excerpt). Current IFC documentation says allowed characters come from ISO 10646 (Unicode), and that `IfcText` is "not formally restricted in length" but a string in an ISO 10303-21 file must not exceed 32767 octets after encoding and escaping (QA-verified on the IFC4.3.x-development `IfcText` page) [30b].
 
 Control directives (ISO 10303-21 / -11; described in the IFC2x Model Implementation Guide [26], plus the buildingSMART string-encoding page [4]):
 
@@ -175,7 +175,7 @@ Real example [2]:
 #12= IFCOWNERHISTORY(#7,#11,$,.ADDED.,$,$,$,1482339244);
 ```
 
-- In IFC2x3 `IfcRoot.OwnerHistory` is mandatory; since IFC4 it is OPTIONAL [27] (via search excerpt). Hence minimal IFC4 files can write `$` there; IFC2x3 files must carry one, and tools that write IFC2x3 and leave it null produce invalid files.
+- In IFC2x3 `IfcRoot.OwnerHistory` is mandatory; since IFC4 it is OPTIONAL: the IFC4.3 `IfcRoot` page says "The attribute has been changed to be OPTIONAL" (QA-verified) [27]. Hence minimal IFC4 files can write `$` there; IFC2x3 files must carry one, and tools that write IFC2x3 and leave it null produce invalid files.
 - Many IFC4 files still contain OwnerHistory (the FZK-Haus IFC4 sample does [2]) because exporters kept the pattern.
 - Revit writes a single shared OwnerHistory for most objects (general knowledge): it does not give a reliable per-element audit trail. Do not use it for "who edited this wall" questions.
 
@@ -183,7 +183,7 @@ Real example [2]:
 
 ## 8. Tiny annotated IFC4 example (project > site > building > storey > wall + property set)
 
-Hand-written for this knowledge base, using the IFC4 attribute order from the schema. GlobalIds were generated with the compression algorithm in section 5 (illustrative values, not from a real model). It has not been run through the buildingSMART validation service in this research (unverified). Remove the `/* */` comments if a strict parser complains. It deliberately omits OwnerHistory (`$`, allowed in IFC4, see section 7).
+Hand-written for this knowledge base, using the IFC4 attribute order from the schema. GlobalIds were generated with the compression algorithm in section 5 (illustrative values, not from a real model). It has not been run through the buildingSMART validation service in this research (unverified). QA 2026-11-06: attribute counts of every instance were checked by hand against the IFC4 definitions (IfcProject 9, IfcSite 14, IfcBuilding 12, IfcBuildingStorey 10, IfcWall 9, IfcRelAggregates 6, IfcPropertySet 5), all 12 GlobalIds were checked locally to be 22 characters from the IFC alphabet with a first character in `0`-`3`, and the `\X2\` code points (С=0421 ... а=0430, 墙=5899, Ä=00C4) were recomputed. Remove the `/* */` comments if a strict parser complains. It deliberately omits OwnerHistory (`$`, allowed in IFC4, see section 7).
 
 ```
 ISO-10303-21;
@@ -270,9 +270,9 @@ Schema (`FILE_SCHEMA`) = the data model version. Typical values:
 | `ViewDefinition [DesignTransferView...]` | IFC4 Design Transfer View (suffix unverified) |
 | `ViewDefinition [, QuantityTakeOffAddOnView, SpaceBoundary2ndLevelAddOnView]` | empty base view plus add-ons [2] |
 
-MVD facts from Graphisoft [11]: IFC4 splits the Coordination View into the Reference View (mostly one-way, reference models) and the Design Transfer View (supports editing of connected elements, not meant for round trips); "the IFC4 Schema is not supported by all applications". Revit's export dialog offers: IFC 2x3 Coordination View 2.0, IFC 2x3 Coordination View, IFC 2x2 Coordination View, IFC 2x3 GSA Concept Design BIM 2010, IFC 4 Reference View, IFC 4 Design Transfer View [16]. Revit file types: IFC, IFC XML, Zipped IFC, Zipped IFC XML [16]; Revit opens `.ifc`, `.ifcXML`, `.ifcZIP` [17]. Menu path: Revit 2025 and later: File > Export > IFC > Modify Setup (via search excerpt of an Autodesk support article [17]; earlier versions use "Export > Options > IFC Options": unverified).
+MVD facts from Graphisoft [11]: IFC4 splits the Coordination View into the Reference View (mostly one-way, reference models) and the Design Transfer View (supports editing of connected elements, not meant for round trips); "the IFC4 Schema is not supported by all applications". Revit's export dialog offers: IFC 2x3 Coordination View 2.0, IFC 2x3 Coordination View, IFC 2x2 Coordination View, IFC 2x3 GSA Concept Design BIM 2010, IFC 4 Reference View, IFC 4 Design Transfer View [16]. Revit file types: IFC, IFC XML, Zipped IFC, Zipped IFC XML [16]; Revit opens `.ifc`, `.ifcXML`, `.ifcZIP` [17]. Menu path: Revit 2025 and later: File > Export > IFC > Modify Setup (via search excerpt of an Autodesk support article [17]; QA could not confirm the path on the Revit 2024/2026 help pages, which only describe the setup options - unverified; earlier versions use "Export > Options > IFC Options": unverified). Option labels confirmed in QA (Revit 2024 help): "Export base quantities" (Property Sets tab), "Store the IFC GUID in an element parameter after export", "Split Walls, Columns, Ducts by Level" (General tab), "Export only elements visible in view" and "Export rooms in 3D views" (Additional Content tab), Space boundaries None / 1st level / 2nd level (General tab), coordinate base options Shared Coordinates / Survey Point / Project Base Point / Internal Origin / Project Base Point oriented in True North / Internal Origin oriented in True North [41].
 
-Caveat: the header is a claim by the exporter, not proof. In Revit 2026.4 with the IFC4x3 Reference View option, the header wrongly said `CoordinationView` (schema `IFC4X3_ADD2`); Autodesk reproduced it in 2026.4, not in 2027, and warned that hand-editing the line does not make the file conform [9]. Likewise, a file labelled `IFC2X3` can contain an IFC4-only entity [18-related fixture, via search excerpt].
+Caveat: the header is a claim by the exporter, not proof. In Revit 2026.4 with the IFC4x3 Reference View option, the header wrongly said `CoordinationView` (schema `IFC4X3_ADD2`); Autodesk reproduced it in 2026.4, not in 2027, and warned that hand-editing the line does not make the file conform [9]. (revit-ifc issue #1013 was opened on 14 Oct 2026 and answered on 16 Oct 2026; still open when checked on 2026-11-06, no decision yet on a 2026.x fix.) Likewise, a file labelled `IFC2X3` can contain an IFC4-only entity [18-related fixture, via search excerpt].
 
 ---
 
@@ -283,10 +283,10 @@ Caveat: the header is a claim by the exporter, not proof. In Revit 2026.4 with t
 | IFC-SPF | `.ifc` | ISO 10303-21 | Most widely used; buildingSMART recommends it for file-based exchange (widest compatibility, smallest size) [3][13] |
 | ifcXML | `.ifcXML` | ISO 10303-28, XSD from the EXPRESS schema | Official but rare because of file size [13][3]. Graphisoft: normally 300-400% larger than `.ifc` [12]. Used when the partner's tools need XML [12] |
 | ifcZIP | `.ifcZIP` (often `.ifczip`) | ZIP container holding one SPF or XML model | Graphisoft: shrinks `.ifc` by about 60-80%, `.ifcXML` by 90-95% (vendor figures) [12]. Any ZIP tool can unpack it [12]. Text-editor version checks need unzipping first [18] |
-| ifcJSON | `.json`/`.ifcJSON` | JSON mapping of EXPRESS | buildingSMART community repo "ifcJSON-4", described as in sync with the EXPRESS schema, still under development, no formal release listed at capture time [14]. Listed in the "provisional/candidate" tier on buildingSMART's formats page (via search excerpt) [3]. ODA's IFC SDK offers only experimental read support [30]. Wikipedia mentions ifcJSON v4 and v5 work in 2020 [13] |
+| ifcJSON | `.json`/`.ifcJSON` | JSON mapping of EXPRESS | buildingSMART community repo "ifcJSON-4", described as in sync with the EXPRESS schema, still under development, no formal release listed at capture time [14]; the README (QA-read) says the initial standard is being developed against IFC4, specifically IFC4.3. Listed in the "provisional/candidate" tier on buildingSMART's formats page (via search excerpt) [3]. ODA's IFC SDK offers only experimental read support [30]. Wikipedia mentions ifcJSON v4 and v5 work in 2020 [13] |
 | HDF5 | `.ifcHDF` | HDF5, relating to ISO 10303-26 | Hierarchical binary storage for fast access; listed as official on the formats page (via search excerpt) [3]; ODA IFC SDK reads and writes HDF5 [30]. Rare in practice (general knowledge) |
 | ifcOWL / RDF / Turtle | `.ttl`, `.rdf` | OWL ontology generated from EXPRESS | buildingSMART Linked Data WG documented ifcOWL as a standard in 2017 [25]; RDF/TTL files are listed for IFC 2x3 and IFC4 ADD2 TC1 in the specification database (via search excerpt) [24]. Whether official ifcOWL exists for IFC 4.3.2 was not confirmed (unverified). Research-oriented, rarely used in production (secondary source, low confidence) |
-| IFC5 / "IFCX" | `.ifcx` | JSON-based, ECS-like | Next-generation work, separate from 4.x; details not researched here (unverified; do not rely on this row) |
+| IFC5 / "IFCX" | `.ifcx` (extension from community material, unverified) | JSON-based | Next-generation work, separate from 4.x; the buildingSMART IFC5-development README (QA-read) calls its files "alpha examples" and says the JSON schema will be published on ifcx.dev; it does not use the word "IFCX" or the `.ifcx` extension itself. Do not rely on this row beyond "experimental" |
 
 Important for MCP testing: schema-level semantics are the same across SPF/XML/JSON; but file size, parser speed and tool support are very different. An MCP server that "supports IFC" almost always means SPF (+ often ifcZIP); asking it to open `.ifcXML` or `.ifcJSON` is a legitimate edge-case test.
 
@@ -330,7 +330,7 @@ Real questions found (linked in Sources):
 1. "What is the meaning of the string \X2\****\X0\ in IFC export file?" (Autodesk forum) [22]
 2. "How do I convert hexadecimal \X2\ IFC strings (a Russian example) to Unicode?" (Stack Overflow, via mirror) [23]
 3. "How can I find out the version of an IFC file (IFC2X3 vs IFC4)?" (buildingSMART forum) [18]
-4. "Why do IFC GUIDs change on every export of the same Revit file?" (revit-ifc issue 521, Autodesk forum threads) [21][28][29]
+4. "Why do IFC GUIDs change on every export of the same Revit file?" (revit-ifc issue 521 - title: room IfcGUID changes every time if the store-GUID option is checked; opened Oct 2022, closed as completed 5 Sep 2023 with exporter 22.6.x reported stable; plus Autodesk forum threads) [21][28][29]
 5. "Revit IFC4x3 Reference View export writes CoordinationView in FILE_DESCRIPTION: is the file wrong?" (revit-ifc issue 1013) [9]
 6. "Why does Element.UniqueId change and what does that do to the IFC GUID?" (Revit API forum) [31]
 
@@ -402,7 +402,7 @@ Illustrative (invented) questions, typical of testers and users:
 [18] buildingSMART forum, IFC Schema Identifier: https://forums.buildingsmart.org/t/ifc-schema-identifier/4802 (fetched)
 [19] Tekla support, Supported IFC schemas: https://support.tekla.com/article/supported-ifc-schemas (fetched)
 [20] Autodesk blog, Unique Id and IFC GUID Parameter: https://blog.autodesk.io/unique-id-and-ifc-guid/ (fetched)
-[21] Autodesk/revit-ifc issue 521 (GUIDs change when "Store IFC GUID" is checked): https://github.com/Autodesk/revit-ifc/issues/521 (via search excerpt)
+[21] Autodesk/revit-ifc issue 521 (room GUIDs change when "Store the IFC GUID in an element parameter after export" is checked; read in QA): https://github.com/Autodesk/revit-ifc/issues/521
 [22] Autodesk forum, meaning of \X2\...\X0\: https://forums.autodesk.com/t5/revit-architecture-forum/what-is-the-meaning-of-the-string-x2-x0-in-ifc-export-file/td-p/9627613 (via search excerpt)
 [23] Stack Overflow mirror, convert hexadecimal to Unicode (Russian \X2\ example) and a Python decoder answer for \X, \X2\, \S\: https://kaweah.freedombox.rocks/kiwix/content/stackoverflow.com_en_all_2023-11/questions/65897865/convert-hexadecimal-to-unicode ; https://kiwix.lema.org/stackoverflow.com_en_all_2023-11/questions/43417411/how-to-decoding-ifc-using-ruby (mirrors, via search excerpts)
 [24] buildingSMART IFC Specifications Database: https://technical.buildingsmart.org/standards/ifc/ifc-schema-specifications/ (via search excerpts)
@@ -413,3 +413,6 @@ Illustrative (invented) questions, typical of testers and users:
 [29] Autodesk forum, IFC export new ID every time: https://forums.autodesk.com/t5/revit-structure-forum/ifc-export-new-id-everytime-i-export/td-p/11598072 (via search excerpt)
 [30] ODA IFC SDK, file formats: https://docs.intellicad.org/files/oda/2023_10/oda_ifc_docs/ifc_overview_file_formats.html (via search excerpt); IFC 4.3 IfcText (string limit): https://standards.buildingsmart.org/IFC/DEV/IFC4_3/HTML/lexical/IfcText.html (via search excerpt, labelled 30b in text)
 [31] Autodesk Revit API forum, Anormal modification of Element.UniqueId: https://forums.autodesk.com/t5/revit-api-forum/anormal-modification-of-element-uniqueid/m-p/6372628/highlight/true (via search excerpt)
+[41] Autodesk Revit 2024 help, IFC Export Setup Options (read in QA; option labels and tabs): https://help.autodesk.com/cloudhelp/2024/ENU/Revit-DocumentPresent/files/GUID-E029E3AD-1639-4446-A935-C9796BC34C95.htm
+[42] Wikipedia, ISO 10303-21 (re-read in QA; editions 1994 / 2002 / 2016, header entities, implementation level): https://en.wikipedia.org/wiki/ISO_10303-21
+[43] buildingSMART forum, IFC Schema Identifier (re-read in QA; how to find the version, `grep -m 1 FILE_SCHEMA`; the thread does not settle `IFC4X3` vs `IFC4X3_ADD2`): https://forums.buildingsmart.org/t/ifc-schema-identifier/4802

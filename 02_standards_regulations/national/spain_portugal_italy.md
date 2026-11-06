@@ -4,7 +4,7 @@
 
 Spain, Portugal and Italy all use BIM in public works, but in three different ways. Italy has the clearest hard rule: since 1 January 2025 public clients must use BIM methods for new works and for interventions on existing buildings with an estimated works cost above EUR 2 million, and the law requires open, non-proprietary, interoperable formats [1]. Spain has no single national "BIM law"; BIM is enabled by the public procurement law and pushed by an inter-ministerial commission (es.BIM), and buildingSMART Spain publishes the practical IFC delivery rules [2][3][4]. Portugal relies on a standardisation committee (CT 197) and guides (a contracting guide and a BIM execution plan guide) rather than a binding national mandate found in this research (unverified) [5][6]. For an MCP tester: IFC is the "open format" that these rules point to, but the exact IFC version and view definition (MVD) are usually fixed in each project's information requirements, not in the national law.
 
-**Last researched: 2026-11-06**
+**Last researched: 2026-11-06** (QA pass 2026-11-06: Normattiva Art. 43 D.Lgs. 36/2023 and the Italian Wikipedia BIM page re-fetched and confirmed; see `_meta/qa/qa-standards-2.md`.)
 
 > Research limitations for this document: the web search budget of the session ran out before any search could be run, so everything here comes from direct page fetches of primary sources plus clearly labelled background knowledge. Items marked "(unverified)" were not confirmed on a primary source in this session. See "Gaps" at the end.
 
@@ -77,13 +77,15 @@ From the BSSP training page [13]: the contracting body assesses needs and define
 | Instrument | What it does | Status |
 |---|---|---|
 | D.Lgs. 50/2016 (old Code), Art. 23 | Introduced "progressive adoption of digital methods" such as BIM [14] | Replaced by D.Lgs. 36/2023 |
-| **DM MIT 560/2017** (1 December 2017) | Implements Art. 23 of the old Code; sets phased adoption of BIM by tender amount [25]. The schedule was reported as starting 1 Jan 2019 for the largest contracts with a general 2025 horizon [14]. Exact yearly thresholds **unverified** | Superseded for new procedures by the 2023 Code (unverified how transitional rules apply) |
+| **DM MIT 560/2017** (1 December 2017; date confirmed on Italian Wikipedia in QA, which gives no phase thresholds) | Implements Art. 23 of the old Code; sets phased adoption of BIM by tender amount [25]. The schedule was reported as starting 1 Jan 2019 for the largest contracts with a general 2025 horizon [14]. Exact yearly thresholds **unverified** | Superseded for new procedures by the 2023 Code (unverified how transitional rules apply) |
 | **DM MIT 312/2021** | Amends/integrates DM 560/2017 (understood to concern information-management requirements and dates; exact content **unverified**: the Normattiva page failed to load) | Unverified |
 | **D.Lgs. 36/2023 (new Codice dei contratti pubblici)**, Art. 43 | Current BIM rule (see below) [1] | In force |
 | **Allegato I.9** to D.Lgs. 36/2023 | Operating rules for "metodi e strumenti di gestione informativa digitale delle costruzioni" [1][26] | In force |
 | D.Lgs. 209/2024 (31 Dec 2024) | Corrective decree; repealed comma 5 of Art. 43 [1] | In force |
 
 ### 4.2 Art. 43 D.Lgs. 36/2023 (text in force from 31-12-2024) [1]
+
+QA re-check on Normattiva: comma 1 (1 January 2025, works cost above EUR 2 million, or the Art. 14(1)(a) threshold for protected cultural-heritage buildings, maintenance excluded unless previously done with BIM), comma 3 (interoperable platforms, open non-proprietary formats) and the repeal of comma 5 by D.Lgs. 31 December 2024, n. 209 were all confirmed on the primary page.
 
 - **Comma 1:** from **1 January 2025** contracting authorities and concession-granting entities adopt BIM methods and tools for new works and for interventions on existing buildings where the estimated works cost is **above EUR 2 million** (or, for certain cultural heritage buildings under Art. 10(1) of D.Lgs. 42/2004, the threshold in Art. 14(1)(a)). Ordinary and extraordinary maintenance is excluded unless it concerns works previously done with BIM.
 - **Comma 2:** below the thresholds, authorities may still adopt BIM and award scoring points for it, provided they adopt the Allegato I.9 measures.
@@ -102,7 +104,7 @@ Summary of the version read (a third-party mirror of the Code; check Normattiva 
 
 ### 4.4 UNI 11337 and ISO 19650
 
-- UNI 11337 is the Italian BIM series. Reported by a general reference: parts 1, 4 and 5 published January 2017 [14]; Part 4 (2017) defines LOD A to G made of LOG (geometry) and LOI (information); Part 6 defines BIM dimensions 1D to 7D [27]. The full list of parts and their years is **unverified** (UNI site did not give it). 
+- UNI 11337 is the Italian BIM series. Reported by a general reference: parts 1, 4 and 5 published January 2017 [14]; Part 4 (2017) defines LOD A (symbolic) to G (updated) made of LOG (geometry) and LOI (information); Part 6 defines BIM dimensions 1D to 7D (1D concept design, 2D drawings, 3D model, 4D scheduling, 5D costs, 6D operation and maintenance, 7D sustainability) [27] (UNI 11337-4:2017 and -6 re-confirmed on Italian Wikipedia in QA; other part years remain unverified). The full list of parts and their years is **unverified** (UNI site did not give it). 
 - UNI EN ISO 19650-1/-2 (information management) are the European/international reference named by Allegato I.9 [26].
 
 ### 4.5 buildingSMART Italia and IFC guidance
@@ -138,7 +140,7 @@ Important for testers: a model that passes buildingSMART IFC validation can stil
 
 ## 6. Software and tools (practical)
 
-**Revit and IFC (general, not national):** Revit exports IFC from File > Export > IFC; since Revit 2023 the open-source IFC exporter is bundled (source: Autodesk/revit-ifc on GitHub; not fetched in this session, unverified). In localised Revit the menu is "Archivo > Exportar > IFC" (ES, PT: "Ficheiro > Exportar > IFC") and "File > Esporta > IFC" (IT) (unverified wording). Classification and Psets are normally mapped through the export "User Defined Property Set" and "Parameter mapping" files.
+**Revit and IFC (general, not national):** Revit exports IFC from File > Export > IFC; the IFC exporter is open source (Autodesk/revit-ifc on GitHub, LGPLv2, re-confirmed in QA; the README says the latest annual Revit version plus two previous versions are supported); the exact Revit release from which it is bundled (earlier text said 2023) is unverified. In localised Revit the menu is "Archivo > Exportar > IFC" (ES, PT: "Ficheiro > Exportar > IFC") and "File > Esporta > IFC" (IT) (unverified wording). Classification and Psets are normally mapped through the export "User Defined Property Set" and "Parameter mapping" files.
 
 **Local software ecosystem (author knowledge, unverified in this session):**
 - Spain: CYPE (IFC Builder, BIMserver.center), Presto (RIB Spain, cost estimating).

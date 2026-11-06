@@ -6,7 +6,7 @@ France, French-speaking Belgium, Switzerland, Quebec and francophone Africa all 
 
 For a QA tester: expect test requests in French (or German-Swiss terms), expect "maquette numerique" instead of "BIM model", and expect owner-specific rules instead of one national IFC rule.
 
-Last researched: 2026-11-06
+Last researched: 2026-11-06. QA pass 2026-11-06: the French Wikipedia BIM page and two SQI (Quebec) pages were re-fetched; most dates and figures are confirmed, with a few precision fixes noted inline. See `_meta/qa/qa-standards-2.md`.
 
 **Research limits (read first).** In this run the web-search tool refused all queries (search budget exhausted), and several official sites returned HTTP 403 to the fetch tool (batiment-numerique.fr, mediaconstruct.fr, buildingsmart.org, technical.buildingsmart.org, iso.org). The document is therefore built from the pages that could be fetched (Wikipedia, SQI Quebec, buildingSMART Belgium, Bauen digital Schweiz, KROQI, buildingSMART GitHub). Everything not backed by a fetched page is marked "(unverified)". Treat unverified items as leads to check, not as facts.
 
@@ -17,10 +17,10 @@ Last researched: 2026-11-06
 | Year | Event | Source |
 |---|---|---|
 | 26 Feb 2014 | EU Directive 2014/24/EU, art. 22(4): member states may require "electronic modelling tools for buildings" in public works and design contests; transposition due 18 Apr 2016 | [1] |
-| 2014 | AFNOR experimental standard XP P07-150 gives the French transcription "Modelisation des Informations d'une Construction" | [1] |
-| 20 Jan 2015 | PTNB (Plan de Transition Numerique dans le Batiment) presented, chaired by Bertrand Delcambre, with a EUR 20 million fund; portal opened 1 Jul 2015 by minister Sylvia Pinel | [1] |
+| 2014 | AFNOR experimental standard XP P07-150 gives the French transcription "Modelisation des Informations d'une Construction" | [1] (QA: the page cites XP P07-150 without a year; 2014 is (unverified)) |
+| 20 Jan 2015 | PTNB (Plan de Transition Numerique dans le Batiment) presented, chaired by Bertrand Delcambre, with a EUR 20 million fund; portal opened 1 Jul 2015 by minister Sylvia Pinel | [1] (QA: the French Wikipedia text gives "20 janvier" without a year, so 2015 is inferred from the 1 Jul 2015 portal footnote; the minister's name was not re-checked) |
 | 2017 | PTNB launches a BIM training site; AND Construction founded | [1][2] |
-| 2018 | Plan BIM 2022 replaces the PTNB; run by AND Construction; KROQI platform (CSTB) supports it. Trade press headline: "Le PTNB est mort, vive le Plan BIM 2022" (Le Moniteur, 20 Nov 2018) | [2] |
+| 2018 | Plan BIM 2022 replaces the PTNB; run by AND Construction; KROQI platform (CSTB) supports it (QA: Plan BIM 2022 appears in the English sources [2], not in the French Wikipedia page re-read). Trade press headline: "Le PTNB est mort, vive le Plan BIM 2022" (Le Moniteur, 20 Nov 2018) | [2] |
 | 29 Jan 2019 | Journal officiel publishes the official French term "bati immobilier modelise" (Commission d'enrichissement de la langue francaise) | [1] |
 | 12 Jul 2019 | Two professional titles created by arretes: "BIM modeleur du batiment" and "Coordinateur BIM du batiment" | [1] |
 
@@ -30,7 +30,7 @@ Plan BIM 2022 objective, governance details and any post-2022 successor: not ver
 
 - No verified French law obliges IFC delivery. The legal basis is permissive: public buyers *may* require BIM tools (Directive 2014/24/EU art. 22(4) [1]). The French transposition sits in the Code de la commande publique (article number R2132-10, unverified).
 - In practice the requirement appears in each tender: a "cahier des charges BIM" / "exigences BIM" annex and a "convention BIM" signed by the project team (unverified in detail, standard French practice).
-- Adoption data (CNOA, March 2018): BIM in architecture competitions rose from 0.49% (2013-2014) to 8.10% (2018); BIM competence required in 68.75% of competitions; the overall market share of BIM was 15.34% in the latest figure cited [1]. These are old numbers; do not present them as current.
+- Adoption data (CNOA, March 2018): BIM in architecture competitions rose from 0.49% (2013-2014) to 8.10% (2018); BIM competence required in the team in 68.75% of the competitions counted (as phrased on the French page); the overall market share of BIM was 15.34% in the latest figure cited, which the page does not date (earlier points on the page: 5.39% for 2013-2015 and 11.74% on 30 March 2016) [1]. These are old numbers; do not present them as current.
 
 ### 1.3 Standards used in France
 
@@ -78,9 +78,9 @@ All facts below from SQI pages [7][8][9][10] unless stated.
 
 **Terminology.** The SQI calls BIM "modelisation des donnees des infrastructures (MDI)"; the OQLF proposed "modelisation des donnees d'un batiment" in 2008 [1]. PCI = "processus de conception integree" (integrated design process).
 
-**Government roadmap.** "Feuille de route gouvernementale pour la modelisation des donnees des infrastructures (2021-2026)": five years, April 2021 - March 2026; derived from the "Plan d'action pour le secteur de la construction", which aims to make BIM a requirement for public infrastructure projects. Eight public owners signed: SQI, Ministere des Transports et de la Mobilite durable, Societe d'habitation du Quebec, Hydro-Quebec, Parc olympique, and the cities of Longueuil, Montreal and Quebec. Documents: roadmap updated at 31 March 2025 (PDF), summary, and "Constats et plan d'action - SOMMET BIM 2023". The page names no thresholds, no mandatory date and no IFC [8]. Upcoming event: Sommet BIM+, 17-18 Nov 2026, Quebec City [8]. A roadmap beyond March 2026 is not verified.
+**Government roadmap.** "Feuille de route gouvernementale pour la modelisation des donnees des infrastructures (2021-2026)": five years, April 2021 - March 2026; derived from the "Plan d'action pour le secteur de la construction", which aims to make BIM a requirement for public infrastructure projects. Eight public owners signed: SQI, Ministere des Transports et de la Mobilite durable, Societe d'habitation du Quebec, Hydro-Quebec, Parc olympique, and the cities of Longueuil, Montreal and Quebec. Documents: roadmap updated at 31 March 2025 (PDF), summary, and "Constats et plan d'action - SOMMET BIM 2023". The page names no thresholds, no mandatory date and no IFC [8]. Upcoming event: Sommet BIM+, 17-18 Nov 2026, Centre des congres de Quebec [8] (QA: all of the roadmap period, the eight committed owners, the 31 March 2025 update and the event date were re-confirmed; the page says the owners are "engages" (committed), not necessarily "signatories"). A roadmap beyond March 2026 is not verified.
 
-**SQI roadmap 2016-2026.** BIM-PCI deployment began 2016; 15 projects selected for BIM (3D) coordination reached by end 2019; target: from 2021 major projects of CAD 50 M and more in BIM (3D) coordination, from 2023 projects of CAD 10 M and more with PCI and BIM coordination; 4D/5D/7D uses in exploration 2023-2024, 6D (sustainability) 2024-2026 [10]. The page presents these as targets, so the contractual force is unclear.
+**SQI roadmap 2016-2026.** BIM-PCI deployment began 2016; 15 projects selected for BIM (3D) coordination reached by end 2019; target: from 2021 major projects of CAD 50 M and more in BIM (3D) coordination, from 2023 projects of CAD 10 M and more with PCI and BIM coordination; 4D/5D/7D uses in exploration from 2023-2024 (deployment from the following year), 6D (sustainability) exploration 2024-2025 and deployment planned 2025-2026 [10] (QA re-read of the SQI page; the 15 projects were selected for BIM 3D coordination against a 2021 target and the page says it was reached at end 2019). The page presents these as targets, so the contractual force is unclear.
 
 **SQI tools** [9] (the page warns that tender documents prevail and tools may change):
 - Guide d'application du BIM a la SQI (RF-GP-030.043); Cahier des exigences BIM de projet (FR-GP-030.079)

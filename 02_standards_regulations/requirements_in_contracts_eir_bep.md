@@ -4,7 +4,7 @@
 
 A client (owner) who wants an IFC model does not just say "send us IFC". They write the rules into contract documents: the **EIR** (Exchange Information Requirements, the client's list of what information must be delivered, when, and in what format) and the supplier's answer, the **BEP / BIM Execution Plan** (how the team will meet it). National or owner BIM manuals (Statsbygg SIMBA, Dutch BIM basis ILS, Singapore CORENET X IFC-SG, Chilean Planbim, German AIA/BAP, UK DfE EIR) are reusable bundles of such rules. Typical clauses fix the IFC schema version, the Model View Definition (MVD, the subset of IFC to export), exchange rhythm, file naming, coordinates, mandatory properties and classification, how the model will be checked, the level of information need (LOIN), and increasingly a machine-readable IDS file and BCF for issues. For a QA tester of IFC/Revit MCP servers this document shows what "a correct IFC delivery" means in practice, which checks real BIM managers run, and which requests users really make.
 
-Last researched: 2026-11-06
+Last researched: 2026-11-06 (fact-checked the same day; corrections are listed in [../_meta/qa/qa-standards-1.md](../_meta/qa/qa-standards-1.md). Verified in the QA pass: DfE EIR IFC clauses, IDS 1.0 release data, SIMBA versions and licence, pooled-fund study TPF-5(565), Singapore thresholds and georeferencing, Moscow АГР order details as quoted by consultancies. Not re-checked: German Muster-AIA, Dutch ILS/NLRS, Chilean DS49, GSA/FHWA.)
 
 ---
 
@@ -27,11 +27,11 @@ Last researched: 2026-11-06
 
 ### 2.1 IFC schema version
 
-- UK Department for Education (DfE) EIR, January 2026: IFC-SPF files "shall be provided in accordance with either" IFC2x3 TC1 (PAS/ISO 16739:2005) or IFC4 ADD2 TC1 (ISO 16739-1:2018); geometric requirements are listed against IFC2x3 TC1 entities [1].
+- UK Department for Education (DfE) EIR, January 2026 (Open Government Licence v3.0; text re-read in the QA pass): IFC-SPF files shall be provided in accordance with either buildingSMART's IFC2x3 TC1 (PAS/ISO 16739:2005) schema or the IFC4 ADD2 TC1 (ISO 16739-1:2018) schema; geometric requirements are listed against IFC2x3 TC1 entities; the document states it is developed in accordance with BS EN ISO 19650-2 clause 5.2.1 and says no file size limit is prescribed [1].
 - Statsbygg (Norway): SIMBA 1.3 for IFC2x3, SIMBA 2.0 for IFC4, SIMBA X for existing buildings; requirement sets "written only for intended use against IFC4 models" for 2.0 [2]. A secondary (social media thread, unverified) report says SIMBA 2.1 requires IFC4 ADD2 TC1 with IFC2x3 as a fallback during the project [3].
 - Chile, MINVU DS49 information request: use a neutral standard such as IFC; "IFC 4 is recommended, minimum IFC 2x3 as stated in the PEB" [9].
 - Singapore CORENET X: IFC4 Reference View with the local IFC-SG extension [4].
-- Moscow ЦИМ АГР (commercial summaries, not primary): IFC4 Reference View, IFC 4.0.2.1 schema per ГОСТ Р 10.0.02-2019 [15] (see section 3.6 for caveats).
+- Moscow ЦИМ АГР (commercial summaries, not primary): IFC4 Reference View, IFC 4.0.2.1 schema per ГОСТ Р 10.0.02-2019 [15][31] (see section 3.6 for caveats).
 - Germany (Bund Muster-AIA): the template asks the client to state "data formats with associated version number" and, if appropriate, to prescribe a standard MVD [6]. It also notes IFC4.3 brings IfcBridge, IfcRoad, IfcRailway [6].
 - IFC 4.3 is ISO 16739-1:2024 (published April 2024 per a US pooled-fund study page) [16].
 
@@ -72,7 +72,7 @@ Dutch NLRS guide v3.0 says Revit users should treat an MVD "like a View Template
 | NLRS (Revit) | Three points: Project Base Point, Survey Point, Startup (internal origin); advised to place all on one another; export setting "Project Origin" must be agreed in project agreements [8] |
 | German Muster-AIA 8.3, 8.4 | Client states geodetic reference systems, project coordinate system, reference points (project zero, north direction) in a table; every model must contain the zero point "in verifiable form" and the north direction; client can require a BIM reference IFC file from the BIM coordinator with the coordinate/height system applied; units are fixed in 8.4 [6] |
 | UK DfE | Coordinates of the building(s) and building storey (floor) nomenclature with elevation and height are project-information-standard items (2.2.11, 5.2.4) [1] |
-| Singapore | Per a BCA webinar deck summary: SVY21 (EPSG:3414) and Singapore Height Datum; total models in one submission not over 2 GB (secondary summary, verify in the Code of Practice) [4][19] |
+| Singapore | SVY21 (EPSG:3414) for easting/northing and Singapore Height Datum for height, stated on the CORENET X Code of Practice page (confirmed in the QA pass); the same page mentions a maximum file size per project team submission but does not state the figure; "total models not over 2 GB" comes only from a 2023 BCA webinar deck summary (unverified, check the COP PDF) [4][19][45] |
 | Moscow АГР | One system for all discipline files; base point tied to real X, Y, Z and the Baltic height system; rotation to true north; scale 1:1 (commercial summary) [15] |
 
 ### 2.6 Mandatory properties, entities and classification
@@ -103,7 +103,7 @@ German Muster-AIA chapter 8.2 "Informationsbedarfstiefe" (LOIN) with an annex pe
 
 - IDS 1.0 became an official buildingSMART standard on 1 June 2024 (search summary; GitHub release tag v1.0.0 published 3 June) [13][14].
 - An `.ids` file holds Specifications; each has Applicability (which elements) and Requirements (what they must have), built from facets: entity, attribute, property, classification, material, partOf [14][22].
-- Requirements can be required/optional/prohibited (cardinality) - general knowledge, not confirmed on the fetched page.
+- Requirements can be required/optional/prohibited (cardinality) - confirmed in the IDS specifications manual (see [buildingsmart_standards.md](buildingsmart_standards.md), Cardinality table).
 - 200+ people from 34 countries took part; 20+ products implement it; talks on CEN/ISO publication are mentioned in release notes [14].
 - Statsbygg's site says IDS will replace mvdXML for stating model requirements [21].
 
@@ -138,7 +138,7 @@ German Muster-AIA chapter 8.2 "Informationsbedarfstiefe" (LOIN) with an annex pe
 ### 3.4 Singapore (CORENET X, IFC-SG)
 - IFC4 Reference View + IFC-SG; configuration covers BCA, LTA, NEA, NParks, PUB, SCDF, URA [4]; IFC+SG resources: Excel mapping file, data structure (SGPsets), authoring-tool guidance, model checker [20].
 - Authoring tools: Revit (Autodesk interoperability tools with shared-parameter configuration XML, checkset) and Archicad (config files) [27].
-- Mandatory scope: IFC-SG submission for new erections and major A&A with new GFA (BCA circular summary); a 5,000 m2 threshold from 1 Oct 2026 appears in one news article only (unverified) [4][19].
+- Mandatory scope: BIM submissions in IFC+SG format are mandatory for new erections and major A&A with new GFA of 5,000 m2 or more. This is now confirmed by the BCA/URA circular of 23 Jul 2026 (BCA ref APPBCA-2026-12, URA ref URA/PB/2026/08-DCG): mandatory CORENET X Gateway submission for all new projects with GFA >= 30,000 m2 since 1 Oct 2025 and for all new projects with GFA >= 5,000 m2 from 1 Oct 2026; projects below 5,000 m2 stay voluntary (they may continue in CORENET 2.0) [4][45][46]. See [national/singapore.md](national/singapore.md).
 - Simplified objects accepted if the required IFC-SG data is embedded [4].
 
 ### 3.5 Chile (Planbim, MINVU)
@@ -147,9 +147,9 @@ German Muster-AIA chapter 8.2 "Informationsbedarfstiefe" (LOIN) with an annex pe
 - Planbim IFC entity guides (architecture v2.2, volumetric v2.0, MEP, bridges) are tied to ISO 16739-1:2018 / IFC 4.0.2.1 [28].
 
 ### 3.6 Russia (ЦИМ - цифровая информационная модель, digital information model)
-- ГОСТ Р 10.0.02-2019 is the Russian adoption of IFC data schema (analog of ISO 16739-1:2018), in force since 2019-09-01 [29].
-- Moscow АГР (архитектурно-градостроительное решение, architectural-urban-planning solution): commercial sources say a mandatory IFC model is added to FBX models (НПМ - low-poly, ВПМ - high-poly) from spring 2026; they disagree on the start date (2 April 2026 vs 19 January 2026) and cite an order of the Moscow Committee for Architecture (ДГП) and IT Department of 16.01.2026 No. ДГП-Р-1/26/64-16-6/26 (unverified, not seen in primary text) [15][30][31].
-- Reported content: IFC4 Reference View, IFC4.0.2.1; IfcSite with `RUS_LandID`, `RUS_AreaSquare`; IfcSpace per area methodology; custom sets `RusSet_ACR/Project/Common/Quantities/Location`; `RUS_FNO`; standard Pset_/Qto_ reportedly not counted; total up to 500 MB; Baltic height system; XML statements for ТЭП (технико-экономические показатели, technical-economic indicators); BCF annotations (all unverified) [15][30].
+- ГОСТ Р 10.0.02-2019 is the Russian adoption of the IFC data schema (analog of ISO 16739-1:2018; the Moscow IFC requirements cite it for schema IFC 4.0.2.1); the in-force date 2019-09-01 comes from the catalogue entry [29] cited elsewhere in this knowledge base and was not re-fetched (the catalogue page timed out in the QA pass) [15][29][31].
+- Moscow АГР (архитектурно-градостроительное решение, architectural-urban-planning solution; the approval procedure itself is governed by Moscow Government resolution 284-ПП of 30.04.2013 "Об оптимизации порядка утверждения архитектурно-градостроительных решений", current edition of 09.02.2026 per a consultancy page): two commercial sources quote the same joint order of the Moscow Department of Urban Development Policy (Департамент градостроительной политики, ДГП) and the Department of Information Technologies of 16.01.2026, No. ДГП-Р-1/26/64-16-6/26, titled "Об утверждении Требований к материалам в формате IFC", and say the IFC model becomes mandatory from 2 April 2026, added to the existing FBX models (НПМ - low-poly, ВПМ - high-poly) rather than replacing them. A third consultancy page says the updated 3D-model requirements (including the added IFC model) apply from 19 January 2026 and raises the ZIP limit for landscaping ВПМ to 1 GB. The order text itself was not seen (unverified) [15][30][31]. (Earlier wording called the ДГП "Moscow Committee for Architecture"; the sources name the Department of Urban Development Policy.)
+- Reported content: IFC4 Reference View saved as STEP physical file (SPF), schema IFC 4.0.2.1; RVT/PLN not accepted; separate ЦИМ for site situation (ЦИМ ПС), landscaping (ЦИМ БиО) and architecture (ЦИМ АР); LOD 300 for exterior elements and LOD 200 for interior systems; IfcSite with `RUS_LandID`, `RUS_AreaSquare`; IfcSpace per area methodology; custom sets `RusSet_ACR/Project/Common/Quantities/Location`; `RUS_FNO`; standard Pset_/Qto_ reportedly not counted; IfcBuildingElementProxy prohibited where a specific class exists; 500 MB limit (one source: per file; another: for the whole set of discipline files, larger models split in 2-3 volumes); Baltic height system, scale 1:1; XML statements for ТЭП (технико-экономические показатели, technical-economic indicators) must match the model geometry, collision tolerance 80 mm; BCF annotations (all from commercial pages, unverified against the order) [15][30][31].
 - Related: St Petersburg expert review (ГАУ «ЦГЭ») has IFC-class requirements for engineering systems models; the primary PDF could not be opened [32].
 - Treat all of the above as "to verify against the official order", as aggregator sites disagree.
 
@@ -160,7 +160,7 @@ German Muster-AIA chapter 8.2 "Informationsbedarfstiefe" (LOIN) with an annex pe
 
 ### 3.8 United States (GSA, DOT)
 - FHWA material states BIM data requirements and modelling standards are voluntary, not enforceable under federal statute or FHWA regulations [35].
-- Pooled-fund study TPF-5(565), lead Iowa DOT, 2026-2028: IFC Validation Service and certification so DOTs can specify certified software and validate consultant deliverables; mentions AASHTO resolution to adopt IFC for BIM-based delivery of State DOT projects [16].
+- Pooled-fund study TPF-5(565), lead Iowa DOT, a three-year programme with funding commitments for 2026-2028 (verified on the study page): enhance the IFC Validation Service and global IFC software certification, recommend further efforts such as use-case-based certification, so DOTs can specify certified software and validate consultant deliverables; cites an AASHTO resolution to adopt IFC for BIM-based delivery of State DOT projects, and states that IFC4.3 was accepted as ISO 16739-1:2024 in April 2024 [16].
 - GSA: the BIM Guide Series (e.g. 02 spatial program validation, 08 facility management) are older (2006-2012) documents; I could not confirm current GSA IFC requirements (gsa.gov page returned 404) [36].
 - No state DOT contract language on IFC 4.3 found in this pass (unverified).
 
@@ -184,13 +184,13 @@ Derived from the sources above and common practice (checklist structure is the a
 
 **A. File and metadata**
 1. Opens without errors; correct schema in the header (`FILE_SCHEMA`: `IFC2X3`, `IFC4`, `IFC4X3_ADD2`) and the MVD named in the contract.
-2. File name follows the convention; status/revision per CDE; file size within limits (e.g. 500 MB Moscow, 2 GB Singapore) [4][15].
+2. File name follows the convention; status/revision per CDE; file size within limits (e.g. 500 MB Moscow АГР, whether per file or for the whole set differs between sources; Singapore "2 GB" is unverified) [4][15].
 3. Exporter name/version recorded (Revit version, open-source exporter); native file delivered when required [9].
 
 **B. Spatial structure and coordinates**
 4. One IfcProject, IfcSite, IfcBuilding; storeys named per convention; every element assigned to a storey [5].
 5. Project zero and north match the agreed reference file; elements near origin, no huge offsets; units correct (mm/m) [5][6].
-6. Georeference (IfcMapConversion / IfcProjectedCRS in IFC4) matches the required CRS (e.g. Singapore SVY21 per BCA slides, unverified) [19].
+6. Georeference (IfcMapConversion / IfcProjectedCRS in IFC4) matches the required CRS (e.g. Singapore SVY21 / EPSG:3414 plus Singapore Height Datum per the CORENET X COP page) [19][45].
 
 **C. Entities and types**
 7. Correct IFC classes, few or no IfcBuildingElementProxy; predefined types sensible [4][5][15].
@@ -270,7 +270,7 @@ I could not retrieve live forum threads in this research pass (search budget end
 ## 8. Gaps and unverified items
 
 - Full Statsbygg SIMBA text (current IFC version, georeference values) not retrieved: simba.statsbygg.no overview only; the search tool budget was exhausted before follow-up searches. Scribd copies of the old SBM manual were skipped as unofficial copies.
-- Moscow АГР order text and the St Petersburg ЦГЭ PDF were not accessible (connection errors/401); Russian details come from commercial/consultancy pages [15][30].
+- Moscow АГР order text and the St Petersburg ЦГЭ PDF were not accessible (connection errors/401); Russian details come from commercial/consultancy pages [15][30]. In the QA pass the order number and date were found on two consultancy pages (they agree with each other) but not on any government page; Russian government sites (.gov.ru) were unreachable from the fetch tool.
 - Planbim main Estándar BIM PDF was too large to fetch; Chile content is from MINVU DS49 and search summaries [9][28].
 - buildingsmart.org, iso.org, standards.buildingsmart.org pages returned 403 to the fetch tool; IDS/MVD/IFC4.3 facts rely on GitHub release notes, search summaries, and the US pooled-fund page. ISO 7817-1 publication details not verified.
 - Current GSA IFC requirements and state DOT clauses not found.
@@ -316,4 +316,6 @@ I could not retrieve live forum threads in this research pass (search budget end
 [33] SIB Sachsen BIM: https://sib.sachsen.de/bim-building-information-modeling-4089.html ; Muster-BAP: https://www.sib.sachsen.de/download/VVV/A03.07_Vertrag-Anlage_Muster_BAP_Vorlage.pdf
 [34] BW Muster-AIA: https://vm.baden-wuerttemberg.de/fileadmin/redaktion/m-mvi/intern/Dateien/PDF/Rahmendokument_Projektvorbereitung_-_Muster-AIA_barrierefrei.pdf
 [35] FHWA BIM administrative view: https://www.fhwa.dot.gov/construction/bim/pdfs/BIM_PPT_AnAdministrativeView_073020.pdf
+[45] CORENET X Code of Practice page (editions, SVY21 / SHD requirement): https://info.corenet.gov.sg/regulatory-process/corenet-x-code-of-practice
+[46] BCA/URA circular of 23 Jul 2026 "Updates to CORENET X Implementation Plan" (APPBCA-2026-12; URA/PB/2026/08-DCG): https://info.corenet.gov.sg/docs/default-source/bca-circulars/circular-for-updates-to-corenet-x-implementation-plan.pdf?sfvrsn=d8a19259_1
 [36] GSA BIM guides: https://origin-www.gsa.gov/system/files/largedocs/BIM_Guide_Series_Facility_Management.pdf (fetch returned 404); NIBS NBIMS-US V3 4.3 Spatial Validation: https://www.nibs.org/files/pdfs/nbimsv3/NBIMS-US_V3_4.3_Design_to_Spatial_Validation_SPV.pdf

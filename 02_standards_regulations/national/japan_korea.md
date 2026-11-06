@@ -1,6 +1,6 @@
 # Japan and South Korea: BIM/IFC requirements
 
-**Last researched: 2026-11-06**
+**Last researched: 2026-11-06** (QA pass 2026-11-06: MLIT building BIM council page, bSJ certified-software page and bSK R&D page re-fetched; see `_meta/qa/qa-standards-2.md`)
 
 ## In plain words
 
@@ -17,7 +17,7 @@ Japan and South Korea both have strong BIM industries, but they regulate BIM in 
 | Body | Role |
 |---|---|
 | MLIT (国土交通省) Housing Bureau, Building Guidance Division (住宅局建築指導課, "DX team") | Building BIM policy, permit-process BIM, secretariat of the building BIM council [1][2] |
-| 建築BIM推進会議 (Building BIM Promotion Council) | Public-private council, established June 2019; chair is a university president (松村秀一); meetings 14th (2025-03-27), 15th (2025-12-24), 16th (2026-03-24) [3] |
+| 建築BIM推進会議 (Building BIM Promotion Council) | Public-private council, established June 2019; chair is a university president (松村秀一); meetings 14th (2025-03-27), 15th (2025-12-24), 16th (2026-03-24) [3] (QA: the MLIT page shows the 16th meeting's minutes published 2026-04-28; the 14th and 15th meeting dates were not visible on the re-read page, unverified) |
 | 建築BIM環境整備部会 (Building BIM Environment Sub-committee) | Set up October 2019; 25th meeting held 2026-10-28 (agenda: progress toward BIM data review, and BIM data standardisation) [3][4] |
 | MLIT Technical Affairs / NILIM (国土技術政策総合研究所) | Civil BIM/CIM standards and the BIM/CIM portal [5][6] |
 | buildingSMART Japan (bSJ) | IFC specialist: runs one of the five working bodies under the council ("BIM information sharing infrastructure", BIMの情報共有基盤の整備検討部会) [3] |
@@ -30,7 +30,7 @@ Japan and South Korea both have strong BIM industries, but they regulate BIM in 
 
 | Date | Event |
 |---|---|
-| 2019-06 | Building BIM Promotion Council founded [3] |
+| 2019-06 | Building BIM Promotion Council founded [3] (QA: the MLIT page re-read does not itself state the June 2019 founding date; it only dates the first roadmap to September 2019 (令和元年9月); founding month remains (unverified) here) |
 | 2019-09 | 建築BIMの将来像と工程表 (Future vision and roadmap of building BIM), first edition [3] |
 | 2020-03 / 2022-03 / 2026-03 | Guideline "標準ワークフローとその活用方策に関するガイドライン" Ver.1 / Ver.2 / Ver.3 (3rd ed.) [3] |
 | 2023-03 | Roadmap supplementary edition (増補版) [3] |
@@ -38,9 +38,9 @@ Japan and South Korea both have strong BIM industries, but they regulate BIM in 
 | 2024-03 | 確認申請用CDE仕様書 Ver 1.00 Rev 1.00a (spec of the common data environment used for permit applications) [3] |
 | 2025-03 | BIMを通じた建築データの活用に関するガイドライン Ver.1; standard attribute lists (construction/fabrication attributes Ver 1.0) [3] |
 | 2026-03-24 | Initial edition of 建築確認におけるBIM図面審査ガイドライン and the application/review manual [3] |
-| **2026-04-01** | **BIM図面審査 (BIM drawing review) started** [3] |
+| **2026-04-01** | **BIM図面審査 (BIM drawing review) started** [3] (QA: confirmed on the MLIT page as 「R8.4.1 BIM図面審査が開始されました」) |
 | 2026-03 | Data-linkage standardisation task force (標準化TF) Ver 2.0 outputs [3] |
-| 2026-09 | "建築確認・検査におけるBIMデータ審査の導入に関する基本構想" (basic concept for introducing BIM data review in building confirmation and inspection) published [3] |
+| 2026-09 | "建築確認・検査におけるBIMデータ審査の導入に関する基本構想" (basic concept for introducing BIM data review in building confirmation and inspection) published [3] (QA: listed as 2026年9月, posted 2026-09-18) |
 | 2026-10-06..08 | buildingSMART International Summit held in Tokyo (Haneda), theme "openBIM: Built on Tradition, Shaping the Future" [8] |
 | 2027 / 2029 | Nationwide rollout of BIM drawing review in 2027 and BIM data review (IFC-based) from spring 2029 are stated by **a software-vendor page only** [9]; check MLIT's basic concept [3] before relying on them (unverified officially) |
 
@@ -72,7 +72,7 @@ Japan and South Korea both have strong BIM industries, but they regulate BIM in 
 ### 1.5 IFC in Japan: IFC検定 (IFC verification) and bSJ
 
 - **IFC検定 is a software verification program, not an exam for people.** Software must conform to a given MVD; results are recorded in bSJ's register and published [11]. A separate human-oriented programme is "buildingSMART プロフェッショナル認証" (professional certification) [12].
-- Current certified software list (土木基本IFC検定, since April 2022) [13]: SiTE-STRUCTURE Ver 6 (Construction System), TREND-CORE Ver.11 (Fukui Computer), Autodesk Revit 2026 + "J tool for Revit IFC2X3" (input only), V-nasClair 2026 + i-ConCIM_Kit + ModelCheck_Kit (Kawada Techno System). MVD in use: "BIM/CIM積算 MVD" v1.3 (v0.3 for the Revit tool). Certification periods run on a yearly basis, e.g. Revit entry 2026-02-12 to 2027-02-28 [13].
+- Current certified software list (土木基本IFC検定, since April 2022) [13]: SiTE-STRUCTURE Ver 6 (Construction System), TREND-CORE Ver.11 (Fukui Computer), Autodesk Revit 2026 + "J tool for Revit IFC2X3" (input only), V-nasClair 2026 + i-ConCIM_Kit + ModelCheck_Kit (Kawada Techno System). MVD in use: "BIM/CIM積算 MVD" v1.3 (v0.3 for the Revit tool). Certification periods run on a yearly basis, e.g. Revit entry (input only) 2026-02-12 to 2027-02-28 [13]. QA re-check of the list: SiTE-STRUCTURE Ver 6 input/output 2026-09-09 to 2027-09-30; TREND-CORE Ver.11 input/output 2026-03-17 to 2027-03-31; V-nasClair + i-ConCIM_Kit + ModelCheck_Kit 2026 input/output 2026-01-28 to 2027-01-31 [13].
 - Legacy MEP MVD: 設備モデルビュー定義2014 (ID MVD_BS-Mode-View_2014, v1.0, 2014-11-26) on **IFC2x3**; property sets follow 設備IFC利用標準 1.0 and carry a `BS_2014` suffix, e.g. `IfcFlowSegment_Pset_BS_2014`; required entities IfcProject, IfcBuildingStorey, IfcFlowController, IfcFlowFitting, IfcFlowSegment, IfcFlowTerminal, IfcFlowTreatmentDevice; IfcSite/IfcBuilding optional [14].
 - Practical consequence: many Japanese flows are still IFC2x3 based and use Japan-specific property sets (e.g. the Revit "J tool" is explicitly IFC2X3). A test model produced for Japan may therefore contain `Pset_..._BS_2014`-style names and Japanese `Name` values.
 - bSJ activities: technical committee (IFC, IDM, MVD, BCF, bSDD; IFC検定; training IFC experts), architecture committee, civil committee, international committee [15][16].
@@ -111,7 +111,7 @@ Community/other hubs named on MLIT's page: BIM GATE (design associations) https:
 | Downloads on its site | 국토교통부 건축분야 BIM 적용가이드 (2010) and 조달청 시설사업 BIM 적용 지침서 V2.0 (Public Procurement Service) [18] |
 | BIM certificate ladder | BIM 모델러, BIM 테크니션, BIM 코디네이터, BIM CM 코디네이터, BIM 매니저; pass mark 60/100 each for written and practical parts [21] |
 | 개방형 BIM 연구단 (Open BIM Research Group) | Ran 2017-2021; lead organisation buildingSMART Korea with Kyung Hee University and KICT; site kbims.or.kr; outputs include "KBIMS 2.0" (listed as 기준/standard), KBIMS mechanical-equipment library v2.0, Revit/ARCHICAD templates and libraries [22][23][24] |
-| IFC statement | bSK R&D page: latest official IFC is IFC 4.3.2.0, IFC 5 in development; also describes IDS, BCF, bSDD; software IFC scoring via buildingSMART's validation service [24] |
+| IFC statement | bSK R&D page (re-confirmed in QA; it also names IFC 4.0.2.1 and IFC 2.3.0.1 as the earlier official versions): latest official IFC is IFC 4.3.2.0, IFC 5 in development; also describes IDS, BCF, bSDD; software IFC scoring via buildingSMART's validation service [24] |
 | Standards history | IFC was recognised as a Korean e-commerce standard (ECIF132:2005) per bSK FAQ [25] |
 | 2026 events | BIM AWARDS 2026 results 2026-10-19; MOU on MEP BIM with the facilities association 2026-07-01; seminar on BIM standardisation (Korea Engineering Association) 2026-11-11 [26][27] |
 

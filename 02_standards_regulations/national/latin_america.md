@@ -4,7 +4,7 @@
 
 Latin America has no single BIM rule. Each country sets its own policy, and the pace is uneven. Brazil has a federal decree that makes BIM mandatory in phases. Chile's public programme Planbim publishes a BIM standard for public projects. Peru runs a "Plan BIM" tied to public investment. Colombia's rules come mostly from industry (Camacol "BIM Forum" and its BIM Kit) and a national strategy. Most mandates require "BIM" and "open formats", and say little about IFC itself: typically a deliverable "in IFC" plus a BIM Execution Plan (BEP/PEB), with details left to each owner's contract annex. For an MCP tester this means: IFC files from the region are usually exported from Revit, ArchiCAD or local structural tools; they are Spanish- or Portuguese-labelled (names, property values, classification); they are georeferenced against SIRGAS-based coordinate systems; and they are checked against a contract annex, not a national IFC "profile".
 
-Last researched: 2026-11-06
+Last researched: 2026-11-06. QA pass 2026-11-06: the Camacol BIM Kit page was re-fetched and its Vol. 1-3 document list is confirmed (it does not mention IFC); the planalto.gov.br decree pages were still blocked ("Esta requisicao foi bloqueada"), so Brazilian decree facts stay unverified. See `_meta/qa/qa-standards-2.md`.
 
 > **Research status warning.** This document was written under degraded research conditions. The web-search quota was exhausted before the first query, and many government sites (planalto.gov.br, gob.pe, buildingSMART technical pages) blocked or returned errors to the fetch tool. Only the facts with a [n] marker were read from a fetched page. Everything marked "(unverified)" comes from background knowledge or the task brief and must be re-checked against the official text before it is used to grade an answer. No standard numbers, dates or URLs were invented; where a detail could not be confirmed it is flagged. See "Gaps".
 
@@ -42,7 +42,7 @@ All items in this subsection are unverified: planalto.gov.br returned an "access
 - **ABNT NBR 15965** is the Brazilian construction-information classification (multi-part standard; commonly cited parts cover terminology, objects, processes, resources, results, units/spaces, construction information). (unverified: part titles and years)
 - **ABNT NBR ISO 19650** parts 1 and 2 are the Portuguese-language adoption of ISO 19650 (unverified: year).
 - **State "cadernos BIM"** exist in several states (examples recalled: Santa Catarina, Paraná, Minas Gerais, São Paulo's housing/works bodies) (all unverified, no URLs retrieved).
-- A Portuguese Wikipedia page fetched in this research states that a 2017 decree by President Temer created a strategic committee to implement BIM at federal level, and that a national BIM dissemination strategy was due in May 2018 [6]. That reflects a Wikipedia summary, not the primary decree; the 2019 and 2020 decrees above supersede it.
+- A Portuguese Wikipedia page fetched in this research states that a 2017 decree by President Temer created a strategic committee to implement BIM at federal level, and that a national BIM dissemination strategy was due in May 2018 [6]. That reflects a Wikipedia summary, not the primary decree; the 2019 and 2020 decrees above supersede it. QA note: from memory (unverified, planalto.gov.br blocked) the first national strategy decree was Decreto 9.377 of 17 May 2018, which Decreto 9.983/2019 replaced; so "2017" in the Wikipedia summary may refer to a preparatory act rather than that decree.
 
 ### 2.3 Peru: Plan BIM Perú
 
