@@ -212,7 +212,7 @@ Quick picks:
 
 ## research_raw — raw research, summarised per folder
 
-Each research "cell" has two files with the same name: `<cell>.jsonl` (one record per line, schema in [_meta/SPEC.md](_meta/SPEC.md)) and `<cell>.md` (human report: themes, how people write, local ecosystem, sources, gaps). Counts are records (real / synthetic); the total is 4,254 records in 93 cells (78 from wave 1, 15 from wave 2 so far). Browse with `python tools/kb.py filter ... research_raw/wave1/<folder>`.
+Each research "cell" has two files with the same name: `<cell>.jsonl` (one record per line, schema in [_meta/SPEC.md](_meta/SPEC.md)) and `<cell>.md` (human report: themes, how people write, local ecosystem, sources, gaps). Counts are records (real / synthetic); the total is 4,460 records in 97 cells (78 from wave 1, 19 from wave 2 so far). Browse with `python tools/kb.py filter ... research_raw/wave1/<folder>`.
 
 | Folder | Cells | Records (real / synthetic) | What it covers |
 |---|---|---|---|
@@ -233,3 +233,5 @@ Each research "cell" has two files with the same name: `<cell>.jsonl` (one recor
 | [research_raw/wave1/pt/](research_raw/wave1/pt/pt-brazil.md) | 1 | 15 (0 / 15) | Portuguese, Brazil (synthetic only after wave 1). |
 | [research_raw/_smoke/](research_raw/_smoke/smoke-gh.md) | 2 | 2 small test cells (GitHub revit-ifc, Chinese) | Pipeline smoke tests; not part of the wave 1 statistics. |
 | [research_raw/wave2/en/](research_raw/wave2/en/en-ifc-rants.md) | 15 | 662 (418 / 244) | Wave 2, English (so far): ANZ, India and Southeast Asia, Africa, Autodesk forums (second pass; MEP and structural), Revit API and IFC, vendor knowledge bases, CDE platforms, GitHub discussions (IfcOpenShell, buildingSMART standards repos), OSArch and Reddit second pass, Speckle/SketchUp/Rhino/FreeCAD, YouTube video titles, IFC complaints and rants. Other wave-2 languages are still being added. |
+| [research_raw/wave2/ru/](research_raw/wave2/ru/ru-telegram.md) | 3 | 156 (105 / 51) | Wave 2, Russian: forum.dwg.ru second pass, Telegram BIM channels, official FAQs (expert review, government ТИМ requirements). |
+| [research_raw/wave2/gaps/](research_raw/wave2/gaps/g-ru-domestic-software.md) | 1 | 50 (34 / 16) | Gap cells proposed by the coverage critic (so far: Russian domestic software and IFC — Renga, nanoCAD, ЛИРА-САПР, SCAD, Credo). |

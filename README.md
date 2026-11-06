@@ -4,7 +4,7 @@
 
 **Русский** | [English](#english)
 
-> **Статус (промежуточная версия, 6 ноября 2026, 13:30).** Волна 1 исследования завершена и разобрана в документы; справочники `01`–`04` прошли проверку фактов. Из **волны 2** уже есть 7 новых региональных обзоров, глоссарий ещё на 12 языков и 15 исследовательских ячеек (всего в базе 4 254 записи). Остальная волна 2 (больше языков и стран) ещё добавляется: новые файлы будут появляться в `research_raw/wave2/`, а сводные документы и выгрузки будут обновляться.
+> **Статус (промежуточная версия, 6 ноября 2026, 13:30).** Волна 1 исследования завершена и разобрана в документы; справочники `01`–`04` прошли проверку фактов, банки запросов RU/EN прошли проверку на реалистичность. Из **волны 2** уже есть 7 новых региональных обзоров, глоссарий ещё на 12 языков и 19 исследовательских ячеек, из них 4 русскоязычных (всего в базе 4 460 записей). Остальная волна 2 (больше языков и стран) ещё добавляется: новые файлы будут появляться в `research_raw/wave2/`, а сводные документы и выгрузки будут обновляться.
 > Новичку в BIM: сразу открывайте [00_START_HERE_RU.md](00_START_HERE_RU.md). Нужна карта всех файлов: [INDEX.md](INDEX.md).
 
 ---
@@ -100,7 +100,7 @@
 
 [Русский](#russian) | **English**
 
-> **Status (intermediate version, 6 November 2026, 13:30).** Research wave 1 is finished and written up; reference docs `01`–`04` have been fact-checked. From **wave 2** there are already 7 new regional overviews, a glossary for 12 more languages and 15 research cells (4,254 records in total). The rest of wave 2 (more languages and countries) is still being added: new files will appear under `research_raw/wave2/`, and the summary documents and exports will be refreshed.
+> **Status (intermediate version, 6 November 2026, 13:30).** Research wave 1 is finished and written up; reference docs `01`–`04` have been fact-checked and the RU/EN prompt banks have been audited for realism. From **wave 2** there are already 7 new regional overviews, a glossary for 12 more languages and 19 research cells, 4 of them Russian-language (4,460 records in total). The rest of wave 2 (more languages and countries) is still being added: new files will appear under `research_raw/wave2/`, and the summary documents and exports will be refreshed.
 > New to BIM? Open [00_START_HERE_EN.md](00_START_HERE_EN.md) first. Need a map of every file: [INDEX.md](INDEX.md).
 
 ## Why this exists

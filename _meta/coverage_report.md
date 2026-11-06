@@ -1,17 +1,17 @@
-# Coverage report (intermediate: wave 1 + first part of wave 2, 2026-11-06 13:30)
+# Coverage report (intermediate: wave 1 + first part of wave 2, 2026-11-06 13:50)
 
 # Coverage stats
 
-- records: **4254** (real: 2722, synthetic: 1532)
-- files: 93; parse errors: 0
+- records: **4460** (real: 2861, synthetic: 1599)
+- files: 97; parse errors: 0
 
 ## lang
 
 | value | count |
 |---|---|
 | en | 3114 |
+| ru | 466 |
 | zh | 304 |
-| ru | 260 |
 | ja | 107 |
 | es | 102 |
 | de | 78 |
@@ -34,41 +34,42 @@
 
 | value | count |
 |---|---|
-| real | 2722 |
-| synthetic | 1532 |
+| real | 2861 |
+| synthetic | 1599 |
 
 ## type
 
 | value | count |
 |---|---|
-| troubleshooting | 1330 |
-| model_task | 1252 |
-| how_to | 821 |
-| knowledge | 332 |
-| feature_request | 274 |
-| complaint | 122 |
-| opinion | 114 |
+| troubleshooting | 1365 |
+| model_task | 1305 |
+| how_to | 879 |
+| knowledge | 359 |
+| feature_request | 275 |
+| opinion | 135 |
+| complaint | 132 |
 | report_bug | 7 |
 | understand_concept | 2 |
+| request_opinion | 1 |
 
 ## persona
 
 | value | count |
 |---|---|
-| bim_coordinator | 1126 |
-| developer_programmer | 955 |
-| architect | 468 |
-| bim_manager | 433 |
-| structural_engineer | 229 |
-| student_beginner | 207 |
-| mep_engineer | 173 |
-| civil_infra_engineer | 155 |
-| estimator_qs | 145 |
-| reviewer_authority | 92 |
+| bim_coordinator | 1191 |
+| developer_programmer | 961 |
+| architect | 489 |
+| bim_manager | 462 |
+| structural_engineer | 256 |
+| student_beginner | 214 |
+| mep_engineer | 183 |
+| civil_infra_engineer | 162 |
+| estimator_qs | 150 |
+| reviewer_authority | 113 |
 | facility_manager | 77 |
-| owner_client | 63 |
-| researcher_academic | 54 |
-| contractor_site | 45 |
+| owner_client | 68 |
+| researcher_academic | 56 |
+| contractor_site | 46 |
 | other | 19 |
 | vendor_support | 12 |
 | archicad | 1 |
@@ -77,90 +78,91 @@
 
 | value | count |
 |---|---|
-| validate_check | 517 |
-| troubleshoot_export | 478 |
-| query_model_data | 388 |
-| how_to | 301 |
-| understand_concept | 290 |
-| troubleshoot_import | 257 |
-| request_feature | 219 |
+| validate_check | 554 |
+| troubleshoot_export | 495 |
+| query_model_data | 399 |
+| how_to | 316 |
+| understand_concept | 307 |
+| troubleshoot_import | 273 |
+| request_feature | 220 |
 | troubleshoot_code | 205 |
-| troubleshoot_viewing | 192 |
-| extract_quantities | 189 |
-| find_tool | 176 |
-| modify_model_data | 173 |
-| convert_format | 169 |
+| extract_quantities | 198 |
+| troubleshoot_viewing | 193 |
+| modify_model_data | 184 |
+| find_tool | 182 |
+| convert_format | 180 |
 | report_bug | 139 |
-| compare_versions | 108 |
-| optimize_performance | 100 |
-| comply_regulation | 92 |
-| coordinate_clash | 86 |
-| automate_batch | 75 |
-| request_opinion | 68 |
-| complain_vent | 19 |
+| comply_regulation | 118 |
+| compare_versions | 113 |
+| optimize_performance | 101 |
+| coordinate_clash | 88 |
+| request_opinion | 81 |
+| automate_batch | 79 |
+| complain_vent | 21 |
 | troubleshooting | 8 |
 | learning_basics | 2 |
 | viewers_opening | 1 |
 | cobie_fm_handover | 1 |
 | data_extraction_analytics | 1 |
+| import_into_revit | 1 |
 
 ## topics
 
 | value | count |
 |---|---|
-| export_revit | 535 |
-| psets_properties | 502 |
-| geometry_quality | 341 |
-| class_mapping | 340 |
-| coordinates_georef | 324 |
-| validation_checking | 295 |
-| quantities_qto | 274 |
-| file_size_performance | 264 |
-| programming_ifcopenshell | 259 |
-| import_into_revit | 253 |
-| versions_mvd | 248 |
-| viewers_opening | 229 |
-| ids_requirements | 220 |
-| national_requirements | 209 |
-| infrastructure_ifc43 | 203 |
-| mep_systems | 201 |
-| clash_coordination_bcf | 190 |
-| materials_colors_styles | 189 |
-| spaces_rooms_areas | 184 |
-| conversion_formats | 182 |
-| guid_change_tracking | 182 |
+| export_revit | 559 |
+| psets_properties | 525 |
+| class_mapping | 366 |
+| geometry_quality | 362 |
+| coordinates_georef | 344 |
+| validation_checking | 320 |
+| quantities_qto | 287 |
+| file_size_performance | 269 |
+| versions_mvd | 267 |
+| import_into_revit | 263 |
+| programming_ifcopenshell | 261 |
+| national_requirements | 260 |
+| viewers_opening | 240 |
+| ids_requirements | 231 |
+| mep_systems | 208 |
+| infrastructure_ifc43 | 206 |
+| clash_coordination_bcf | 194 |
+| materials_colors_styles | 190 |
+| spaces_rooms_areas | 190 |
+| conversion_formats | 188 |
+| guid_change_tracking | 187 |
+| spatial_structure | 175 |
 | openings_voids | 174 |
-| spatial_structure | 166 |
-| revit_api_automation | 163 |
-| classification_bsdd | 145 |
+| revit_api_automation | 164 |
+| classification_bsdd | 155 |
+| export_other_tools | 131 |
 | cobie_fm_handover | 130 |
-| learning_basics | 121 |
-| data_extraction_analytics | 113 |
-| export_other_tools | 113 |
-| rebar_steel_precast | 113 |
+| learning_basics | 127 |
+| permitting_code_checking | 119 |
+| rebar_steel_precast | 118 |
+| data_extraction_analytics | 115 |
 | programming_web_ifc | 108 |
-| levels_storeys | 104 |
-| ai_llm_mcp | 102 |
+| levels_storeys | 107 |
+| ai_llm_mcp | 103 |
 | encoding_text | 101 |
-| permitting_code_checking | 100 |
+| cde_collaboration | 95 |
 | units | 91 |
-| cde_collaboration | 89 |
 | gis_citygml_digital_twin | 85 |
-| types_vs_instances | 81 |
-| scheduling_4d_cost_5d | 80 |
+| scheduling_4d_cost_5d | 83 |
+| structural_analytical | 83 |
+| types_vs_instances | 82 |
+| software_choice | 80 |
 | layers_presentation | 77 |
-| software_choice | 72 |
-| structural_analytical | 69 |
-| export_archicad | 58 |
-| contracts_bep_eir_loin | 56 |
-| programming_xbim_dotnet | 55 |
+| export_archicad | 60 |
+| contracts_bep_eir_loin | 59 |
+| programming_xbim_dotnet | 56 |
+| import_other_tools | 52 |
 | programming_other | 51 |
 | zones_groups_systems | 51 |
-| export_tekla | 47 |
-| families_content_library | 45 |
-| import_other_tools | 41 |
-| curtain_walls | 33 |
-| site_terrain | 26 |
+| export_tekla | 50 |
+| families_content_library | 49 |
+| curtain_walls | 35 |
+| site_terrain | 31 |
 | stairs_railings | 19 |
 | energy_bem_gbxml | 18 |
 | licensing_cost | 14 |
@@ -173,30 +175,30 @@
 
 | value | count |
 |---|---|
-| (empty) | 1532 |
+| (empty) | 1599 |
 | github_issue | 1484 |
-| forum | 776 |
-| blog | 252 |
-| official_doc | 91 |
-| vendor_kb | 42 |
+| forum | 816 |
+| blog | 273 |
+| official_doc | 101 |
+| vendor_kb | 58 |
+| social | 55 |
 | qa_site | 27 |
-| regulation | 19 |
-| social | 11 |
+| regulation | 26 |
 | paper | 8 |
 | video | 7 |
-| course | 5 |
+| course | 6 |
 
 ## tone
 
 | value | count |
 |---|---|
-| neutral | 1642 |
-| frustrated | 764 |
-| confused | 758 |
-| curious | 611 |
-| urgent | 213 |
-| polite | 145 |
-| skeptical | 114 |
+| neutral | 1737 |
+| frustrated | 794 |
+| confused | 782 |
+| curious | 636 |
+| urgent | 227 |
+| polite | 148 |
+| skeptical | 129 |
 | sarcastic | 6 |
 | worried | 1 |
 
@@ -204,15 +206,15 @@
 
 | value | count |
 |---|---|
-| IFC4 | 1882 |
-| unknown | 771 |
-| IFC2x3 | 648 |
+| IFC4 | 1971 |
+| unknown | 852 |
+| IFC2x3 | 672 |
 | (empty) | 294 |
 | unspecified | 250 |
 | IFC4X3 | 192 |
-| IFC4.3 | 91 |
+| IFC4.3 | 93 |
 | n/a | 55 |
-| IFC | 20 |
+| IFC | 30 |
 | IFC2X3 | 18 |
 | IFC4x3 | 9 |
 | IFC4X1 | 5 |
@@ -321,3 +323,7 @@
 | research_raw/wave2/en/en-speckle-sketchup-rhino-freecad.jsonl | 55 |
 | research_raw/wave2/en/en-vendor-kb.jsonl | 44 |
 | research_raw/wave2/en/en-youtube-titles.jsonl | 17 |
+| research_raw/wave2/gaps/g-ru-domestic-software.jsonl | 50 |
+| research_raw/wave2/ru/ru-dwg-2.jsonl | 45 |
+| research_raw/wave2/ru/ru-gov-faq.jsonl | 54 |
+| research_raw/wave2/ru/ru-telegram.jsonl | 57 |
